@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <script>
+        $(document).ready(function () {
+            var ctx = document.getElementById('graph_taks_force_per_userstory_json').getContext('2d');
+            var graph_taks_force_per_userstory_json = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [1],
+                    datasets: [{
+                        label: '% Task Effort Variation (Sprint 11)',
+                        data: [22],
+                        backgroundColor: "hsla(360, 100%, 50%, 0.8)",
+                        tension: 0,
+                        fill: false
+
+                    }, {
+                        label: '% Story Points Variation (Sprint 11)',
+                        data: [32],
+                        backgroundColor: "hsla(251, 100%, 50%, 0.8)",
+                        tension: 0,
+                        fill: false
+                    }],
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            },
+                            id: "1"
+                        }]
+                    },
+
+                }
+            });
+
+            var ctx = document.getElementById('graph_contract_implemented_points').getContext('2d');
+            var data = {
+                labels: [
+                    "Contratado",
+                    "Executado",
+                ],
+                datasets: [
+                    {
+                        data: [300, 53],
+                        backgroundColor: [
+                            "#FF6384",
+                            "#36A2EB"
+                        ],
+                        hoverBackgroundColor: [
+                            "#FF6384",
+                            "#36A2EB"
+                        ]
+                    }]
+            };
+            var graph_contract_implemented_points = new Chart(ctx, {
+                type: 'doughnut',
+                data: data
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <h1 class="page-header"><i class="fa fa-stumbleupon-circle fa-1x"></i> {{ sprint.title }}</h1>
+
+    <div class="row">
+
+
+        <div class="col-lg-4 col-md-6">
+            <div class="panel panel-yellow">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-list-alt fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">34</div>
+                            <div>User Stories</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-tasks fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">45</div>
+                            <div>Tasks</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <div class="panel panel-red">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-code fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">32</div>
+                            <div>Artifacts</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- div.row -->
+
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ sprint.title }}: Story Points x Tasks Effort (% of variation Sprint 11)
+                </div>
+                <div class="panel-body">
+                    <canvas id="graph_taks_force_per_userstory_json" width="80" height="25"
+                            style="background: white"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div>{{ sprint.title }} Details</div>
+                    <div align="right">
+                        <a href="update/" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i> Edit</a>
+                        <a href="delete/" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i> Delete</a>
+                    </div>
+                </div>
+                <div class="panel-body">
+
+                    <p>Title: {{ sprint.title }}</p>
+                    <p>Status: {{ sprint.get_status_display }}</p>
+                    <p>Begin: {{ sprint.begin }}</p><p>End: {{ sprint.end }}</p>
+                    <br/><br/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

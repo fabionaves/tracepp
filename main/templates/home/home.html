@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block head %}
+    <script>
+        $(document).ready(function () {
+            var ctx = document.getElementById('graph_taks_force_per_userstory_json').getContext('2d');
+            var graph_taks_force_per_userstory_json = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['US1', 'US2', 'US3', 'US4', 'US5', 'US6'],
+                    datasets: [{
+                        label: '% Task Effort Variation per Sprint',
+                        data: [34, 35, 45, 56, 34, 54, 23, 23],
+                        borderColor: "hsla(360, 100%, 50%, 1)",
+                        tension: 0,
+                        fill: false
+
+                    }, {
+                        label: '% Story Points Variation per Sprint',
+                        data: [32, 34, 23, 45, 34, 12, 34, 56],
+                        borderColor: "hsla(251, 100%, 50%, 1)",
+                        tension: 0,
+                        fill: false
+                    }],
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            },
+                            id: "1"
+                        }]
+                    },
+
+                }
+            });
+
+            var ctx = document.getElementById('graph_contract_implemented_points').getContext('2d');
+            var data = {
+                labels: [
+                    "Contratado",
+                    "Executado",
+                ],
+                datasets: [
+                    {
+                        data: [300, 53],
+                        backgroundColor: [
+                            "#FF6384",
+                            "#36A2EB"
+                        ],
+                        hoverBackgroundColor: [
+                            "#FF6384",
+                            "#36A2EB"
+                        ]
+                    }]
+            };
+            var graph_contract_implemented_points = new Chart(ctx, {
+                type: 'doughnut',
+                data: data
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <h1 class="page-header">{% trans 'Home' %}</h1>
+
+    <div class="row">
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-stumbleupon-circle fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">{{ total_sprints }}</div>
+                            <div>{% trans 'Sprints' %}</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="{% url 'main:sprint' %}">
+                    <div class="panel-footer">
+                        <span class="pull-left">{% trans 'View Details' %}</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-yellow">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-list-alt fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">124</div>
+                            <div>User Stories</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-tasks fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">223</div>
+                            <div>Tasks</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-red">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-code fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">133</div>
+                            <div>Artifacts</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- div.row -->
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-bar-chart-o fa-fw"></i> Story Points x Tasks Effort x Businnes Value (% of variation
+                    per
+                    Sprint)
+                </div>
+                <div class="panel-body">
+                    <canvas id="graph_taks_force_per_userstory_json" width="80" height="20"
+                            style="background: white"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- div.row -->
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="glyphicon glyphicon-road"></i> Contract x Implemented Points
+                </div>
+                <div class="panel-body">
+                    <canvas id="graph_contract_implemented_points" width="80" height="45" style="background: white"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- div.row -->
+{% endblock %}

@@ -1,0 +1,49 @@
+a {
+    color: #337ab7;
+    text-decoration: none;
+}
+.login-panel {
+    margin-top: 25%;
+}
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover{
+    color: #337ab7;
+}
+.navbar-default .nav>li>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover{
+    color: #337ab7;
+}
+.navbar{
+    margin-top: 20px;
+}
+.navbar-brand{
+    margin-top: -4px;
+}
+.huge {
+    font-size: 40px;
+}
+
+.panel-green {
+    border-color: #5cb85c;
+}
+.panel-green .panel-heading {
+    border-color: #5cb85c;
+    color: #fff;
+    background-color: #5cb85c;
+}
+
+.panel-yellow {
+    border-color: #d58512;
+}
+.panel-yellow .panel-heading {
+    border-color: #d58512;
+    color: #fff;
+    background-color: #d58512;
+}
+
+.panel-red {
+    border-color: #761c19;
+}
+.panel-red .panel-heading {
+    border-color: #761c19;
+    color: #fff;
+    background-color: #761c19;
+}

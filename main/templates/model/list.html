@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <h1 class="page-header">{{ page_title }}</h1>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive" >
+                {% if top_bar  %}
+                     {% include top_bar %}
+                {% endif %}
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        {% for o in titles %}
+                            <th>{{ o }}</th>
+                        {% endfor %}
+                        <th>{% trans 'Action' %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in object_list %}
+                        <tr>
+                            {% for field in row.get_all_fields %}
+                                {% if field.name in list_display %}
+                                    <td>    {{ field.value }}</td>
+                                {% endif %}
+                            {% endfor %}
+                            <td>
+                                {% include action_template %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% if is_paginated %}
+                    <div class="pagination">
+                        <span class="page-links">
+                            {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}"><<</a>
+                            {% endif %}
+                            <span class="page-current">
+                                {% trans 'Page' %} {{ page_obj.number }} {% trans 'of' %} {{ page_obj.paginator.num_pages }}.
+                            </span>
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}">>></a>
+                            {% endif %}
+                        </span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
