@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
+from simple_history.models import HistoricalRecords
 
 
 class Project(models.Model):
@@ -59,7 +60,17 @@ class Sprint(models.Model):
         Project,
         verbose_name=_('Project'),
     )
+    changed_by = models.ForeignKey('auth.User')
+    history = HistoricalRecords()
 
+    @property
+    def _history_user(self):
+        return self.changed_by
+
+    @_history_user.setter
+    def _history_user(self, value):
+        self.changed_by = value
+        
     def __str__(self):
         return self.title
 

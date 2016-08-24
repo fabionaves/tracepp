@@ -12,6 +12,8 @@ urlpatterns = [
     url(r'^sprint/add/', login_required(mainviews.SprintAddFormView.as_view()), name='sprint-add'),
     url(r'^sprint/(?P<pk>[0-9]+)/update/', login_required(mainviews.SprintUpdateFormView.as_view()), name='sprint-update'),
     url(r'^sprint/(?P<pk>[0-9]+)/delete/', login_required(mainviews.SprintDeleteView.as_view()), name='sprint-delete'),
+    url(r'^sprint/history/', login_required(mainviews.SprintHistoryView.as_view()), name='sprint-history'),
+    url(r'^sprint/(?P<sprint_id>[0-9]+)/history/', login_required(mainviews.SprintHistoryView.as_view()), name='sprint-history'),
     url(r'^sprint/(?P<sprint_id>[0-9]+)/', login_required(mainviews.SprintDetailView.as_view()), name='sprint-details'),
     url(r'^sprint/', login_required(mainviews.SprintListView.as_view()), name='sprint'),
 ]

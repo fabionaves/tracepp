@@ -1,12 +1,10 @@
 from django.contrib.messages.views import SuccessMessageMixin
-from django.urls import resolve
-from django.urls import reverse
-from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import CreateView
 from django.views.generic import DeleteView
+from django.views.generic import ListView
 from django.views.generic import UpdateView
 
 from main.components import ModelList, ModelListProjectFilter, TemplateViewProjectFilter
@@ -51,6 +49,7 @@ class SprintListView(ModelListProjectFilter):
     action_template = 'sprint/choose_action.html'
     top_bar = 'sprint/top_bar.html'
 
+
 class SprintDetailView(TemplateViewProjectFilter):
     template_name = 'sprint/detail.html'
 
@@ -77,6 +76,7 @@ class SprintAddFormView(SuccessMessageMixin, CreateView):
 
     def form_valid(self, form):
         project = get_object_or_404(Project, pk=self.request.session['project_id'])
+        form.instance.changed_by = self.request.user
         form.instance.project = project
         return super(SprintAddFormView, self).form_valid(form)
 
@@ -95,12 +95,10 @@ class SprintUpdateFormView(SuccessMessageMixin, UpdateView):
     def get_success_url(self):
         return "/sprint/%d/" % self.object.id
 
-
     def form_valid(self, form):
         project = get_object_or_404(Project, pk=self.request.session['project_id'])
         form.instance.project = project
         return super(SprintUpdateFormView, self).form_valid(form)
-
 
 
 class SprintDeleteView(SuccessMessageMixin, DeleteView):
@@ -112,3 +110,28 @@ class SprintDeleteView(SuccessMessageMixin, DeleteView):
     @method_decorator(require_project())
     def dispatch(self, request, *args, **kwargs):
         return super(SprintDeleteView, self).dispatch(request, *args, **kwargs)
+
+
+class SprintHistoryView(ListView):
+    model = Sprint
+    template_name = 'sprint/history.html'
+    list_display = ('history_user',)
+    page_title = _('Sprint Change History:')
+    sprint_id = False
+
+    @method_decorator(require_project())
+    def dispatch(self, request, *args, **kwargs):
+        if 'sprint_id' in kwargs:
+            self.sprint_id = kwargs['sprint_id']
+        return super(SprintHistoryView, self).dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        if self.sprint_id:
+            queryset = self.model.history.filter(project=self.request.session.get('project_id', None), id=self.sprint_id)
+        else:
+            queryset = self.model.history.filter(project=self.request.session.get('project_id', None))
+        return queryset
+
+
+
+
