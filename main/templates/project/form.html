@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load myutils %}
+{% block head %}
+    <!-- form admin -->
+    {{ form.media }}
+    <style type="text/css">
+        .selector {
+            float: none;
+            display: block;
+            height: 330px;
+        }
+
+        .selector input[type="submit"] {
+            display: block;
+            clear: both;
+        }
+
+        .selector h2 {
+            font-size: 15px;
+        }
+
+        .selector select {
+            margin: 2px 0;
+            padding: 2px 3px;
+            font-weight: normal;
+            width: 270px !important;
+            height: 17.2em;
+        }
+
+        textarea {
+            display: block;
+            width: 450px;
+        }
+    </style>
+
+{% endblock %}
+{% block content %}
+    <h1 class="page-header">{{ page_title }}</h1>
+    <div class="col-md-10">
+        <form action="" method="post">{% csrf_token %}
+        <ul class="nav nav-tabs">
+            {% for tab in tabs %}
+                <li class="{{ tab.class }}"><a href="#{{ tab.id }}" data-toggle="tab">{{ tab.title }}</a></li>
+            {% endfor %}
+        </ul>
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="tab-content">
+                {% for tab in tabs %}
+                    <div class="tab-pane {{ tab.class }}" id="{{ tab.id }}">
+                        <fieldset>
+                            {% for field in form %}
+                                {% if field.name in tab.fields %}
+                                    <div class="form-group">
+                                        {{ field.label_tag }}
+                                        {{ field|addcss:"form-control" }}
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </fieldset>
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn btn-lg btn-primary ">{% trans 'Save' %}</button>
+            <button type="cancel" class="btn btn-lg btn-default"
+                    onclick="javascript:window.history.back()">{% trans 'Cancel' %}</button>
+        </form>
+    </div>
+
+{% endblock %}

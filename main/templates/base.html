@@ -18,6 +18,11 @@
     <link href="{% static 'fonts/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'css/my.css' %}" rel="stylesheet">
 
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static  'js/bootstrap.min.js' %}"></script>
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -25,10 +30,6 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{% static  'js/bootstrap.min.js' %}"></script>
 
     <!-- Jquery-UI -->
     <script src="{% static 'js/jquery-ui.min.js' %}"></script>
@@ -69,7 +70,7 @@
                         <ul class="dropdown-menu dropdown-adm">
                             <li><a href="#"><i class="fa fa-gear fa-fw"></i> Administration</a>
                             </li>
-                            <li><a href="#"><i class="fa fa-file-text fa-fw"></i> Project Details</a>
+                            <li><a href="/project/list/"><i class="fa fa-file-text fa-fw"></i> Project(s)</a>
                             </li>
                         </ul>
                         <!-- /.dropdown-user -->

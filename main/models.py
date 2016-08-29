@@ -2,49 +2,34 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from simple_history.models import HistoricalRecords
+from main.components.models import MyModel
 
 
-class Project(models.Model):
+class Project(models.Model, MyModel):
     name = models.CharField(_('Name'), max_length=100, blank=False, null=False)
     requester = models.CharField(_('Requester'), max_length=100)
     description = models.TextField()
+    POINTS_TYPE_OPTIONS = (
+        (0, _('Functions Points')),
+        (1, _('User Story Points')),
+        (2, _('Use Case Points')),
+    )
+    points_type = models.IntegerField(
+        _('Points Type'), choices=POINTS_TYPE_OPTIONS, blank=False
+    )
+    total_points = models.IntegerField(_('Total of Points'))
     user = models.ManyToManyField(User)
 
     def __str__(self):
         return self.name
-
-    def get_all_fields(self):
-        fields = []
-        for f in self._meta.fields:
-            fname = f.name
-            # resolve picklists/choices, with get_xyz_display() function
-            get_choice = 'get_' + fname + '_display'
-            if hasattr(self, get_choice):
-                value = getattr(self, get_choice)()
-            else:
-                try:
-                    value = getattr(self, fname)
-                except User.DoesNotExist:
-                    value = None
-
-            # only display fields with values and skip some fields entirely
-            if f.editable and f.name not in ('id', 'created_at', 'updated_at', 'applicant'):
-                fields.append(
-                    {
-                        'label': f.verbose_name,
-                        'name': f.name,
-                        'value': value,
-                    }
-                )
-        return fields
-
+    
     class Meta:
         ordering = ["-id"]
         verbose_name = _("Project")
         verbose_name_plural = _("Projects")
 
 
-class Sprint(models.Model):
+class Sprint(models.Model,MyModel):
     title = models.CharField(_('Title'), max_length=30)
     SPRINT_STATUS_OPTIONS = (
         (0, _('Planning')),
@@ -74,36 +59,12 @@ class Sprint(models.Model):
     def __str__(self):
         return self.title
 
-    def get_all_fields(self):
-        fields = []
-        for f in self._meta.fields:
-            fname = f.name
-            # resolve picklists/choices, with get_xyz_display() function
-            get_choice = 'get_' + fname + '_display'
-            if hasattr(self, get_choice):
-                value = getattr(self, get_choice)()
-            else:
-                try:
-                    value = getattr(self, fname)
-                except User.DoesNotExist:
-                    value = None
 
-            # only display fields with values and skip some fields entirely
-            if f.editable and f.name not in ('id', 'created_at', 'updated_at', 'applicant'):
-                fields.append(
-                    {
-                        'label': f.verbose_name,
-                        'name': f.name,
-                        'value': value,
-                    }
-                )
-        return fields
 
     class Meta:
         ordering = ["-id"]
         verbose_name = _("Sprint")
         verbose_name_plural = _("Sprints")
-
 
 
 class UserStory(models.Model):
