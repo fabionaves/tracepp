@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+    <h1 class="page-header"><i class="fa fa-list-alt fa-1x"></i> {{ requeriment.code }} - {{ requeriment.title }}</h1>
+
+    <div class="row">
+
+
+         <div class="col-lg-6 col-md-9">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-tasks fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">45</div>
+                            <div>User Stories</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-9">
+            <div class="panel panel-red">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-code fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">32</div>
+                            <div>Artifacts</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- div.row -->
+     <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div>{{ requeriment.title }} Details</div>
+                        <div align="right">
+                            <a href="update/" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i> Edit</a>
+                            <a href="delete/" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i> Delete</a>
+                            <a href="history/" class="btn btn-default btn-circle" ><i class="fa fa-list"></i> History</a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>Description: {{ requeriment.description }}</p>
+                        <p>Tipo: {{ requeriment.get_type_display }}</p>
+                        <br/><br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                     Dependents Requeriments
+                </div>
+                <div class="panel-body">
+                    <div class="list-group">
+                        {% for row in dependent_requeriments %}
+                            <a href="{% url 'main:requeriment-details'  row.id  %}" class="list-group-item"> <i class="fa fa-list-alt fa-1x"></i> {{ row.code }} - {{ row.title }}</a></a>
+                        {% empty %}
+                           No dependent requirements
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                     Depends on
+                </div>
+                <div class="panel-body">
+                    <div class="list-group">
+                        {% for row in depends_on %}
+                            <a href="{% url 'main:requeriment-details'  row.id  %}" class="list-group-item"> <i class="fa fa-list-alt fa-1x"></i> {{ row.code }} - {{ row.title }}</a>
+                        {% empty %}
+                            This requirement does not depend on any other
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

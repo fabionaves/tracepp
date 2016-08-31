@@ -9,9 +9,11 @@ class ModelList(ListView):
     page_title = False
     action_template = "components/lists/action.html"
     top_bar = False
+    breadcrumbs = False
 
     def get_context_data(self, **kwargs):
         context = super(ModelList, self).get_context_data(**kwargs)
+        context['breadcrumbs'] = self.breadcrumbs
         context['top_bar'] = self.top_bar
         context['list_display'] = self.list_display
         titles = []
@@ -38,7 +40,13 @@ class ModelListProjectFilter(ModelList):
 
 
 class TemplateViewProjectFilter(TemplateView):
+    breadcrumbs = False
 
     @method_decorator(require_project())
     def dispatch(self, request, *args, **kwargs):
         return super(TemplateViewProjectFilter, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(TemplateViewProjectFilter, self).get_context_data()
+        context['breadcrumbs']=self.breadcrumbs
+        return context

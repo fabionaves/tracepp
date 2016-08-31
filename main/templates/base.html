@@ -57,9 +57,9 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="{% url 'main:home' %}">Home</a></li>
+                    <li><a href="{% url 'main:requeriment' %}">Requirement</a></li>
                     <li><a href="{% url 'main:sprint' %}">Sprints</a></li>
                     <li><a href="#">Artifact</a></li>
-                    <li><a href="#">Requirement</a></li>
                     <li><a href="#">User Story</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -93,6 +93,14 @@
             </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
     </nav>
+    {% if breadcrumbs %}
+        <ul class="breadcrumb">
+            {% for breadcrumb in breadcrumbs %}
+                <li><a href="{{ breadcrumb.link }}" class="{{ breadcrumb.class }}" >{{ breadcrumb.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
     {% if messages %}
 
             {% for message in messages %}

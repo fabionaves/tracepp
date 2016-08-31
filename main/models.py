@@ -28,8 +28,7 @@ class Project(models.Model, MyModel):
         verbose_name = _("Project")
         verbose_name_plural = _("Projects")
 
-
-class Sprint(models.Model,MyModel):
+class Sprint(models.Model, MyModel):
     title = models.CharField(_('Title'), max_length=30)
     SPRINT_STATUS_OPTIONS = (
         (0, _('Planning')),
@@ -88,6 +87,41 @@ class SprintUserStory(models.Model):
     status = models.IntegerField(
         _('Status'), choices=USERSTORY_STATUS_IN_SPRINT_OPTIONS, blank=False,default=0,
     )
+
+
+class Requeriment(models.Model, MyModel):
+    code = models.CharField(_('Code'), max_length=10, blank=False, null=False)
+    title = models.CharField(_('Title'), max_length=100, blank=False, null=False)
+    description = models.TextField()
+    REQUIREMENT_TYPE_OPTIONS = (
+        (0, _('Functional')),
+        (1, _('Non-Functional')),
+    )
+    type = models.IntegerField(
+        _('Type'), choices=REQUIREMENT_TYPE_OPTIONS, blank=False
+    )
+    project = models.ForeignKey(
+        Project,
+        verbose_name=_('Project'),
+    )
+    userstory = models.ManyToManyField(UserStory)
+    changed_by = models.ForeignKey('auth.User')
+    history = HistoricalRecords()
+    depends_on = models.ManyToManyField("self", symmetrical=False, blank=True)  #depende de
+
+
+    @property
+    def _history_user(self):
+        return self.changed_by
+
+    @_history_user.setter
+    def _history_user(self, value):
+        self.changed_by = value
+
+    def __str__(self):
+        return self.code+' - '+self.title
+
+
 
 
 class Task(models.Model):

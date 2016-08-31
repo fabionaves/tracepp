@@ -22,4 +22,12 @@ urlpatterns = [
     url(r'^sprint/(?P<sprint_id>[0-9]+)/history/', login_required(mainviews.SprintHistoryView.as_view()), name='sprint-history'),
     url(r'^sprint/(?P<sprint_id>[0-9]+)/', login_required(mainviews.SprintDetailView.as_view()), name='sprint-details'),
     url(r'^sprint/', login_required(mainviews.SprintListView.as_view()), name='sprint'),
+
+    url(r'^requeriment/add/', login_required(mainviews.RequerimentAddFormView.as_view()), name='requeriment-add'),
+    url(r'^requeriment/history/', login_required(mainviews.RequerimentHistoryView.as_view()), name='requeriment-history'),
+    url(r'^requeriment/graph/', login_required(mainviews.RequerimentGraphView.as_view()), name='requeriment-graph'),
+    url(r'^requeriment/(?P<pk>[0-9]+)/history/', login_required(mainviews.RequerimentHistoryView.as_view()), name='requeriment-history'),
+    url(r'^requeriment/(?P<pk>[0-9]+)/update/', login_required(mainviews.RequerimentUpdateFormView.as_view()), name='requeriment-update'),
+    url(r'^requeriment/(?P<pk>[0-9]+)/', login_required(mainviews.RequerimentDetailView.as_view()), name='requeriment-details'),
+    url(r'^requeriment/', login_required(mainviews.RequerimentListView.as_view()), name='requeriment'),
 ]

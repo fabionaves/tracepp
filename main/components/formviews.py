@@ -8,13 +8,15 @@ from main.decorators import require_project
 class AddFormView(SuccessMessageMixin, CreateView):
     template_name = 'components/forms/form.html'
     page_title = ''
-    head_template = 'components/form/head.html'
+    head_template = 'components/forms/head.html'
     tabs = False
+    breadcrumbs = False
 
     def get_context_data(self, **kwargs):
         context = super(AddFormView, self).get_context_data(**kwargs)
         if self.tabs:
             self.template_name='components/forms/form_tabs.html'
+        context['breadcrumbs']=self.breadcrumbs
         context['page_title']=self.page_title
         context['head_template']=self.head_template
         context['tabs']=self.tabs
@@ -26,6 +28,7 @@ class UpdateFormView(SuccessMessageMixin, UpdateView):
     page_title = ''
     head_template = 'components/forms/head.html'
     tabs = False
+    breadcrumbs = False
 
     def get_context_data(self, **kwargs):
         context = super(UpdateFormView, self).get_context_data(**kwargs)
@@ -34,4 +37,5 @@ class UpdateFormView(SuccessMessageMixin, UpdateView):
         context['page_title']=self.page_title
         context['head_template']=self.head_template
         context['tabs']=self.tabs
+        context['breadcrumbs'] = self.breadcrumbs
         return context
