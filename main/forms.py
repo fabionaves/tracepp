@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.auth.models import User
 
-from main.models import Project, Requeriment
+from main.models import Project, Requeriment, UserStory
 
 
 class ProjectForm(forms.ModelForm):
@@ -46,3 +46,8 @@ class RequerimentForm(forms.ModelForm):
         fields = ('code', 'title', 'description', 'type', 'depends_on')
 
 
+class UserStoryForm(forms.ModelForm):
+
+    class Meta:
+        model = UserStory
+        fields = ('code', 'title', 'description')

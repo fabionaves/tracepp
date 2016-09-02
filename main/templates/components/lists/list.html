@@ -31,6 +31,9 @@
                                 {% include action_template %}
                             </td>
                         </tr>
+                        {% empty %}
+                        </tbody></table>
+                        {% trans 'No data' %}
                     {% endfor %}
                     </tbody>
                 </table>

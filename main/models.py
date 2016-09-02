@@ -67,8 +67,23 @@ class Sprint(models.Model, MyModel):
 
 
 class UserStory(models.Model):
+    code = models.CharField(_('Code'), max_length=30)
     title = models.CharField(_('Title'), max_length=50)
     description = models.TextField(_('Description'))
+
+    changed_by = models.ForeignKey('auth.User')
+    history = HistoricalRecords()
+
+    @property
+    def _history_user(self):
+        return self.changed_by
+
+    @_history_user.setter
+    def _history_user(self, value):
+        self.changed_by = value
+
+    def __str__(self):
+        return self.title
 
 
 class SprintUserStory(models.Model):
@@ -87,6 +102,18 @@ class SprintUserStory(models.Model):
     status = models.IntegerField(
         _('Status'), choices=USERSTORY_STATUS_IN_SPRINT_OPTIONS, blank=False,default=0,
     )
+    history = HistoricalRecords()
+
+    @property
+    def _history_user(self):
+        return self.changed_by
+
+    @_history_user.setter
+    def _history_user(self, value):
+        self.changed_by = value
+
+    def __str__(self):
+        return self.title
 
 
 class Requeriment(models.Model, MyModel):
@@ -146,8 +173,9 @@ class ArtifactType(models.Model):
     name = models.CharField(_('Name'), max_length=100, blank=False, null=False)
     ARTIFACT_LEVEL = (
         (0, _('Project')),
-        (1, _('Sprint')),
-        (2, _('User Story')),
+        (1, _('Requeriment')),
+        (2, _('Sprint')),
+        (3, _('User Story')),
     )
     level = models.IntegerField(_('Level'), choices=ARTIFACT_LEVEL)
     ARTIFACT_TYPE = (

@@ -10,8 +10,8 @@ from django.views.generic import ListView
 from django.views.generic import UpdateView
 from main.components.lists import ModelList, ModelListProjectFilter, TemplateViewProjectFilter
 from main.decorators import require_project
-from main.forms import ProjectForm, RequerimentForm
-from main.models import Sprint, Project, Requeriment
+from main.forms import ProjectForm, RequerimentForm, UserStoryForm
+from main.models import Sprint, Project, Requeriment, SprintUserStory, UserStory
 from main.components.formviews import AddFormView, UpdateFormView
 
 
@@ -40,7 +40,7 @@ class ProjectListView(ProjectView):
     model = Project
     page_title = 'Projects'
     list_display = ('name', 'requester', 'points_type')
-    action_template = "components/lists/action.html"
+    action_template = "project/action.html"
     top_bar = 'project/top_bar.html'
     breadcrumbs = (
         {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
@@ -386,3 +386,79 @@ class RequerimentGraphView(TemplateViewProjectFilter):
             {'link': '#', 'class': '', 'name': _('Graph')},
         )
         return context
+
+
+class UserStoryListView(ModelListProjectFilter):
+    model = SprintUserStory
+    paginate_by = 20
+    list_display = ('userstory','sprint')
+    master = False
+    action_template = 'components/lists/choose_action.html'
+    top_bar = 'components/lists/top_bar.html'
+
+    def get_queryset(self):
+        if 'sprint_id' in self.kwargs:
+            self.master = get_object_or_404(Sprint, pk=self.kwargs['sprint_id'], project=self.request.session.get('project_id', None))
+            queryset = self.model.objects.filter(sprint=self.kwargs['sprint_id'])
+        elif 'requeriment_id' in self.kwargs:
+            self.master = get_object_or_404(Requeriment, pk=self.kwargs['requeriment_id'], project=self.request.session.get('project_id', None))
+            queryset = self.model.objects.filter(userstory__requeriment =self.kwargs['requeriment_id'])
+        else:
+            self.master = get_object_or_404(Project,pk=self.request.session.get('project_id', None))
+            queryset = self.model.objects.filter(sprint__project_id=self.request.session.get('project_id', None))
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super(UserStoryListView, self).get_context_data()
+        context['page_title'] = str(self.master)+' -  '+_('Users Stories')
+        if 'sprint_id' in self.kwargs:
+            context['breadcrumbs'] = (
+                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+                {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
+                {'link': reverse_lazy('main:sprint'), 'class': '', 'name': self.master},
+                {'link': '#', 'class': '', 'name': _('User Stories')},
+            )
+        elif 'requeriment_id' in self.kwargs:
+            context['breadcrumbs'] = (
+                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+                {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriments')},
+                {'link': reverse_lazy('main:sprint'), 'class': '', 'name': self.master},
+                {'link': '#', 'class': '', 'name': _('User Stories')},
+            )
+        else:
+            context['breadcrumbs'] = (
+                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+                {'link': '#', 'class': '', 'name': _('User Stories')},
+            )
+        return context
+
+
+class UserStoryAddFormView(AddFormView):
+    page_title = 'UserStory'
+    model = UserStory
+    form_class = UserStoryForm
+    success_url = '/userstory/'
+    success_message = _('UserStory was created successfully')
+    tabs = (
+        {"title": "UserStory", "id": "userstory", "class": "active",
+         "fields": ('code', 'title', 'description')},
+        {"title": "Sprints", "id": "sprints", "fields": ()},
+        {"title": "Requeriments", "id": "requeriments", "fields": ()},
+    )
+    breadcrumbs = (
+        {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+        {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriment')},
+        {'link': '#', 'class': '', 'name': _('Add')},
+    )
+
+
+    @method_decorator(require_project())
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserStoryAddFormView, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        project = get_object_or_404(Project, pk=self.request.session['project_id'])
+        form.instance.changed_by = self.request.user
+        form.instance.project = project
+        return super(UserStoryAddFormView, self).form_valid(form)
+
