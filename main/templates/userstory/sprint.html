@@ -1,0 +1,41 @@
+<style type="text/css">
+    .inline {
+        padding: 5px;
+        border: 1px #dedede solid;
+        margin: 5px;
+    }
+
+    .delete-row {
+        padding: 10px;
+    }
+
+    #sprints {
+        margin-bottom: 20px;
+    }
+</style>
+<script type="text/javascript">
+    django.jQuery(function () {
+        django.jQuery(".inline.{{ SprintUserStoryInline.prefix }}").formset({
+            prefix: "{{ SprintUserStoryInline.prefix }}",
+            deleteText: "<i class='fa fa-minus-circle'></i>",
+            addText: "<i class='fa fa-plus-circle'>Add</i>"
+        })
+    })
+</script>
+
+
+<fieldset>
+    {{ SprintUserStoryInline.management_form }}
+    {{ SprintUserStoryInline.non_form_errors }}
+    {% for form in SprintUserStoryInline %}
+        <div class="inline {{ SprintUserStoryInline.prefix }}">
+            {{ form.id }}
+            Sprint: {{ form.sprint }}
+            Status: {{ form.status }}
+        </div>
+    {% endfor %}
+</fieldset>
+
+
+
+

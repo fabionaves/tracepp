@@ -66,11 +66,46 @@ class Sprint(models.Model, MyModel):
         verbose_name_plural = _("Sprints")
 
 
+class Requeriment(models.Model, MyModel):
+    code = models.CharField(_('Code'), max_length=10, blank=False, null=False)
+    title = models.CharField(_('Title'), max_length=100, blank=False, null=False)
+    description = models.TextField()
+    REQUIREMENT_TYPE_OPTIONS = (
+        (0, _('Functional')),
+        (1, _('Non-Functional')),
+    )
+    type = models.IntegerField(
+        _('Type'), choices=REQUIREMENT_TYPE_OPTIONS, blank=False
+    )
+    project = models.ForeignKey(
+        Project,
+        verbose_name=_('Project'),
+    )
+    changed_by = models.ForeignKey('auth.User')
+    history = HistoricalRecords()
+    depends_on = models.ManyToManyField("self", symmetrical=False, blank=True)  #depende de
+
+    @property
+    def _history_user(self):
+        return self.changed_by
+
+    @_history_user.setter
+    def _history_user(self, value):
+        self.changed_by = value
+
+    def __str__(self):
+        return self.code+' - '+self.title
+
+
 class UserStory(models.Model):
     code = models.CharField(_('Code'), max_length=30)
     title = models.CharField(_('Title'), max_length=50)
     description = models.TextField(_('Description'))
-
+    requeriment = models.ManyToManyField(Requeriment)
+    storypoints_planned = models.IntegerField(_('Story Points (Planned)'), blank=False, default=0)
+    storypoints_realized = models.IntegerField(_('Story Points (Realized)'), blank=False, default=0)
+    bussinessvalue_planned = models.IntegerField(_('Businnes Value (Planned)'), blank=False, default=0)
+    bussinessvalue_realized = models.IntegerField(_('Businnes Value (Realized)'), blank=False, default=0)
     changed_by = models.ForeignKey('auth.User')
     history = HistoricalRecords()
 
@@ -83,17 +118,17 @@ class UserStory(models.Model):
         self.changed_by = value
 
     def __str__(self):
-        return self.title
+        return self.code+' - '+self.title
 
 
-class SprintUserStory(models.Model):
-    sprint = models.ForeignKey(
-        Sprint,
-        verbose_name=_('Sprint'),
-    )
+class SprintUserStory(models.Model, MyModel):
     userstory = models.ForeignKey(
         UserStory,
         verbose_name=_('User Story'),
+    )
+    sprint = models.ForeignKey(
+       Sprint,
+       verbose_name=_('Sprint'),
     )
     USERSTORY_STATUS_IN_SPRINT_OPTIONS = (
         (0, _('Story not Completed')),
@@ -111,44 +146,6 @@ class SprintUserStory(models.Model):
     @_history_user.setter
     def _history_user(self, value):
         self.changed_by = value
-
-    def __str__(self):
-        return self.title
-
-
-class Requeriment(models.Model, MyModel):
-    code = models.CharField(_('Code'), max_length=10, blank=False, null=False)
-    title = models.CharField(_('Title'), max_length=100, blank=False, null=False)
-    description = models.TextField()
-    REQUIREMENT_TYPE_OPTIONS = (
-        (0, _('Functional')),
-        (1, _('Non-Functional')),
-    )
-    type = models.IntegerField(
-        _('Type'), choices=REQUIREMENT_TYPE_OPTIONS, blank=False
-    )
-    project = models.ForeignKey(
-        Project,
-        verbose_name=_('Project'),
-    )
-    userstory = models.ManyToManyField(UserStory)
-    changed_by = models.ForeignKey('auth.User')
-    history = HistoricalRecords()
-    depends_on = models.ManyToManyField("self", symmetrical=False, blank=True)  #depende de
-
-
-    @property
-    def _history_user(self):
-        return self.changed_by
-
-    @_history_user.setter
-    def _history_user(self, value):
-        self.changed_by = value
-
-    def __str__(self):
-        return self.code+' - '+self.title
-
-
 
 
 class Task(models.Model):
