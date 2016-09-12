@@ -2,27 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="75a9e5b2-515a-4560-8233-370d9d8f5088" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/templates/userstory/action.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/templates/userstory/history.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/templates/userstory/sprint.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/templates/userstory/top_bar.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/views/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/views/home_views.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/views/project_views.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/views/requeriment_views.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/views/sprint_views.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/views/userstory_views.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/jquery.formset.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/views.py" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/templates/requeriment/graph_detail.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/forms.py" afterPath="$PROJECT_DIR$/main/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/models.py" afterPath="$PROJECT_DIR$/main/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/base.html" afterPath="$PROJECT_DIR$/main/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/components/forms/form_tabs.html" afterPath="$PROJECT_DIR$/main/templates/components/forms/form_tabs.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/requeriment/choose_action.html" afterPath="$PROJECT_DIR$/main/templates/requeriment/choose_action.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/sprint/detail.html" afterPath="$PROJECT_DIR$/main/templates/sprint/detail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/requeriment/detail.html" afterPath="$PROJECT_DIR$/main/templates/requeriment/detail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/requeriment/graph.html" afterPath="$PROJECT_DIR$/main/templates/requeriment/graph.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/urls.py" afterPath="$PROJECT_DIR$/main/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/views/requeriment_views.py" afterPath="$PROJECT_DIR$/main/views/requeriment_views.py" />
     </list>
     <ignored path="tracepp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -63,7 +49,7 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-612">
+            <state relative-caret-position="0">
               <caret line="103" column="40" selection-start-line="103" selection-start-column="25" selection-end-line="103" selection-end-column="40" />
               <folding />
             </state>
@@ -73,7 +59,7 @@
       <file leaf-file-name="userstory_views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main/views/userstory_views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-289">
+            <state relative-caret-position="17">
               <caret line="22" column="27" selection-start-line="22" selection-start-column="3" selection-end-line="22" selection-end-column="27" />
               <folding>
                 <element signature="e#0#44#0" expanded="true" />
@@ -85,7 +71,7 @@
       <file leaf-file-name="sprint_views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main/views/sprint_views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
+            <state relative-caret-position="493">
               <caret line="40" column="141" selection-start-line="40" selection-start-column="141" selection-end-line="40" selection-end-column="141" />
               <folding>
                 <element signature="e#0#61#0" expanded="true" />
@@ -95,20 +81,20 @@
         </entry>
       </file>
       <file leaf-file-name="detail.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main/templates/sprint/detail.html">
+        <entry file="file://$PROJECT_DIR$/main/templates/requeriment/detail.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="79" column="64" selection-start-line="79" selection-start-column="64" selection-end-line="79" selection-end-column="64" />
+            <state relative-caret-position="343">
+              <caret line="68" column="117" selection-start-line="68" selection-start-column="117" selection-end-line="68" selection-end-column="117" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="requeriment_views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="requeriment_views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main/views/requeriment_views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="40" column="64" selection-start-line="40" selection-start-column="64" selection-end-line="40" selection-end-column="64" />
+            <state relative-caret-position="420">
+              <caret line="195" column="56" selection-start-line="195" selection-start-column="56" selection-end-line="195" selection-end-column="56" />
               <folding>
                 <element signature="e#0#34#0" expanded="true" />
               </folding>
@@ -116,13 +102,39 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="graph.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main/templates/requeriment/graph.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="445">
+              <caret line="60" column="14" selection-start-line="58" selection-start-column="8" selection-end-line="60" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="355">
-              <caret line="30" column="147" selection-start-line="30" selection-start-column="147" selection-end-line="30" selection-end-column="147" />
+            <state relative-caret-position="522">
+              <caret line="36" column="105" selection-start-line="36" selection-start-column="105" selection-end-line="36" selection-end-column="105" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="graph_detail.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/main/templates/requeriment/graph_detail.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="139">
+              <caret line="112" column="66" selection-start-line="112" selection-start-column="55" selection-end-line="112" selection-end-column="66" />
+              <folding>
+                <element signature="e#4803#4848#0#HTML" expanded="true" />
+                <element signature="e#5149#5192#0#HTML" expanded="true" />
+                <element signature="e#5481#5526#0#HTML" expanded="true" />
+                <element signature="e#5846#5889#0#HTML" expanded="true" />
+                <element signature="e#6218#6263#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -152,7 +164,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/main/templates/model/list.html" />
         <option value="$PROJECT_DIR$/main/templates/sprint/delete.html" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/157e1018-2707-4515-a58a-06dc6f98d1b8/console.sql" />
         <option value="$PROJECT_DIR$/main/templates/sprint/log.html" />
@@ -175,12 +186,10 @@
         <option value="$PROJECT_DIR$/main/templates/components/forms/form_head.html" />
         <option value="$PROJECT_DIR$/main/templates/home/home.html" />
         <option value="$PROJECT_DIR$/main/templates/requeriment/history.html" />
-        <option value="$PROJECT_DIR$/main/templates/requeriment/detail.html" />
         <option value="$PROJECT_DIR$/main/templates/requeriment/top_bar.html" />
         <option value="$PROJECT_DIR$/main/components/lists.py" />
         <option value="$PROJECT_DIR$/main/components/formviews.py" />
         <option value="$PROJECT_DIR$/tracepp/urls.py" />
-        <option value="$PROJECT_DIR$/main/templates/requeriment/graph.html" />
         <option value="$PROJECT_DIR$/main/templates/project/action.html" />
         <option value="$PROJECT_DIR$/main/templates/components/lists/list.html" />
         <option value="$PROJECT_DIR$/main/templates/components/forms/form_tabs.html" />
@@ -198,11 +207,14 @@
         <option value="$PROJECT_DIR$/main/templates/userstory/top_bar.html" />
         <option value="$PROJECT_DIR$/main/views/userstory_views.py" />
         <option value="$PROJECT_DIR$/main/templates/userstory/detail.html" />
-        <option value="$PROJECT_DIR$/main/urls.py" />
         <option value="$PROJECT_DIR$/main/templates/requeriment/choose_action.html" />
         <option value="$PROJECT_DIR$/main/templates/sprint/detail.html" />
         <option value="$PROJECT_DIR$/main/views/sprint_views.py" />
+        <option value="$PROJECT_DIR$/main/templates/requeriment/detail.html" />
+        <option value="$PROJECT_DIR$/main/templates/requeriment/graph.html" />
+        <option value="$PROJECT_DIR$/main/urls.py" />
         <option value="$PROJECT_DIR$/main/views/requeriment_views.py" />
+        <option value="$PROJECT_DIR$/main/templates/requeriment/graph_detail.html" />
       </list>
     </option>
   </component>
@@ -243,6 +255,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -358,7 +371,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -701,7 +713,14 @@
       <option name="project" value="LOCAL" />
       <updated>1472845038500</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Reorganizacao das classes de view, ligacao de requisitos com sprint">
+      <created>1473450383481</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1473450383481</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -710,17 +729,17 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24791667" sideWeight="0.49369085" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="manage.py@tracepp" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32875264" sideWeight="0.49121523" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.30307466" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.49707174" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32875264" sideWeight="0.69692534" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32875264" sideWeight="0.69692534" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24816984" sideWeight="0.50630915" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29281184" sideWeight="0.48535872" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29281184" sideWeight="0.48535872" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="manage.py@tracepp" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32875264" sideWeight="0.49121523" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -769,7 +788,8 @@
     <MESSAGE value="Sprint History View" />
     <MESSAGE value="Breadcumps, Graph to requiriments dependencies." />
     <MESSAGE value="Listagem de UserStories" />
-    <option name="LAST_COMMIT_MESSAGE" value="Listagem de UserStories" />
+    <MESSAGE value="Reorganizacao das classes de view, ligacao de requisitos com sprint" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reorganizacao das classes de view, ligacao de requisitos com sprint" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -785,13 +805,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/main/templates/sprint/history.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="30" column="52" selection-start-line="29" selection-start-column="24" selection-end-line="30" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/templates/home/home.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="626">
@@ -827,13 +840,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/templates/requeriment/detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1853">
-          <caret line="109" column="163" selection-start-line="109" selection-start-column="163" selection-end-line="109" selection-end-column="163" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tracepp/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -855,13 +861,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/templates/requeriment/graph.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="37" column="66" selection-start-line="37" selection-start-column="66" selection-end-line="37" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/templates/requeriment/top_bar.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -880,7 +879,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="10" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -911,7 +909,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -919,7 +916,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="428">
           <caret line="39" column="62" selection-start-line="39" selection-start-column="62" selection-end-line="39" selection-end-column="62" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -927,7 +923,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="27" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -935,7 +930,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="377">
           <caret line="24" column="58" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="62" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -951,7 +945,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -959,7 +952,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="28" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -967,7 +959,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="29" column="43" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -983,7 +974,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="281">
           <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -991,7 +981,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1848">
           <caret line="123" column="0" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -999,7 +988,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
           <caret line="186" column="0" selection-start-line="186" selection-start-column="0" selection-end-line="186" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1007,7 +995,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1023,7 +1010,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1031,7 +1017,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="213">
           <caret line="645" column="0" selection-start-line="645" selection-start-column="0" selection-end-line="645" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1039,7 +1024,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1047,9 +1031,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#36#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1057,35 +1038,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#36#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/views/user_story.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3162">
-          <caret line="186" column="0" selection-start-line="186" selection-start-column="0" selection-end-line="186" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/main/views/user_story.py" />
+    <entry file="file://$PROJECT_DIR$/main/views.py" />
     <entry file="file://$PROJECT_DIR$/main/views/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#25#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1093,7 +1054,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="62" selection-start-line="0" selection-start-column="0" selection-end-line="35" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1101,7 +1061,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="18" column="74" selection-start-line="18" selection-start-column="74" selection-end-line="18" selection-end-column="74" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1109,7 +1068,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="93" selection-start-line="1" selection-start-column="93" selection-end-line="1" selection-end-column="93" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1125,17 +1083,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="233">
           <caret line="79" column="54" selection-start-line="79" selection-start-column="54" selection-end-line="79" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="30" column="147" selection-start-line="30" selection-start-column="147" selection-end-line="30" selection-end-column="147" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1143,39 +1090,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="52" selection-start-line="0" selection-start-column="52" selection-end-line="0" selection-end-column="52" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main/templates/sprint/detail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
+        <state relative-caret-position="17">
           <caret line="79" column="64" selection-start-line="79" selection-start-column="64" selection-end-line="79" selection-end-column="64" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-612">
-          <caret line="103" column="40" selection-start-line="103" selection-start-column="25" selection-end-line="103" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/views/userstory_views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-289">
-          <caret line="22" column="27" selection-start-line="22" selection-start-column="3" selection-end-line="22" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#44#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/views/sprint_views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
+        <state relative-caret-position="493">
           <caret line="40" column="141" selection-start-line="40" selection-start-column="141" selection-end-line="40" selection-end-column="141" />
           <folding>
             <element signature="e#0#61#0" expanded="true" />
@@ -1183,12 +1111,70 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main/templates/requeriment/detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="68" column="117" selection-start-line="68" selection-start-column="117" selection-end-line="68" selection-end-column="117" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="103" column="40" selection-start-line="103" selection-start-column="25" selection-end-line="103" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/views/userstory_views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="22" column="27" selection-start-line="22" selection-start-column="3" selection-end-line="22" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main/views/requeriment_views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="40" column="64" selection-start-line="40" selection-start-column="64" selection-end-line="40" selection-end-column="64" />
+        <state relative-caret-position="420">
+          <caret line="195" column="56" selection-start-line="195" selection-start-column="56" selection-end-line="195" selection-end-column="56" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/templates/requeriment/graph.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="445">
+          <caret line="60" column="14" selection-start-line="58" selection-start-column="8" selection-end-line="60" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="36" column="105" selection-start-line="36" selection-start-column="105" selection-end-line="36" selection-end-column="105" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/templates/requeriment/graph_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="112" column="66" selection-start-line="112" selection-start-column="55" selection-end-line="112" selection-end-column="66" />
+          <folding>
+            <element signature="e#4803#4848#0#HTML" expanded="true" />
+            <element signature="e#5149#5192#0#HTML" expanded="true" />
+            <element signature="e#5481#5526#0#HTML" expanded="true" />
+            <element signature="e#5846#5889#0#HTML" expanded="true" />
+            <element signature="e#6218#6263#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>

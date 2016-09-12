@@ -19,6 +19,13 @@
                     var r{{ requeriment.id }} = sys.addNode('{{ requeriment.code }}',{'id':'{{ requeriment.id }}','color':'red','shape':'dot','label':'{{ requeriment.code }}'});
                 {% endfor %}
 
+                 {% for requeriment in requeriments %}
+                      {% for userstory in requeriment.userstory_set.all %}
+                           var u{{ userstory.id }} = sys.addNode('{{ userstory.code }}',{'id':'{{ userstory.id }}','color':'green','shape':'dot','label':'{{ userstory.code }}'});
+                           sys.addEdge(r{{ requeriment.id }}, u{{ userstory.id }}, { directed: true, weight:3 });
+                      {% endfor %}
+                 {% endfor %}
+
                 {% for requeriment in requeriments %}
                     {% for depend in requeriment.depends_on.all %}
                         sys.addEdge(r{{ requeriment.id }}, r{{ depend.id }}, { directed: true, weight:3 });

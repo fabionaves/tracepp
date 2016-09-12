@@ -7,7 +7,7 @@ from django.views.generic import ListView
 from main.components.lists import  ModelListProjectFilter, TemplateViewProjectFilter
 from main.decorators import require_project
 from main.forms import RequerimentForm
-from main.models import Project, Requeriment, SprintUserStory, Sprint
+from main.models import Project, Requeriment, SprintUserStory, Sprint, UserStory
 from main.components.formviews import AddFormView, UpdateFormView
 
 
@@ -129,6 +129,7 @@ class RequerimentDetailView(TemplateViewProjectFilter):
             {'link': reverse_lazy('main:requeriment-details', kwargs={'pk': requeriment.id}), 'class': '',
              'name': requeriment.code},
         )
+        context['num_userstories']= UserStory.objects.filter(requeriment=requeriment).aggregate(total=Count('*'))
         context['dependent_requeriments'] = Requeriment.objects.filter(depends_on=requeriment)
         context['depends_on'] = requeriment.depends_on.all()
         context['requeriment']=requeriment
@@ -178,4 +179,23 @@ class RequerimentGraphView(TemplateViewProjectFilter):
             {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriment')},
             {'link': '#', 'class': '', 'name': _('Graph')},
         )
+        return context
+
+
+class RequerimentGraphDetailView(TemplateViewProjectFilter):
+    template_name = 'requeriment/graph_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(RequerimentGraphDetailView, self).get_context_data(**kwargs)
+        requeriment = get_object_or_404(Requeriment,  project=self.request.session.get('project_id', None), pk=self.kwargs['pk'])
+        context['breadcrumbs'] = (
+            {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+            {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriment')},
+            {'link': reverse_lazy('main:requeriment-details', kwargs={'pk': requeriment.id}), 'class': '',
+             'name': requeriment.code},
+            {'link':'#', 'class': '','name':_('Graph')},
+        )
+        context['dependent_requeriments'] = Requeriment.objects.filter(depends_on=requeriment)
+        context['depends_on'] = requeriment.depends_on.all()
+        context['requeriment'] = requeriment
         return context

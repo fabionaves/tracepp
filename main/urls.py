@@ -34,7 +34,8 @@ urlpatterns = [
 
     url(r'^requeriment/add/',                       login_required(requeriment_views.RequerimentAddFormView.as_view()), name='requeriment-add'),
     url(r'^requeriment/history/',                   login_required(requeriment_views.RequerimentHistoryView.as_view()), name='requeriment-history'),
-    url(r'^requeriment/graph/',                     login_required(requeriment_views.RequerimentGraphView.as_view()), name='requeriment-graph'),
+    url(r'^requeriment/graph/',                     login_required(requeriment_views.RequerimentGraphView.as_view()), name='requeriment-graph-detail'),
+    url(r'^requeriment/(?P<pk>[0-9]+)/graph/',      login_required(requeriment_views.RequerimentGraphDetailView.as_view()), name='requeriment-graph'),
     url(r'^requeriment/(?P<pk>[0-9]+)/history/',    login_required(requeriment_views.RequerimentHistoryView.as_view()), name='requeriment-history'),
     url(r'^requeriment/(?P<pk>[0-9]+)/update/',     login_required(requeriment_views.RequerimentUpdateFormView.as_view()), name='requeriment-update'),
     url(r'^requeriment/(?P<pk>[0-9]+)/',            login_required(requeriment_views.RequerimentDetailView.as_view()), name='requeriment-details'),
