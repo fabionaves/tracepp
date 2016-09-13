@@ -15,6 +15,7 @@ urlpatterns = [
 
     url(r'^userstory/add/',                                                login_required(userstory_views.UserStoryAddFormView.as_view()), name='userstory-add'),
     url(r'^userstory/(?P<pk>[0-9]+)/update/',                              login_required(userstory_views.UserStoryUpdateFormView.as_view()),name='userstory-update'),
+    url(r'^userstory/(?P<pk>[0-9]+)/detail/',                              login_required(userstory_views.UserStoryDetailView.as_view()),name='userstory-detail'),
     url(r'^userstory/',                                                    login_required(userstory_views.UserStoryListView.as_view()), name='userstory'),
     url(r'^sprint/(?P<sprint_id>[0-9]+)/userstory/add/',                   login_required(userstory_views.UserStoryAddFormView.as_view()), name='sprint-userstory-add'),
     url(r'^sprint/(?P<sprint_id>[0-9]+)/userstory/(?P<pk>[0-9]+)/update/', login_required(userstory_views.UserStoryUpdateFormView.as_view()), name='sprint-userstory-update'),

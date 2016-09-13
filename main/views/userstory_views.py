@@ -5,7 +5,7 @@ from django.utils.translation import ugettext as _
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView
 
-from main.components.lists import ModelListProjectFilter
+from main.components.lists import ModelListProjectFilter, TemplateViewProjectFilter
 from main.decorators import require_project
 from main.forms import UserStoryForm, SprintUserStoryInlineFormSet
 from main.models import Sprint, Project, Requeriment, SprintUserStory, UserStory
@@ -54,6 +54,15 @@ class UserStoryListView(ModelListProjectFilter):
                 {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
                 {'link': '#', 'class': '', 'name': _('User Stories')},
             )
+        return context
+
+
+class UserStoryDetailView(TemplateViewProjectFilter):
+    template_name = 'userstory/detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(UserStoryDetailView, self).get_context_data()
+        context['userstory']= get_object_or_404(UserStory, pk=self.kwargs['pk'])
         return context
 
 
