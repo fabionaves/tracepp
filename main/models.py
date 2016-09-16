@@ -28,6 +28,7 @@ class Project(models.Model, MyModel):
         verbose_name = _("Project")
         verbose_name_plural = _("Projects")
 
+
 class Sprint(models.Model, MyModel):
     title = models.CharField(_('Title'), max_length=30)
     SPRINT_STATUS_OPTIONS = (
@@ -43,6 +44,7 @@ class Sprint(models.Model, MyModel):
     project = models.ForeignKey(
         Project,
         verbose_name=_('Project'),
+        on_delete=models.PROTECT,
     )
     changed_by = models.ForeignKey('auth.User')
     history = HistoricalRecords()
@@ -80,6 +82,7 @@ class Requeriment(models.Model, MyModel):
     project = models.ForeignKey(
         Project,
         verbose_name=_('Project'),
+        on_delete=models.PROTECT,
     )
     changed_by = models.ForeignKey('auth.User')
     history = HistoricalRecords()
@@ -97,7 +100,7 @@ class Requeriment(models.Model, MyModel):
         return self.code+' - '+self.title
 
 
-class UserStory(models.Model):
+class UserStory(models.Model,MyModel):
     code = models.CharField(_('Code'), max_length=30)
     title = models.CharField(_('Title'), max_length=50)
     description = models.TextField(_('Description'))
@@ -106,6 +109,9 @@ class UserStory(models.Model):
     storypoints_realized = models.IntegerField(_('Story Points (Realized)'), blank=False, default=0)
     bussinessvalue_planned = models.IntegerField(_('Businnes Value (Planned)'), blank=False, default=0)
     bussinessvalue_realized = models.IntegerField(_('Businnes Value (Realized)'), blank=False, default=0)
+    project = models.ForeignKey(Project,
+                                on_delete=models.PROTECT, verbose_name=_('Project')
+                                )
     changed_by = models.ForeignKey('auth.User')
     history = HistoricalRecords()
 
@@ -129,6 +135,7 @@ class SprintUserStory(models.Model, MyModel):
     sprint = models.ForeignKey(
        Sprint,
        verbose_name=_('Sprint'),
+       on_delete=models.PROTECT,
     )
     USERSTORY_STATUS_IN_SPRINT_OPTIONS = (
         (0, _('Story not Completed')),

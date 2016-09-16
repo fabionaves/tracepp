@@ -12,6 +12,8 @@ class AddFormView(SuccessMessageMixin, CreateView):
     tabs = False
     breadcrumbs = False
 
+
+
     def get_context_data(self, **kwargs):
         context = super(AddFormView, self).get_context_data(**kwargs)
         if self.tabs:
