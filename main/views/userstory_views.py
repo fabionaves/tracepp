@@ -100,7 +100,7 @@ class UserStoryAddFormView(AddFormView):
     success_message = _('UserStory was created successfully')
     tabs = (
         {"title": "UserStory", "id": "userstory", "class": "active",
-         "fields": ('code', 'title', 'description','storypoints_planned', 'storypoints_realized', 'bussinessvalue_planned', 'bussinessvalue_realized')},
+         "fields": ('code', 'title', 'description', 'acceptanceCriteria', 'storypoints_planned', 'storypoints_realized', 'bussinessvalue_planned', 'bussinessvalue_realized')},
         {"title": "Sprints", "id": "sprints", "inlines": ("userstory/sprint.html",)},
         {"title": "Requeriments", "id": "requeriments", "fields": ('requeriment',)},
     )
@@ -173,7 +173,7 @@ class UserStoryUpdateFormView(UpdateFormView):
     success_message = _('UserStory was created successfully')
     tabs = (
         {"title": "UserStory", "id": "userstory", "class": "active",
-         "fields": ('code', 'title', 'description','storypoints_planned', 'storypoints_realized', 'bussinessvalue_planned', 'bussinessvalue_realized')},
+         "fields": ('code', 'title', 'description', 'acceptanceCriteria', 'storypoints_planned', 'storypoints_realized', 'bussinessvalue_planned', 'bussinessvalue_realized')},
         {"title": "Sprints", "id": "sprints", "inlines": ("userstory/sprint.html",)},
         {"title": "Requeriments", "id": "requeriments", "fields": ('requeriment',)},
     )

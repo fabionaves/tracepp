@@ -3,7 +3,7 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.auth.models import User
 from django.forms import inlineformset_factory
 
-from main.models import Project, Requeriment, UserStory, SprintUserStory
+from main.models import Project, Requeriment, UserStory, SprintUserStory, ArtifactType
 
 
 class ProjectForm(forms.ModelForm):
@@ -71,7 +71,7 @@ class UserStoryForm(forms.ModelForm):
 
     class Meta:
         model = UserStory
-        fields = ('code', 'title', 'description', 'storypoints_planned', 'storypoints_realized', 'bussinessvalue_planned', 'bussinessvalue_realized', 'requeriment')
+        fields = ('code', 'title', 'description', 'acceptanceCriteria', 'storypoints_planned', 'storypoints_realized', 'bussinessvalue_planned', 'bussinessvalue_realized', 'requeriment')
 
 SprintUserStoryInlineFormSet = inlineformset_factory(UserStory,
                                                      SprintUserStory,
@@ -79,5 +79,11 @@ SprintUserStoryInlineFormSet = inlineformset_factory(UserStory,
                                                      extra=2,
                                                      )
 
+
+class ArtifactTypeForm(forms.ModelForm):
+
+    class Meta:
+        model = ArtifactType
+        fields = ('name', 'level', 'type', 'trace_code')
 
 

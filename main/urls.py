@@ -1,5 +1,6 @@
 from django.conf.urls import url
 
+from main.views import artifacttype_views
 from main.views import home_views, project_views, sprint_views, requeriment_views, userstory_views
 from django.contrib.auth import views as loginviews
 from django.contrib.auth.decorators import login_required
@@ -48,4 +49,9 @@ urlpatterns = [
     url(r'^requeriment/(?P<pk>[0-9]+)/update/',     login_required(requeriment_views.RequerimentUpdateFormView.as_view()), name='requeriment-update'),
     url(r'^requeriment/(?P<pk>[0-9]+)/',            login_required(requeriment_views.RequerimentDetailView.as_view()), name='requeriment-details'),
     url(r'^requeriment/',                           login_required(requeriment_views.RequerimentListView.as_view()), name='requeriment'),
+
+    url(r'^artifacttype/add/',                       login_required(artifacttype_views.ArtifactTypeAddFormView.as_view()), name='artifacttype-add'),
+    url(r'^artifacttype/(?P<pk>[0-9]+)/update/',     login_required(artifacttype_views.ArtifactTypeUpdateFormView.as_view()), name='artifacttype-update'),
+    url(r'^artifacttype/(?P<pk>[0-9]+)/delete/',     login_required(artifacttype_views.ArtifactTypeDeleteView.as_view()), name='artifacttype-delete'),
+    url(r'^artifacttype/',                           login_required(artifacttype_views.ArtifactTypeView.as_view()), name='artifacttype'),
 ]

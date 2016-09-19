@@ -104,6 +104,7 @@ class UserStory(models.Model,MyModel):
     code = models.CharField(_('Code'), max_length=30)
     title = models.CharField(_('Title'), max_length=50)
     description = models.TextField(_('Description'))
+    acceptanceCriteria = models.TextField(_('Acceptance Criteria'))
     requeriment = models.ManyToManyField(Requeriment)
     storypoints_planned = models.IntegerField(_('Story Points (Planned)'), blank=False, default=0)
     storypoints_realized = models.IntegerField(_('Story Points (Realized)'), blank=False, default=0)
@@ -173,7 +174,7 @@ class Task(models.Model):
     created_at = models.DateTimeField(_('Criated at'), auto_now_add=True)
 
 
-class ArtifactType(models.Model):
+class ArtifactType(models.Model, MyModel):
     name = models.CharField(_('Name'), max_length=100, blank=False, null=False)
     ARTIFACT_LEVEL = (
         (0, _('Project')),
@@ -188,6 +189,9 @@ class ArtifactType(models.Model):
     )
     type = models.IntegerField(_('Type'), choices=ARTIFACT_TYPE)
     trace_code = models.CharField(_('Trace Code'), max_length=100, blank=False, null=False)
+    project = models.ForeignKey(
+        Project
+    )
 
 
 class Artifact(models.Model):
