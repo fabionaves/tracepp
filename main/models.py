@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from simple_history.models import HistoricalRecords
 from main.components.models import MyModel
-
+from django.conf import settings
 
 class Project(models.Model, MyModel):
     name = models.CharField(_('Name'), max_length=100, blank=False, null=False)
@@ -195,11 +195,33 @@ class ArtifactType(models.Model, MyModel):
 
 
 class Artifact(models.Model):
-    name = models.CharField(_('Name'), max_length=100, blank=False, null=False)
+    name = models.CharField(_('Name'), max_length=100, blank=True, null=True)
     type = models.ForeignKey(
         ArtifactType,
         verbose_name=_('Artifact type'),
+        null=True,
+        blank=True,
     )
     reference = models.CharField( max_length=100, blank=False, null=False)
+    project = models.ForeignKey(
+        Project,
+    )
+    requeriment = models.ForeignKey(
+        Requeriment,
+        blank=True,
+        null=True,
+    )
+    sprint = models.ForeignKey(
+        Sprint,
+        blank=True,
+        null=True,
+    )
+    userstory = models.ForeignKey(
+        UserStory,
+        blank=True,
+        null=True,
+    )
+
+    file = models.FileField(_('File'), upload_to='upload/')
 
 

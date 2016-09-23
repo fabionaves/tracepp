@@ -3,7 +3,7 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.auth.models import User
 from django.forms import inlineformset_factory
 
-from main.models import Project, Requeriment, UserStory, SprintUserStory, ArtifactType
+from main.models import Project, Requeriment, UserStory, SprintUserStory, ArtifactType, Artifact
 
 
 class ProjectForm(forms.ModelForm):
@@ -86,4 +86,10 @@ class ArtifactTypeForm(forms.ModelForm):
         model = ArtifactType
         fields = ('name', 'level', 'type', 'trace_code')
 
+
+class ArtifactForm(forms.ModelForm):
+
+    class Meta:
+        model = Artifact
+        fields = ('name','type','file')
 
