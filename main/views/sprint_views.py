@@ -8,7 +8,7 @@ from django.views.generic import DeleteView
 from django.views.generic import ListView
 from main.components.lists import  ModelListProjectFilter, TemplateViewProjectFilter
 from main.decorators import require_project
-from main.models import Sprint, Project, SprintUserStory, Requeriment
+from main.models import Sprint, Project, SprintUserStory, Requeriment, Artifact
 from main.components.formviews import AddFormView, UpdateFormView
 
 
@@ -40,6 +40,8 @@ class SprintDetailView(TemplateViewProjectFilter):
         sprint_user_story = SprintUserStory.objects.filter(sprint_id=kwargs['sprint_id']).values_list('userstory_id')
         context['num_requeriment']=Rqueryset = Requeriment.objects.filter(userstory__in=sprint_user_story).annotate(total=Count('*')).count()
         context['num_userstories'] = SprintUserStory.objects.filter(sprint_id=kwargs['sprint_id']).count()
+        context['total_artifacts'] = Artifact.objects.filter(
+            project=self.request.session.get('project_id', None), sprint=context['sprint']).count()
 
         context['breadcrumbs'] = (
             {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},

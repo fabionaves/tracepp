@@ -10,7 +10,7 @@ from django.views.generic import ListView
 from main.components.lists import ModelListProjectFilter, TemplateViewProjectFilter
 from main.decorators import require_project
 from main.forms import UserStoryForm, SprintUserStoryInlineFormSet
-from main.models import Sprint, Project, Requeriment, SprintUserStory, UserStory
+from main.models import Sprint, Project, Requeriment, SprintUserStory, UserStory, Artifact
 from main.components.formviews import AddFormView, UpdateFormView
 
 
@@ -66,15 +66,21 @@ class UserStoryDetailView(TemplateViewProjectFilter):
 
     def get_context_data(self, **kwargs):
         context = super(UserStoryDetailView, self).get_context_data()
-        context['userstory']= get_object_or_404(UserStory, pk=self.kwargs['pk'])
+        userstory = get_object_or_404(UserStory, pk=self.kwargs['pk'])
+        context['userstory'] = userstory
+        context['total_artifacts'] = Artifact.objects.filter(
+            project=self.request.session.get('project_id', None), userstory=userstory).count()
         if 'sprint_id' in self.kwargs:
             sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_id'])
             context['breadcrumbs'] = (
                 {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
                 {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
                 {'link': reverse_lazy('main:sprint-details', kwargs={'sprint_id': self.kwargs['sprint_id']}),
-                 'class': '', 'name': Sprint},
-                {'link': '#', 'class': '', 'name': _('User Stories')},
+                 'class': '', 'name': sprint},
+                {'link': reverse_lazy('main:sprint-userstory',kwargs={'sprint_id': self.kwargs['sprint_id']}), 'class': '',
+                 'name': _('User Stories')},
+                {'link': reverse_lazy('main:userstory-detail', kwargs={'pk': userstory.pk}), 'class': '',
+                 'name': userstory.code},
             )
         elif 'requeriment_id' in self.kwargs:
             requeriment = get_object_or_404(Requeriment, pk=self.kwargs['requeriment_id'])
@@ -83,12 +89,17 @@ class UserStoryDetailView(TemplateViewProjectFilter):
                 {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriments')},
                 {'link': reverse_lazy('main:requeriment-details', kwargs={'pk': self.kwargs['requeriment_id']}),
                  'class': '', 'name': requeriment},
-                {'link': '#', 'class': '', 'name': _('User Stories')},
+                {'link': reverse_lazy('main:requeriment-userstory', kwargs={'requeriment_id': self.kwargs['requeriment_id']}), 'class': '', 'name': _('User Stories')},
+                {'link': reverse_lazy('main:userstory-detail', kwargs={'pk': userstory.pk}), 'class': '',
+                 'name': userstory.code},
             )
         else:
             context['breadcrumbs'] = (
                 {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-                {'link': '#', 'class': '', 'name': _('User Stories')},
+                {'link': reverse_lazy('main:userstory'), 'class': '',
+                 'name': _('User Stories')},
+                {'link': reverse_lazy('main:userstory-detail', kwargs={'pk': userstory.pk}), 'class': '',
+                 'name':userstory.code},
             )
         return context
 
@@ -228,7 +239,7 @@ class UserStoryUpdateFormView(UpdateFormView):
             context['breadcrumbs'] = (
                 {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
                 {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
-                {'link': reverse_lazy('main:sprint-details', kwargs={'sprint_id': self.kwargs['sprint_id']}),'class': '', 'name': sprint},
+                {'link': reverse_lazy('main:sprint-details', kwargs={'sprint_id': self.kwargs['sprint_id']}),'class': '', 'name': sprint.name},
                 {'link': '#', 'class': '', 'name': _('User Stories')},
             )
         elif 'requeriment_id' in self.kwargs:

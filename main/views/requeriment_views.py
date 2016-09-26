@@ -7,7 +7,7 @@ from django.views.generic import ListView
 from main.components.lists import  ModelListProjectFilter, TemplateViewProjectFilter
 from main.decorators import require_project
 from main.forms import RequerimentForm
-from main.models import Project, Requeriment, SprintUserStory, Sprint, UserStory
+from main.models import Project, Requeriment, SprintUserStory, Sprint, UserStory, Artifact
 from main.components.formviews import AddFormView, UpdateFormView
 
 
@@ -130,6 +130,8 @@ class RequerimentDetailView(TemplateViewProjectFilter):
              'name': requeriment.code},
         )
         context['num_userstories']= UserStory.objects.filter(requeriment=requeriment).aggregate(total=Count('*'))
+        context['total_artifacts'] = Artifact.objects.filter(
+            project=self.request.session.get('project_id', None),requeriment=requeriment).count()
         context['dependent_requeriments'] = Requeriment.objects.filter(depends_on=requeriment)
         context['depends_on'] = requeriment.depends_on.all()
         context['requeriment']=requeriment
