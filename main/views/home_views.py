@@ -17,5 +17,9 @@ class HomeView(TemplateViewProjectFilter):
         context['total_userstories'] = UserStory.objects.filter(
             project=self.request.session.get('project_id', None)).count()
         context['total_artifacts'] = Artifact.objects.filter(
-            project=self.request.session.get('project_id', None)).count()
+            project=self.request.session.get('project_id', None),
+            requeriment__isnull=True,
+            sprint__isnull=True,
+            userstory__isnull=True,
+        ).count()
         return context

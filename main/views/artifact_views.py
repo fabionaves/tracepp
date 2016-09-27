@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import CreateView
+from django.views.generic import DeleteView
 
 from main.components.lists import TemplateViewProjectFilter
 from main.forms import ArtifactForm
@@ -25,11 +26,12 @@ class ArtifactView(SuccessMessageMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super(ArtifactView, self).get_context_data(**kwargs)
 
-        if 'pk' in self.kwargs:
+        if 'pk' in self.kwargs: #userstory
             userstory = get_object_or_404(UserStory,pk=self.kwargs['pk'])
             context['artifacttype'] = ArtifactType.objects.filter(project_id=self.request.session['project_id'],
                                                                   level=3)
             context['artifact'] = Artifact.objects.filter(project_id=self.request.session['project_id'],
+                                                          sprint__isnull=True,
                                                           userstory=userstory)
             context['page_title'] = _('UserStory Artifacts')
             if 'sprint_id' in self.kwargs:
@@ -73,7 +75,9 @@ class ArtifactView(SuccessMessageMixin, CreateView):
             sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_id'])
             context['artifacttype'] = ArtifactType.objects.filter(project_id=self.request.session['project_id'],
                                                                   level=2)
-            context['artifact'] = Artifact.objects.filter(project_id=self.request.session['project_id'],sprint=sprint)
+            context['artifact'] = Artifact.objects.filter(project_id=self.request.session['project_id'],
+                                                          sprint=sprint,
+                                                          userstory__isnull=True)
             context['page_title'] = _('Sprint Artifacts')
             context['breadcrumbs'] = (
                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
@@ -85,7 +89,9 @@ class ArtifactView(SuccessMessageMixin, CreateView):
             requeriment = get_object_or_404(Requeriment, pk=self.kwargs['requeriment_id'])
             context['artifacttype'] = ArtifactType.objects.filter(project_id=self.request.session['project_id'],
                                                                   level=1)
-            context['artifact'] = Artifact.objects.filter(project_id=self.request.session['project_id'], requeriment=requeriment)
+            context['artifact'] = Artifact.objects.filter(project_id=self.request.session['project_id'],
+                                                          requeriment=requeriment
+                                                          )
             context['page_title'] = _('Requeriment Artifacts')
             context['breadcrumbs'] = (
                 {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
@@ -95,7 +101,11 @@ class ArtifactView(SuccessMessageMixin, CreateView):
                 {'link': '#', 'class': '', 'name': _('Artifacts')},
             )
         else:
-            context['artifact'] = Artifact.objects.filter(project_id=self.request.session['project_id'])
+            context['artifact'] = Artifact.objects.filter(project_id=self.request.session['project_id'],
+                                                          requeriment__isnull=True,
+                                                          sprint__isnull=True,
+                                                          userstory__isnull=True,
+                                                          )
             context['artifacttype'] = ArtifactType.objects.filter(project_id=self.request.session['project_id'],
                                                                   level=0)
             context['page_title'] = _('Project Artifacts')
@@ -140,4 +150,19 @@ def ArtifactDownloadView(request,pk):
     return response
 
 
+
+class ArtifactDeleteView(SuccessMessageMixin, DeleteView):
+    model = Artifact
+    template_name = 'artifact/delete.html'
+    fields = ('name', 'type', 'reference', 'requeriment','sprint','userstory','file')
+    success_url = '/artifact/'
+
+    @method_decorator(require_project())
+    def dispatch(self, request, *args, **kwargs):
+        return super(ArtifactDeleteView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(ArtifactDeleteView, self).get_context_data()
+
+        return context
 

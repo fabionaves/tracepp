@@ -16,8 +16,10 @@
 {% block content %}
     <h1 class="page-header">{{ page_title }}</h1>
     <div class="row">
-        <div class="col-md-12"  style="background-color: #efefef;margin-bottom: 10px">
-            <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">{% trans 'Documents Artifacts' %}</div>
+                <div class="panel-body">
                 <form action="#"
                       class="dropzone"
                       method="post"
@@ -25,9 +27,21 @@
                       id="artifact" enctype="multipart/form-data">
                     {% csrf_token %}
                 </form>
-            </div>
-             <div class="row" align="center" style="padding: 10px;">
-                 <button id="submit-all" class="btn btn-primary start"><i class="glyphicon glyphicon-upload"></i> Submit all files</button>
+                <div class="row" align="center" style="padding: 10px;">
+                     <button id="submit-all" class="btn btn-primary start"><i class="glyphicon glyphicon-upload"></i> Submit all files</button>
+                </div>
+                </div>
+             </div>
+        </div>
+        <div class="col-md-4">
+             <div class="panel panel-default">
+                <div class="panel-heading">{% trans 'Source Code Artifacts' %}</div>
+                <div class="panel-body">
+                        <p>{% trans 'Type:' %}<br/> Git</p>
+                        <p>{% trans 'Remote Repository:' %}<br/>Teste</p>
+                        <p>{% trans 'Local Repository:' %}<BR/>Teste</p><BR/>
+                      <button  class="btn btn-warning start"><i class="fa fa-github-square"></i> {% trans 'Trace Source Code' %}</button>
+                </div>
              </div>
         </div>
     </div>
@@ -81,6 +95,10 @@
                     file.previewElement.appendChild(file._captionBox);
 
                 });
+
+                this.on("success", function(files, response) {
+                    location.reload();
+                });
             }
 
         });
@@ -103,6 +121,7 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
+                            <th>{% trans 'Level' %}</th>
                             <th>{% trans 'Type' %}</th>
                             <th>{% trans 'File' %}</th>
                             <th>{% trans 'Action' %}</th>
@@ -111,9 +130,10 @@
                         <tbody>
                         {% for row in artifact %}
                             <tr>
+                                <td>{{ row.type.get_level_display }}</td>
                                 <td>{{ row.type.name }}</td>
                                 <td><a href="{% url 'main:artifact-download' row.id %}">{{ row.file }}</a></td>
-                                <td> -</td>
+                                <td><a href="{{ row.id }}/delete/" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i> Delete</a></td>
                             </tr>
                         {% empty %}
                             <tr>
