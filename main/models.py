@@ -19,6 +19,7 @@ class Project(models.Model, MyModel):
     )
     total_points = models.IntegerField(_('Total of Points'))
     user = models.ManyToManyField(User)
+    repository_url = models.URLField(_('Repository URL'))
 
     def __str__(self):
         return self.name
@@ -222,6 +223,6 @@ class Artifact(models.Model):
         null=True,
     )
 
-    file = models.FileField(_('File'), upload_to='upload/')
+    file = models.FileField(_('File'), upload_to=settings.UPLOAD_DIR)
 
 

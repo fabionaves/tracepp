@@ -40,7 +40,7 @@
                         <p>{% trans 'Type:' %}<br/> Git</p>
                         <p>{% trans 'Remote Repository:' %}<br/>Teste</p>
                         <p>{% trans 'Local Repository:' %}<BR/>Teste</p><BR/>
-                      <button  class="btn btn-warning start"><i class="fa fa-github-square"></i> {% trans 'Trace Source Code' %}</button>
+                      <a href="{% url 'main:artifact-tracecode' %}"  class="btn btn-warning start"><i class="fa fa-github-square"></i> {% trans 'Trace Source Code' %}</a>
                 </div>
              </div>
         </div>

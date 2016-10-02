@@ -62,7 +62,9 @@ urlpatterns = [
 
     url(r'^artifact/(?P<pk>[0-9]+)/download/',        login_required(artifact_views.ArtifactDownloadView), name='artifact-download'),
     url(r'^artifact/(?P<pk>[0-9]+)/delete/', login_required(artifact_views.ArtifactDeleteView.as_view()), name='artifact-delete'),
+    url(r'^artifact/tracecode/',        login_required(artifact_views.ArtifactTraceCodeView.as_view()), name='artifact-tracecode'),
     url(r'^artifact/',                                login_required(artifact_views.ArtifactView.as_view()), name='artifact'),
+
 
 
 ]

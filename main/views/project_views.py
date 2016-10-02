@@ -47,7 +47,7 @@ class ProjectAddFormView(AddFormView):
     success_url = '/project/list/'
     success_message = _('Project was created successfully')
     tabs = (
-        {"title" : "Project", "id" : "project","class" : "active", "fields" : ("name","requester","description","points_type","total_points")},
+        {"title" : "Project", "id" : "project","class" : "active", "fields" : ("name","requester","description","points_type","total_points","repository_url")},
         {"title" : "Users", "id" : "user", "fields" : ("user",)},
     )
     breadcrumbs = (
@@ -65,7 +65,7 @@ class ProjectUpdateFormView(UpdateFormView):
     success_message = _('Project was saved successfully')
     tabs = (
         {"title": "Project", "id": "project", "class": "active",
-         "fields": ("name", "requester", "description", "points_type", "total_points")},
+         "fields": ("name", "requester", "description", "points_type", "total_points","repository_url")},
         {"title": "Users", "id": "user", "fields": ("user",)},
     )
     breadcrumbs = (

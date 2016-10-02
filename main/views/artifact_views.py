@@ -11,6 +11,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic import CreateView
 from django.views.generic import DeleteView
 
+from main.components.git import pull
 from main.components.lists import TemplateViewProjectFilter
 from main.forms import ArtifactForm
 from main.models import  Artifact, ArtifactType, Project, Sprint, Requeriment, UserStory
@@ -150,7 +151,6 @@ def ArtifactDownloadView(request,pk):
     return response
 
 
-
 class ArtifactDeleteView(SuccessMessageMixin, DeleteView):
     model = Artifact
     template_name = 'artifact/delete.html'
@@ -163,6 +163,19 @@ class ArtifactDeleteView(SuccessMessageMixin, DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super(ArtifactDeleteView, self).get_context_data()
-
         return context
 
+
+class ArtifactTraceCodeView(TemplateViewProjectFilter):
+    template_name = 'artifact/tracecode.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ArtifactTraceCodeView, self).get_context_data(**kwargs)
+        project = get_object_or_404(
+                                                Project.objects.all(),
+                                                id=self.request.session.get('project_id', None),
+                                              )
+        pull(project)
+        
+        context['project']=project
+        return context

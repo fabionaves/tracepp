@@ -22,7 +22,7 @@ class ProjectForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        fields = ['name','requester','description','points_type','total_points','user']
+        fields = ['name','requester','description','points_type','total_points','repository_url','user']
 
 
 class RequerimentForm(forms.ModelForm):
