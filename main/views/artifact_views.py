@@ -1,5 +1,6 @@
 import os
 from django.core.files import File
+from django.db import transaction
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext as _
 
@@ -13,6 +14,7 @@ from django.views.generic import DeleteView
 
 from main.components.git import pull
 from main.components.lists import TemplateViewProjectFilter
+from main.components.sourceFinder import SourceFinder
 from main.forms import ArtifactForm
 from main.models import  Artifact, ArtifactType, Project, Sprint, Requeriment, UserStory
 from main.decorators import require_project
@@ -169,13 +171,21 @@ class ArtifactDeleteView(SuccessMessageMixin, DeleteView):
 class ArtifactTraceCodeView(TemplateViewProjectFilter):
     template_name = 'artifact/tracecode.html'
 
+
     def get_context_data(self, **kwargs):
         context = super(ArtifactTraceCodeView, self).get_context_data(**kwargs)
         project = get_object_or_404(
                                                 Project.objects.all(),
                                                 id=self.request.session.get('project_id', None),
                                               )
-        pull(project)
-        
-        context['project']=project
+        artifactsTypes= ArtifactType.objects.filter(project=project, type=1)
+        #pull(project)
+        sf = SourceFinder(project, artifactsTypes)
+
+        Artifact.objects.filter(project=project,type__type=1).delete()
+        sid = transaction.savepoint()
+        for artifact in sf.artifactList:
+            Artifact.objects.create(project=project, source=artifact['source'], line=artifact['line'], type=artifact['artifactType'])
+        #FALTA FAZER OS IFS DOS NIVEIS
+        context['project'] = project
         return context

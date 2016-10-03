@@ -196,7 +196,9 @@ class ArtifactType(models.Model, MyModel):
 
 
 class Artifact(models.Model):
-    name = models.CharField(_('Name'), max_length=100, blank=True, null=True)
+    source = models.CharField(_('Name'), max_length=100, blank=True, null=True)
+    line = models.CharField(_('Name'), max_length=100, blank=True, null=True)
+
     type = models.ForeignKey(
         ArtifactType,
         verbose_name=_('Artifact type'),

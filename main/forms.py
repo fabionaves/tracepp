@@ -91,5 +91,5 @@ class ArtifactForm(forms.ModelForm):
 
     class Meta:
         model = Artifact
-        fields = ('name','type','file')
+        fields = ('type','file')
 
