@@ -133,4 +133,4 @@ STATICFILES_DIRS = [
 
 UPLOAD_DIR = "upload"
 
-REPOSITORY_DIR = 'C:\\Users\\fabio\\PycharmProjects\\repository\\'
+REPOSITORY_DIR = 'C:\\repository\\'

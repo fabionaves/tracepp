@@ -47,7 +47,11 @@ class SourceFinder:
                             pass
                         else:
                             for artifactType in self.artifactTypes:
-                                if s[:-2] == artifactType.trace_code:
-                                    self.artifactList.append({'source': str(file), 'line': linecount, 'artifactType': artifactType})
+                                sourcecode = s[:-2]
+                                if sourcecode[0:len(artifactType.trace_code)] == artifactType.trace_code:
+                                    self.artifactList.append({'source': str(file)[len(settings.REPOSITORY_DIR):],
+                                                              'line': linecount, 'artifactType': artifactType,
+                                                              'code': sourcecode[len(artifactType.trace_code)],
+                                                              })
                                     break
                             break

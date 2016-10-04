@@ -6,7 +6,7 @@ from main.forms import ProjectForm
 from main.models import Project
 from main.components.formviews import AddFormView, UpdateFormView
 
-
+#class:US004
 class ProjectView(ModelList):
     model = Project
     list_display = ('name', )

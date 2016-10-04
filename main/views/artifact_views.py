@@ -32,7 +32,7 @@ class ArtifactView(SuccessMessageMixin, CreateView):
         if 'pk' in self.kwargs: #userstory
             userstory = get_object_or_404(UserStory,pk=self.kwargs['pk'])
             context['artifacttype'] = ArtifactType.objects.filter(project_id=self.request.session['project_id'],
-                                                                  level=3)
+                                                                  level=3, type=0)
             context['artifact'] = Artifact.objects.filter(project_id=self.request.session['project_id'],
                                                           sprint__isnull=True,
                                                           userstory=userstory)
@@ -77,7 +77,7 @@ class ArtifactView(SuccessMessageMixin, CreateView):
         elif 'sprint_id' in self.kwargs:
             sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_id'])
             context['artifacttype'] = ArtifactType.objects.filter(project_id=self.request.session['project_id'],
-                                                                  level=2)
+                                                                  level=2, type=0)
             context['artifact'] = Artifact.objects.filter(project_id=self.request.session['project_id'],
                                                           sprint=sprint,
                                                           userstory__isnull=True)
@@ -91,7 +91,7 @@ class ArtifactView(SuccessMessageMixin, CreateView):
         elif 'requeriment_id' in self.kwargs:
             requeriment = get_object_or_404(Requeriment, pk=self.kwargs['requeriment_id'])
             context['artifacttype'] = ArtifactType.objects.filter(project_id=self.request.session['project_id'],
-                                                                  level=1)
+                                                                  level=1, type=0)
             context['artifact'] = Artifact.objects.filter(project_id=self.request.session['project_id'],
                                                           requeriment=requeriment
                                                           )
@@ -110,7 +110,7 @@ class ArtifactView(SuccessMessageMixin, CreateView):
                                                           userstory__isnull=True,
                                                           )
             context['artifacttype'] = ArtifactType.objects.filter(project_id=self.request.session['project_id'],
-                                                                  level=0)
+                                                                  level=0, type=0)
             context['page_title'] = _('Project Artifacts')
         return context
 
@@ -171,21 +171,32 @@ class ArtifactDeleteView(SuccessMessageMixin, DeleteView):
 class ArtifactTraceCodeView(TemplateViewProjectFilter):
     template_name = 'artifact/tracecode.html'
 
-
     def get_context_data(self, **kwargs):
         context = super(ArtifactTraceCodeView, self).get_context_data(**kwargs)
         project = get_object_or_404(
                                                 Project.objects.all(),
                                                 id=self.request.session.get('project_id', None),
                                               )
-        artifactsTypes= ArtifactType.objects.filter(project=project, type=1)
-        #pull(project)
-        sf = SourceFinder(project, artifactsTypes)
-
         Artifact.objects.filter(project=project,type__type=1).delete()
         sid = transaction.savepoint()
+
+        artifactsTypes = ArtifactType.objects.filter(project=project, type=1,)
+        pull(project)
+        sf = SourceFinder(project, artifactsTypes)
         for artifact in sf.artifactList:
-            Artifact.objects.create(project=project, source=artifact['source'], line=artifact['line'], type=artifact['artifactType'])
-        #FALTA FAZER OS IFS DOS NIVEIS
+            if artifact['artifactType'].level == 0:
+                Artifact.objects.create(project=project, source=artifact['source'], line=artifact['line'], type=artifact['artifactType'])
+            elif artifact['artifactType'].level == 1:
+                requeriment = Requeriment.objects.filter(code=artifact['code']).get()
+                Artifact.objects.create(project=project, source=artifact['source'], line=artifact['line'],
+                                        type=artifact['artifactType'], requeriment=requeriment)
+            elif artifact['artifactType'].level == 2:
+                sprint = Sprint.objects.filter(code=artifact['code']).get()
+                Artifact.objects.create(project=project, source=artifact['source'], line=artifact['line'],
+                                        type=artifact['artifactType'], sprint=sprint)
+            elif artifact['artifactType'].level == 3:
+                userstory = UserStory.objects.filter(code=artifact['code']).get()
+                Artifact.objects.create(project=project, source=artifact['source'], line=artifact['line'],
+                                        type=artifact['artifactType'], userstory=userstory)
         context['project'] = project
         return context
