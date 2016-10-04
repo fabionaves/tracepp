@@ -49,9 +49,14 @@ class SourceFinder:
                             for artifactType in self.artifactTypes:
                                 sourcecode = s[:-2]
                                 if sourcecode[0:len(artifactType.trace_code)] == artifactType.trace_code:
-                                    self.artifactList.append({'source': str(file)[len(settings.REPOSITORY_DIR):],
-                                                              'line': linecount, 'artifactType': artifactType,
-                                                              'code': sourcecode[len(artifactType.trace_code)],
-                                                              })
+                                    try:
+                                        self.artifactList.append({'source': str(file)[len(settings.REPOSITORY_DIR):],
+                                                                  'line': linecount, 'artifactType': artifactType,
+                                                                  'code': sourcecode[len(artifactType.trace_code):],
+                                                                  })
+                                    except IndexError:
+                                        self.artifactList.append({'source': str(file)[len(settings.REPOSITORY_DIR):],
+                                                                  'line': linecount, 'artifactType': artifactType,
+                                                                  'code': '', })
                                     break
                             break

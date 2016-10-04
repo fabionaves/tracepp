@@ -11,6 +11,9 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import CreateView
 from django.views.generic import DeleteView
+from pygments import highlight
+from pygments.formatters.html import HtmlFormatter
+from pygments.lexers.python import PythonLexer
 
 from main.components.git import pull
 from main.components.lists import TemplateViewProjectFilter
@@ -18,6 +21,7 @@ from main.components.sourceFinder import SourceFinder
 from main.forms import ArtifactForm
 from main.models import  Artifact, ArtifactType, Project, Sprint, Requeriment, UserStory
 from main.decorators import require_project
+from tracepp import settings
 
 
 class ArtifactView(SuccessMessageMixin, CreateView):
@@ -49,7 +53,7 @@ class ArtifactView(SuccessMessageMixin, CreateView):
                      'name': _('User Stories')},
                     {'link': reverse_lazy('main:userstory-detail', kwargs={'pk': userstory.pk}), 'class': '',
                      'name': userstory.code},
-                    {'link': '#', 'class': '', 'name': _('Artifact')},
+                    {'link': '#', 'class': '', 'name': _('Artifacts')},
                 )
             elif 'requeriment_id' in self.kwargs:
                 requeriment = get_object_or_404(Requeriment, pk=self.kwargs['requeriment_id'])
@@ -63,7 +67,7 @@ class ArtifactView(SuccessMessageMixin, CreateView):
                      'name': _('User Stories')},
                     {'link': reverse_lazy('main:requeriment-userstory-detail', kwargs={'requeriment_id': self.kwargs['requeriment_id'],'pk': userstory.pk}), 'class': '',
                      'name': userstory.code},
-                    {'link': '#', 'class': '', 'name': _('Artifact')},
+                    {'link': '#', 'class': '', 'name': _('Artifacts')},
                 )
             else:
                 context['breadcrumbs'] = (
@@ -72,7 +76,7 @@ class ArtifactView(SuccessMessageMixin, CreateView):
                      'name': _('User Stories')},
                     {'link': reverse_lazy('main:userstory-detail', kwargs={'pk': userstory.pk}), 'class': '',
                      'name': userstory.code},
-                    {'link': '#', 'class': '', 'name': _('Artifact')},
+                    {'link': '#', 'class': '', 'name': _('Artifacts')},
                 )
         elif 'sprint_id' in self.kwargs:
             sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_id'])
@@ -86,7 +90,7 @@ class ArtifactView(SuccessMessageMixin, CreateView):
                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
                {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
                {'link': reverse_lazy('main:sprint-details',kwargs={'sprint_id':sprint.id}), 'class': '', 'name': sprint},
-               {'link': '#', 'class': '', 'name': _('Artifact')},
+               {'link': '#', 'class': '', 'name': _('Artifacts')},
             )
         elif 'requeriment_id' in self.kwargs:
             requeriment = get_object_or_404(Requeriment, pk=self.kwargs['requeriment_id'])
@@ -199,4 +203,116 @@ class ArtifactTraceCodeView(TemplateViewProjectFilter):
                 Artifact.objects.create(project=project, source=artifact['source'], line=artifact['line'],
                                         type=artifact['artifactType'], userstory=userstory)
         context['project'] = project
+        return context
+
+
+class ArtifactCodeView(TemplateViewProjectFilter):
+    template_name = 'artifact/code.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ArtifactCodeView, self).get_context_data(**kwargs)
+        artifact = get_object_or_404(
+            Artifact,
+            project=self.request.session.get('project_id', None),
+            id=self.kwargs['artifact']
+        )
+        sourcecode = ''
+        file = settings.REPOSITORY_DIR+artifact.source
+        with open(str(file), 'rb') as f:  # open in binary mode
+            linecount = 0
+            hl_line = 1
+            for line in f:
+                linecount += 1
+                for cp in ('cp1252', 'cp850'):
+                    try:
+                        if str(linecount) == artifact.line:
+                            sourcecode += line.decode(cp)
+                            hl_line = linecount
+                        else:
+                            sourcecode += line.decode(cp)
+                    except UnicodeDecodeError:
+                        pass
+                    else:
+                        break
+        context['sourcecode'] = highlight(sourcecode, PythonLexer(), HtmlFormatter(linenos='table', hl_lines=[hl_line]))
+        context['source_css'] = HtmlFormatter().get_style_defs('.highlight')
+
+        if 'pk' in self.kwargs:  # userstory
+            userstory = get_object_or_404(UserStory, pk=self.kwargs['pk'])
+            context['page_title'] = _('Userstory Artifact')
+            if 'sprint_id' in self.kwargs:
+                sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_id'])
+                context['breadcrumbs'] = (
+                    {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+                    {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
+                    {'link': reverse_lazy('main:sprint-details', kwargs={'sprint_id': self.kwargs['sprint_id']}),
+                     'class': '', 'name': sprint},
+                    {'link': reverse_lazy('main:sprint-userstory', kwargs={'sprint_id': self.kwargs['sprint_id']}),
+                     'class': '',
+                     'name': _('User Stories')},
+                    {'link': reverse_lazy('main:userstory-detail', kwargs={'pk': userstory.pk}), 'class': '',
+                     'name': userstory.code},
+                    {'link': reverse_lazy('main:artifact', kwargs={'pk': userstory.pk, 'sprint_id': self.kwargs['sprint_id']}),
+                        'class': '', 'name': _('Artifacts')},
+                    {'link': '#','class': '', 'name': _('Artifact')},
+                )
+            elif 'requeriment_id' in self.kwargs:
+                requeriment = get_object_or_404(Requeriment, pk=self.kwargs['requeriment_id'])
+                context['breadcrumbs'] = (
+                    {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+                    {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriments')},
+                    {'link': reverse_lazy('main:requeriment-details', kwargs={'pk': self.kwargs['requeriment_id']}),
+                     'class': '', 'name': requeriment},
+                    {'link': reverse_lazy('main:requeriment-userstory',
+                                          kwargs={'requeriment_id': self.kwargs['requeriment_id']}), 'class': '',
+                     'name': _('User Stories')},
+                    {'link': reverse_lazy('main:requeriment-userstory-detail',
+                                          kwargs={'requeriment_id': self.kwargs['requeriment_id'], 'pk': userstory.pk}),
+                     'class': '',
+                     'name': userstory.code},
+                    {'link': reverse_lazy('main:artifact',
+                                          kwargs={'pk': userstory.pk, 'requeriment_id': self.kwargs['requeriment_id']}),
+                     'class': '', 'name': _('Artifacts')},
+                    {'link': '#', 'class': '', 'name': _('Artifact')},
+                )
+            else:
+                context['breadcrumbs'] = (
+                    {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+                    {'link': reverse_lazy('main:userstory'), 'class': '',
+                     'name': _('User Stories')},
+                    {'link': reverse_lazy('main:userstory-detail', kwargs={'pk': userstory.pk}), 'class': '',
+                     'name': userstory.code},
+                    {'link': reverse_lazy('main:artifact',
+                                          kwargs={'pk': userstory.pk}),
+                     'class': '', 'name': _('Artifacts')},
+                    {'link': '#', 'class': '', 'name': _('Artifact')},
+                )
+        elif 'sprint_id' in self.kwargs:
+            sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_id'])
+            context['page_title'] = _('Sprint Artifacts')
+            context['breadcrumbs'] = (
+                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+                {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
+                {'link': reverse_lazy('main:sprint-details', kwargs={'sprint_id': sprint.id}), 'class': '',
+                 'name': sprint},
+                {'link': '#', 'class': '', 'name': _('Artifact')},
+            )
+        elif 'requeriment_id' in self.kwargs:
+            requeriment = get_object_or_404(Requeriment, pk=self.kwargs['requeriment_id'])
+            context['page_title'] = _('Requeriment Artifacts')
+            context['breadcrumbs'] = (
+                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+                {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriment')},
+                {'link': reverse_lazy('main:requeriment-details', kwargs={'pk': requeriment.id}), 'class': '',
+                 'name': requeriment.code},
+                {'link': '#', 'class': '', 'name': _('Artifacts')},
+            )
+        else:
+            context['breadcrumbs'] = (
+                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+                {'link': reverse_lazy('main:artifact'), 'class': '', 'name': _('Project Artifacts')},
+                {'link': '#', 'class': '', 'name': _('Artifact')},
+            )
+            context['page_title'] = _('Project Artifact')
+
         return context

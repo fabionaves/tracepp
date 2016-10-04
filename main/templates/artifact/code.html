@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load myutils %}
+{%  block head %}
+<style>
+    {{ source_css }}
+</style>
+{% endblock %}
+{% block content %}
+     <div align="center" >
+        {% autoescape off %}
+            {{ sourcecode }}
+        {% endautoescape %}
+    </div>
+{% endblock %}

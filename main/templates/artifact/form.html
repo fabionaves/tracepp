@@ -136,7 +136,7 @@
                                     {% if row.type.type == 0 %}
                                         <a href="{% url 'main:artifact-download' row.id %}">{{ row.file }}</a>
                                     {% else %}
-                                        {{ row.source }}
+                                        <a href="{{ row.id }}/codeview/">{{ row.source }}</a>
                                     {% endif %}
                                 </td>
                                 <td><a href="{{ row.id }}/delete/" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i> Delete</a></td>
