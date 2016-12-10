@@ -1,12 +1,8 @@
-import os
-from django.core.files import File
-from django.db import transaction
-from django.urls import reverse_lazy
-from django.utils.translation import ugettext as _
-
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import CreateView
@@ -15,12 +11,12 @@ from pygments import highlight
 from pygments.formatters.html import HtmlFormatter
 from pygments.lexers.python import PythonLexer
 
-from main.components.git import pull
 from main.components.lists import TemplateViewProjectFilter
+from main.components.repository.factory import RepositoryFactory
 from main.components.sourceFinder import SourceFinder
+from main.decorators import require_project
 from main.forms import ArtifactForm
 from main.models import  Artifact, ArtifactType, Project, Sprint, Requeriment, UserStory
-from main.decorators import require_project
 from tracepp import settings
 
 
@@ -32,7 +28,9 @@ class ArtifactView(SuccessMessageMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(ArtifactView, self).get_context_data(**kwargs)
-
+        project = get_object_or_404(Project, pk=self.request.session['project_id'])
+        context['project']=project
+        context['local_repository']=settings.REPOSITORY_DIR
         if 'pk' in self.kwargs: #userstory
             userstory = get_object_or_404(UserStory,pk=self.kwargs['pk'])
             context['artifacttype'] = ArtifactType.objects.filter(project_id=self.request.session['project_id'],
@@ -185,7 +183,8 @@ class ArtifactTraceCodeView(TemplateViewProjectFilter):
         sid = transaction.savepoint()
 
         artifactsTypes = ArtifactType.objects.filter(project=project, type=1,)
-        pull(project)
+        repo = RepositoryFactory(project)
+        repo.repository.pull()
         sf = SourceFinder(project, artifactsTypes)
         for artifact in sf.artifactList:
             if artifact['artifactType'].level == 0:

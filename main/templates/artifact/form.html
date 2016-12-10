@@ -16,7 +16,7 @@
 {% block content %}
     <h1 class="page-header">{{ page_title }}</h1>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">{% trans 'Documents Artifacts' %}</div>
                 <div class="panel-body">
@@ -35,11 +35,22 @@
         </div>
         <div class="col-md-4">
              <div class="panel panel-default">
+                <div class="panel-heading">{% trans 'Bug Tracking Tool Artifacts' %}</div>
+                <div class="panel-body">
+                        <p>{% trans 'Type:' %}<br/> {{ project.get_tracking_tool_type_display }}</p>
+                        <p>{% trans 'URL:' %}<br/><a href="{{ project.tracking_tool_url }}">{{ project.tracking_tool_url }}</a></p>
+                        <p>{% trans 'Project ID:' %}<br/>{{ project.tracking_tool_project_id }}</p><BR/>
+                      <a href="{% url 'main:artifact-tracecode' %}"  class="btn btn-warning start"><i class="fa fa-github-square"></i> {% trans 'Trace Bug Tracking' %}</a>
+                </div>
+             </div>
+        </div>
+        <div class="col-md-4">
+             <div class="panel panel-default">
                 <div class="panel-heading">{% trans 'Source Code Artifacts' %}</div>
                 <div class="panel-body">
                         <p>{% trans 'Type:' %}<br/> Git</p>
-                        <p>{% trans 'Remote Repository:' %}<br/>Teste</p>
-                        <p>{% trans 'Local Repository:' %}<BR/>Teste</p><BR/>
+                        <p>{% trans 'Remote Repository:' %}<br/>{{ project.repository_url }}</p>
+                        <p>{% trans 'Local Repository:' %}<BR/>{{ local_repository }}</p><BR/>
                       <a href="{% url 'main:artifact-tracecode' %}"  class="btn btn-warning start"><i class="fa fa-github-square"></i> {% trans 'Trace Source Code' %}</a>
                 </div>
              </div>

@@ -9,6 +9,11 @@
 {% endblock %}
 
 {% block content %}
+      {% for requeriment in requeriments %}
+        <div id="d{{ requeriment.id }}" style="display: none;background-color: red" align="center">
+            <a href="{% url 'main:requeriment-graph' requeriment.id %}" style="color: white">{{ requeriment.code }} - {{ requeriment.title }}</a>
+        </div>
+    {% endfor %}
     <canvas id="viewport" width="1000" height="600"></canvas>
     <script language="javascript" type="text/javascript">
            $(document).ready(function() {
@@ -18,13 +23,6 @@
                {% for requeriment in requeriments %}
                     var r{{ requeriment.id }} = sys.addNode('{{ requeriment.code }}',{'id':'{{ requeriment.id }}','color':'red','shape':'dot','label':'{{ requeriment.code }}'});
                 {% endfor %}
-
-                 {% for requeriment in requeriments %}
-                      {% for userstory in requeriment.userstory_set.all %}
-                           var u{{ userstory.id }} = sys.addNode('{{ userstory.code }}',{'id':'{{ userstory.id }}','color':'green','shape':'dot','label':'{{ userstory.code }}'});
-                           sys.addEdge(r{{ requeriment.id }}, u{{ userstory.id }}, { directed: true, weight:3 });
-                      {% endfor %}
-                 {% endfor %}
 
                 {% for requeriment in requeriments %}
                     {% for depend in requeriment.depends_on.all %}
@@ -55,9 +53,5 @@
            });
     </script>
 
-    {% for requeriment in requeriments %}
-        <div id="d{{ requeriment.id }}" style="display: none;background-color: red" align="center">
-            <a href="{% url 'main:requeriment-details' requeriment.id %}" style="color: white">{{ requeriment.code }} - {{ requeriment.title }}</a>
-        </div>
-    {% endfor %}
+
 {% endblock %}

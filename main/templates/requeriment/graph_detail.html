@@ -9,16 +9,97 @@
 {% endblock %}
 
 {% block content %}
+    <!-- Selected Requeriment -->
+    <div class="r{{ requeriment.id }}"
+         style="background-color: black"
+         align="center">
+        <a href="{% url 'main:requeriment-details' requeriment.id %}" style="color: white">{{ requeriment.code }}
+            - {{ requeriment.title }}</a>
+    </div>
+    {% for userstory in requeriment.userstory_set.all %}
+        <div class="u{{ userstory.id }}" style="display: none;background-color: green" align="center">
+            <a href="{% url 'main:userstory-graph' userstory.id %}" style="color: white">{{ userstory.code }}
+                - {{ userstory.title }}</a>
+        </div>
+    {% endfor %}
+    {% for artifact in requeriment.artifact_set.all %}
+        <div class="artifact{{ artifact.pk }}" style="display: none;background-color: blue" align="center">
+            <a href="{% if artifact.type.type == 0 %}{% url 'main:artifact-download' artifact.id %}{% else %}{% url 'main:artifact-codeview' artifact.id %}{% endif %}" style="color:white">
+                {{ artifact.type.trace_code }}
+                - {{ artifact.type.name }}</a>
+        </div>
+    {% endfor %}
+
+
+    <!-- Dependent Requeriments -->
+    {% for dependent in dependent_requeriments %}
+        <div class="r{{ dependent.id }}"
+             style="z-index: 101;position: relative; height: 20px;overflow:auto;background-color: red" align="center">
+            <a href="{% url 'main:requeriment-graph' dependent.id %}" style="color: white">{{ dependent.code }}
+                - {{ dependent.title }}</a>
+        </div>
+        {% for userstory in dependent.userstory_set.all %}
+            <div class="u{{ userstory.id }}" style="background-color: green" align="center">
+                <a href="{% url 'main:requeriment-details' dependent.id %}" style="color: white">{{ userstory.code }}
+                    - {{ userstory.title }}</a>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+
+    <!-- Depends On requeriment -->
+   {% for dependon in depends_on %}
+        <div class="r{{ dependon.id }}" align="center" style="background-color: red">
+            <a href="{% url 'main:requeriment-graph' dependon.id %}" style="color: white">{{ dependon.code }}
+                - {{ dependon.title }}</a>
+        </div>
+         {% for userstory in dependon.userstory_set.all %}
+                <div class="u{{ userstory.id }}" style="background-color: green" align="center">
+                    <a href="{% url 'main:requeriment-details' dependon.id %}" style="color: white">{{ userstory.code }}
+                        - {{ userstory.title }}</a>
+                 </div>
+         {% endfor %}
+    {% endfor %}
     <canvas id="viewport" width="1000" height="600"></canvas>
     <script language="javascript" type="text/javascript">
         $(document).ready(function () {
+            {% for userstory in requeriment.userstory_set.all %}
+                $('.u{{ userstory.id }}').hide()
+            {% endfor %}
+            {% for artifact in requeriment.artifact_set.all %}
+                 $('.artifact{{ artifact.pk }}').hide()
+            {% endfor %}
+
+            /* Dependents Requeriments from requeriment */
+            {% for dependent in dependent_requeriments %}
+                $('.r{{ dependent.id }}').hide()
+                {% for userstory in dependent.userstory_set.all %}
+                    $('.u{{ userstory.id }}').hide()
+                {% endfor %}
+            {% endfor %}
+            {% for userstory in dependent.userstory_set.all %}
+                <div class="u{{ userstory.id }}" style="display: none;background-color: green" align="center">
+                    <a href="{% url 'main:requeriment-details' dependent.id %}" style="color: white">{{ userstory.code }}
+                    - {{ userstory.title }}</a>
+                    </div>
+            {% endfor %}
+
+            /* Dependents on Requeriments from requeriment */
+            {% for dependon in depends_on %}
+                $('.r{{ dependon.id }}').hide()
+                 {% for userstory in dependon.userstory_set.all %}
+                    $('.u{{ userstory.id }}').hide()
+                {% endfor %}
+            {% endfor %}
+
+
             var sys = arbor.ParticleSystem(1000, 600, 0.5);
             sys.parameters({gravity: true});
             sys.renderer = Renderer("#viewport");
             /* Requeriment */
             var r{{ requeriment.id }} = sys.addNode('{{ requeriment.code }}', {
-                'id': '{{ requeriment.id }}',
-                'color': 'red',
+                'id': 'r{{ requeriment.id }}',
+                'color': 'black',
                 'shape': 'dot',
                 'label': '{{ requeriment.code }}'
             });
@@ -34,15 +115,26 @@
                 sys.addEdge(r{{ requeriment.id }}, u{{ userstory.id }}, {directed: false, weight: 3});
             {% endfor %}
 
+            /* Artifact from Requeriment */
+            {% for artifact in requeriment.artifact_set.all %}
+                var artifact{{ artifact.pk }} = sys.addNode('{{ artifact.pk }}', {
+                    'id': 'artifact{{ artifact.pk }}',
+                    'color': 'blue',
+                    'shape': 'square',
+                    'label': '{{ artifact.type.trace_code }}'
+                });
+                sys.addEdge(r{{ requeriment.id }}, artifact{{ artifact.pk }}, {directed: false, weight: 3});
+            {% endfor %}
+
             /* Dependents Requeriments from requeriment */
             {% for dependent in dependent_requeriments %}
                 var r{{ dependent.id }} = sys.addNode('{{ dependent.code }}', {
-                    'id': '{{ dependent.id }}',
+                    'id': 'r{{ dependent.id }}',
                     'color': 'red',
                     'shape': 'dot',
                     'label': '{{ dependent.code }}'
                 });
-                sys.addEdge(r{{ dependent.id }}, r{{ requeriment.id }},  {directed: true, weight: 3});
+                sys.addEdge(r{{ dependent.id }}, r{{ requeriment.id }}, {directed: true, weight: 3});
                 {% for userstory in dependent.userstory_set.all %}
                     var u{{ userstory.id }} = sys.addNode('{{ userstory.code }}', {
                         'id': 'u{{ userstory.id }}',
@@ -57,12 +149,12 @@
             /* Dependents on Requeriments from requeriment */
             {% for dependon in depends_on %}
                 var r{{ dependon.id }} = sys.addNode('{{ dependon.code }}', {
-                    'id': '{{ dependon.id }}',
+                    'id': 'r{{ dependon.id }}',
                     'color': 'red',
                     'shape': 'dot',
                     'label': '{{ dependon.code }}'
                 });
-                sys.addEdge(r{{ requeriment.id }},r{{ dependon.id }}, {directed: true, weight: 3});
+                sys.addEdge(r{{ requeriment.id }}, r{{ dependon.id }}, {directed: true, weight: 3});
                 {% for userstory in dependon.userstory_set.all %}
                     var u{{ userstory.id }} = sys.addNode('{{ userstory.code }}', {
                         'id': 'u{{ userstory.id }}',
@@ -81,20 +173,32 @@
                 var p = {x: e.pageX - pos.left, y: e.pageY - pos.top}
                 selected = nearest = dragged = sys.nearest(p);
 
-                $('.d{{ requeriment.id }}').hide()
+                $('.r{{ requeriment.id }}').hide()
+                {% for userstory in requeriment.userstory_set.all %}
+                    $('.u{{ userstory.id }}').hide()
+                {% endfor %}
+                {% for artifact in requeriment.artifact_set.all %}
+                     $('.artifact{{ artifact.pk }}').hide()
+                {% endfor %}
 
                 /* Dependents Requeriments from requeriment */
                 {% for dependent in dependent_requeriments %}
-                    $('.d{{ dependent.id }}').hide()
+                    $('.r{{ dependent.id }}').hide()
+                    {% for userstory in dependent.userstory_set.all %}
+                        $('.u{{ userstory.id }}').hide()
+                    {% endfor %}
                 {% endfor %}
 
-                 /* Dependents on Requeriments from requeriment */
+                /* Dependents on Requeriments from requeriment */
                 {% for dependon in depends_on %}
-                    $('.d{{ dependon.id }}').hide()
+                    $('.r{{ dependon.id }}').hide()
+                    {% for userstory in dependon.userstory_set.all %}
+                        $('.u{{ userstory.id }}').hide()
+                    {% endfor %}
                 {% endfor %}
 
                 if (selected.node !== null) {
-                    $('.d' + selected.node.data.id).show('fast')
+                    $('.' + selected.node.data.id).show('fast')
                     //alert(selected.node._id)
                     //alert(selected.node.data.link)
                 }
@@ -104,42 +208,7 @@
 
         });
     </script>
-    <div class="d{{ requeriment.id }}" style="display: none;background-color: red" align="center">
-        <a href="{% url 'main:requeriment-details' requeriment.id %}" style="color: white">{{ requeriment.code }}
-            - {{ requeriment.title }}</a>
-    </div>
-    {% for userstory in requeriment.userstory_set.all %}
-        <div class="d{{ requeriment.id }}" style="display: none;background-color: green" align="center">
-            <a href="{% url 'main:requeriment-details' requeriment.id %}" style="color: white">{{ userstory.code }}
-                - {{ userstory.title }}</a>
-        </div>
-    {% endfor %}
 
-    {% for dependent in dependent_requeriments %}
-        <div class="d{{ dependent.id }}" style="display: none;background-color: red" align="center">
-            <a href="{% url 'main:requeriment-details' dependent.id %}" style="color: white">{{ dependent.code }}
-            - {{ dependent.title }}</a>
-        </div>
-        {% for userstory in dependent.userstory_set.all %}
-           <div class="d{{ dependent.id }}" style="display: none;background-color: green" align="center">
-            <a href="{% url 'main:requeriment-details' dependent.id %}" style="color: white">{{ userstory.code }}
-                - {{ userstory.title }}</a>
-            </div>
-        {% endfor %}
-    {% endfor %}
-
-      {% for dependon in depends_on %}
-                <div class="d{{ dependon.id }}" style="display: none;background-color: red" align="center">
-                    <a href="{% url 'main:requeriment-details' dependon.id %}" style="color: white">{{ dependon.code }}
-                        - {{ dependon.title }}</a>
-                </div>
-                {% for userstory in dependon.userstory_set.all %}
-                    <div class="d{{ dependon.id }}" style="display: none;background-color: green" align="center">
-                    <a href="{% url 'main:requeriment-details' dependon.id %}" style="color: white">{{ userstory.code }}
-                        - {{ userstory.title }}</a>
-                    </div>
-                {% endfor %}
-            {% endfor %}
 
 
 {% endblock %}

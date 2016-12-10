@@ -47,7 +47,9 @@ class ProjectAddFormView(AddFormView):
     success_url = '/project/list/'
     success_message = _('Project was created successfully')
     tabs = (
-        {"title" : "Project", "id" : "project","class" : "active", "fields" : ("name","requester","description","points_type","total_points","repository_url")},
+        {"title" : "Project", "id" : "project","class" : "active", "fields" : ("name","requester","description","points_type","total_points")},
+        {"title" : "Repository", "id" : "repository", "fields" : ("repository_type","repository_url")},
+        {"title": "Bug Tracking Tool", "id": "tracking","fields": ('tracking_tool_type', 'tracking_tool_url', 'tracking_tool_user', 'tracking_tool_password','tracking_tool_project_id')},
         {"title" : "Users", "id" : "user", "fields" : ("user",)},
     )
     breadcrumbs = (
@@ -65,7 +67,10 @@ class ProjectUpdateFormView(UpdateFormView):
     success_message = _('Project was saved successfully')
     tabs = (
         {"title": "Project", "id": "project", "class": "active",
-         "fields": ("name", "requester", "description", "points_type", "total_points","repository_url")},
+         "fields": ("name", "requester", "description", "points_type", "total_points")},
+        {"title": "Repository", "id": "repository", "fields": ("repository_type", "repository_url")},
+        {"title": "Bug Tracking Tool", "id": "tracking",
+         "fields": ('tracking_tool_type', 'tracking_tool_url', 'tracking_tool_user', 'tracking_tool_password','tracking_tool_project_id')},
         {"title": "Users", "id": "user", "fields": ("user",)},
     )
     breadcrumbs = (

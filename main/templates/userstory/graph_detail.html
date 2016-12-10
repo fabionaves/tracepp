@@ -10,23 +10,24 @@
 
 {% block content %}
     <!-- Selected UserStory -->
-     <div class="u{{ userstory.id }}" style="display: none;background-color: green" align="center">
+     <div class="u{{ userstory.id }}" style="background-color: black" align="center">
             <a href="{% url 'main:userstory-graph' userstory.id %}" style="color: white">{{ userstory.code }}
                 - {{ userstory.title }}</a>
      </div>
-    {% for requeriment in userstory.requeriment_set.all %}
-        <div class="u{{ requeriment.id }}"
-             style="background-color: black"
+    {% for requeriment in userstory.requeriment.all %}
+        <div class="r{{ requeriment.id }}"
+             style="background-color: red"
              align="center">
-            <a href="{% url 'main:requeriment-details' requeriment.id %}" style="color: white">{{ requeriment.code }}
+            <a href="{% url 'main:requeriment-graph' requeriment.id %}" style="color: white">{{ requeriment.code }}
                 - {{ requeriment.title }}</a>
         </div>
     {% endfor %}
 
     {% for artifact in userstory.artifact_set.all %}
         <div class="artifact{{ artifact.pk }}" style="display: none;background-color: blue" align="center">
-            <a href="#" style="color: white">{{ artifact.type.trace_code }}
-                - {{ artifact.type.name }}</a>
+            <a href="{% if artifact.type.type == 0 %}{% url 'main:artifact-download' artifact.id %}{% else %}{% url 'main:artifact-codeview' artifact.id %}{% endif %}" style="color:white">
+                {{ artifact.type.trace_code }}- {{ artifact.type.name }}
+            </a>
         </div>
     {% endfor %}
 
@@ -35,17 +36,12 @@
     <canvas id="viewport" width="1000" height="600"></canvas>
     <script language="javascript" type="text/javascript">
         $(document).ready(function () {
-            {% for requeriment in userstory.requeriment_set.all %}
+            {% for requeriment in userstory.requeriment.all %}
                 $('.r{{ requeriment.id }}').hide()
             {% endfor %}
             {% for artifact in userstory.artifact_set.all %}
                  $('.artifact{{ artifact.pk }}').hide()
             {% endfor %}
-
-
-
-
-
 
             var sys = arbor.ParticleSystem(1000, 600, 0.5);
             sys.parameters({gravity: true});
@@ -59,7 +55,7 @@
                 });
 
             /* Requeriments from user story */
-             {% for requeriment in userstory.requeriment_set.all %}
+             {% for requeriment in userstory.requeriment.all %}
                 var r{{ requeriment.id }} = sys.addNode('{{ requeriment.code }}', {
                     'id': 'r{{ requeriment.id }}',
                     'color': 'red',
@@ -77,7 +73,7 @@
                     'shape': 'square',
                     'label': '{{ artifact.type.trace_code }}'
                 });
-                sys.addEdge(r{{ userstory.id }}, artifact{{ artifact.pk }}, {directed: false, weight: 3});
+                sys.addEdge(u{{ userstory.id }}, artifact{{ artifact.pk }}, {directed: false, weight: 3});
             {% endfor %}
 
 
@@ -87,8 +83,8 @@
                 selected = nearest = dragged = sys.nearest(p);
 
                 $('.u{{ userstory.id }}').hide()
-                {% for requeriment in userstory.requeriment_set.all %}
-                    $('.u{{ requeriment.id }}').hide()
+                {% for requeriment in userstory.requeriment.all %}
+                    $('.r{{ requeriment.id }}').hide()
                 {% endfor %}
                 {% for artifact in userstory.artifact_set.all %}
                      $('.artifact{{ artifact.pk }}').hide()

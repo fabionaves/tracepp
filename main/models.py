@@ -5,6 +5,7 @@ from simple_history.models import HistoricalRecords
 from main.components.models import MyModel
 from django.conf import settings
 
+
 class Project(models.Model, MyModel):
     name = models.CharField(_('Name'), max_length=100, blank=False, null=False)
     requester = models.CharField(_('Requester'), max_length=100)
@@ -19,7 +20,19 @@ class Project(models.Model, MyModel):
     )
     total_points = models.IntegerField(_('Total of Points'))
     user = models.ManyToManyField(User)
+    REPOSITORY_TYPE = (
+        ('Git','Git'),
+    )
+    repository_type = models.CharField(_('Repository Type'), choices=REPOSITORY_TYPE, blank=True, null=True, max_length=30)
     repository_url = models.URLField(_('Repository URL'))
+    TRACKING_TOOL_TYPE = (
+        ('Redmine','Redmine'),
+    )
+    tracking_tool_type = models.CharField(_('Bug Tracking Tool Type'), choices=TRACKING_TOOL_TYPE, blank=True, null=True, max_length=30)
+    tracking_tool_url = models.URLField(_('Bug Tracking Tool URL'), blank=True, null=True)
+    tracking_tool_user = models.CharField(_('Bug Tracking Tool User'),  blank=True, null=True, max_length=30)
+    tracking_tool_password = models.CharField(_('Bug Tracking Tool Password'), blank=True, null=True, max_length=30)
+    tracking_tool_project_id = models.CharField(_('Bug Tracking Tool Project Id'), blank=True, null=True, max_length=30)
 
     def __str__(self):
         return self.name
@@ -187,6 +200,7 @@ class ArtifactType(models.Model, MyModel):
     ARTIFACT_TYPE = (
         (0, _('File')),
         (1, _('Source')),
+        (2, _('Activity')),
     )
     type = models.IntegerField(_('Type'), choices=ARTIFACT_TYPE)
     trace_code = models.CharField(_('Trace Code'), max_length=100, blank=False, null=False)
@@ -224,6 +238,8 @@ class Artifact(models.Model):
         blank=True,
         null=True,
     )
+    estimated_time = models.IntegerField(_('Estimated Time'), null=True, blank=True)
+    spent_time = models.IntegerField(_('Spent Time'), null=True, blank=True)
 
     file = models.FileField(_('File'), upload_to=settings.UPLOAD_DIR)
 

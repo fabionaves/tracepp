@@ -200,4 +200,5 @@ class RequerimentGraphDetailView(TemplateViewProjectFilter):
         context['dependent_requeriments'] = Requeriment.objects.filter(depends_on=requeriment)
         context['depends_on'] = requeriment.depends_on.all()
         context['requeriment'] = requeriment
+
         return context

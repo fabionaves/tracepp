@@ -297,3 +297,51 @@ class UserStoryDeleteView(SuccessMessageMixin, DeleteView):
             )
         return context
 
+
+class UserStoryGraphDetailView(TemplateViewProjectFilter):
+    template_name = 'userstory/graph_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(UserStoryGraphDetailView, self).get_context_data(**kwargs)
+        userstory = get_object_or_404(UserStory,  project=self.request.session.get('project_id', None), pk=self.kwargs['pk'])
+
+
+        if 'sprint_id' in self.kwargs:
+            sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_id'])
+            context['breadcrumbs'] = (
+                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+                {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
+                {'link': reverse_lazy('main:sprint-details', kwargs={'sprint_id': self.kwargs['sprint_id']}),
+                 'class': '', 'name': sprint},
+                {'link': reverse_lazy('main:sprint-userstory', kwargs={'sprint_id': self.kwargs['sprint_id']}),
+                 'class': '',
+                 'name': _('User Stories')},
+                {'link': reverse_lazy('main:userstory-detail', kwargs={'pk': userstory.pk}), 'class': '',
+                 'name': userstory.code},
+            )
+        elif 'requeriment_id' in self.kwargs:
+            requeriment = get_object_or_404(Requeriment, pk=self.kwargs['requeriment_id'])
+            context['breadcrumbs'] = (
+                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+                {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriments')},
+                {'link': reverse_lazy('main:requeriment-details', kwargs={'pk': self.kwargs['requeriment_id']}),
+                 'class': '', 'name': requeriment},
+                {'link': reverse_lazy('main:requeriment-userstory',
+                                      kwargs={'requeriment_id': self.kwargs['requeriment_id']}), 'class': '',
+                 'name': _('User Stories')},
+                {'link': reverse_lazy('main:userstory-detail', kwargs={'pk': userstory.pk}), 'class': '',
+                 'name': userstory.code},
+            )
+        else:
+            context['breadcrumbs'] = (
+                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+                {'link': reverse_lazy('main:userstory'), 'class': '',
+                 'name': _('User Stories')},
+                {'link': reverse_lazy('main:userstory-detail', kwargs={'pk': userstory.pk}), 'class': '',
+                 'name': userstory.code},
+            )
+
+        context['userstory'] = userstory
+
+
+        return context
