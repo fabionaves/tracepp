@@ -40,7 +40,7 @@
                         <p>{% trans 'Type:' %}<br/> {{ project.get_tracking_tool_type_display }}</p>
                         <p>{% trans 'URL:' %}<br/><a href="{{ project.tracking_tool_url }}">{{ project.tracking_tool_url }}</a></p>
                         <p>{% trans 'Project ID:' %}<br/>{{ project.tracking_tool_project_id }}</p><BR/>
-                      <a href="{% url 'main:artifact-tracecode' %}"  class="btn btn-warning start"><i class="fa fa-github-square"></i> {% trans 'Trace Bug Tracking' %}</a>
+                      <a href="{% url 'main:artifact-bugtracking' %}"  class="btn btn-warning start"><i class="fa fa-github-square"></i> {% trans 'Trace Bug Tracking' %}</a>
                 </div>
              </div>
         </div>
@@ -144,8 +144,13 @@
                                 <td>{{ row.type.get_level_display }}</td>
                                 <td>{{ row.type.name }}</td>
                                 <td>
+                                    {{ row.type.get_type_display }}:
                                     {% if row.type.type == 0 %}
                                         <a href="{% url 'main:artifact-download' row.id %}">{{ row.file }}</a>
+                                    {% elif  row.type.type == 2 %}
+                                        {%  trans 'Estimated Time' %}: {{ row.estimated_time }} -
+                                        {%  trans 'Spent Time' %}: {{ row.spent_time }} -
+                                        <a  <a href="{% url 'main:artifact-download' row.id %}">View Activity</a>
                                     {% else %}
                                         <a href="{{ row.id }}/codeview/">{{ row.source }}</a>
                                     {% endif %}

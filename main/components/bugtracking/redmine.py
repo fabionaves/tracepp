@@ -4,18 +4,9 @@ from redmine import Redmine
 
 class Connection(ConnectionInterface, Redmine):
 
-    def connect(self, url, username, password):
-        self.connection = Redmine(url, username, password)
+    def __init__(self, url, username, password, identifier):
+        self.connection = Redmine(url, username=username, password=password)
+        self.project_id = identifier
 
-    def get(self, identifier):
-        self.project = self.connection.project.get(identifier)
-
-
-class Project(ProjectInterface):
-
-    def __init__(self, connection, identifier):
-        self.connection = connection
-        return self.connection.project.get(identifier)
-
-    def getActivities(self):
-        return self.issues
+    def getIssues(self):
+        return self.connection.issue.filter(project_id=self.project_id, status_id='*')

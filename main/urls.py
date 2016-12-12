@@ -77,6 +77,7 @@ urlpatterns = [
         name='artifact-codeview'),
     url(r'^artifact/(?P<pk>[0-9]+)/delete/', login_required(artifact_views.ArtifactDeleteView.as_view()), name='artifact-delete'),
     url(r'^artifact/tracecode/',        login_required(artifact_views.ArtifactTraceCodeView.as_view()), name='artifact-tracecode'),
+    url(r'^artifact/tracebugtracking/',        login_required(artifact_views.ArtifactTraceBugTrackingView.as_view()), name='artifact-bugtracking'),
     url(r'^artifact/',                                login_required(artifact_views.ArtifactView.as_view()), name='artifact'),
 
 

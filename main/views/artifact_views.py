@@ -11,9 +11,11 @@ from pygments import highlight
 from pygments.formatters.html import HtmlFormatter
 from pygments.lexers.python import PythonLexer
 
+from main.components.bugtracking.activityFinder import activityFinder
+from main.components.bugtracking.factory import BugTrackingFactory
 from main.components.lists import TemplateViewProjectFilter
 from main.components.repository.factory import RepositoryFactory
-from main.components.sourceFinder import SourceFinder
+from main.components.repository.sourceFinder import SourceFinder
 from main.decorators import require_project
 from main.forms import ArtifactForm
 from main.models import  Artifact, ArtifactType, Project, Sprint, Requeriment, UserStory
@@ -168,6 +170,36 @@ class ArtifactDeleteView(SuccessMessageMixin, DeleteView):
     def get_context_data(self, **kwargs):
         context = super(ArtifactDeleteView, self).get_context_data()
         return context
+
+
+class ArtifactTraceBugTrackingView(TemplateViewProjectFilter):
+    template_name = 'artifact/tracebugtracking.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ArtifactTraceBugTrackingView, self).get_context_data(**kwargs)
+        project = get_object_or_404(
+            Project.objects.all(),
+            id=self.request.session.get('project_id', None),
+        )
+        bugtracking = BugTrackingFactory.getConnection(project=project)
+        artifactsTypes = ArtifactType.objects.filter(project=project, type=2, )
+        acfinder = activityFinder(bugtracking.getIssues(), artifactsTypes)
+        for artifact in acfinder.artifactList:
+            filterArtifact = Artifact.objects.get(project=project, reference=artifact['reference'])
+            if not filterArtifact:
+                Artifact.objects.create(project=project,
+                                        reference=artifact['reference'],
+                                        estimated_time=artifact['estimated_time'],
+                                        spent_time=artifact['spent_time'],
+                                        type=artifact['artifactType'])
+            else:
+                filterArtifact.estimated_time = artifact['estimated_time']
+                filterArtifact.spent_time = artifact['spent_time']
+                filterArtifact.type = artifact['artifactType']
+                filterArtifact.save()
+        context['project'] = project
+        return context
+
 
 
 class ArtifactTraceCodeView(TemplateViewProjectFilter):
