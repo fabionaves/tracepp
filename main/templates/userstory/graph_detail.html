@@ -25,7 +25,7 @@
 
     {% for artifact in userstory.artifact_set.all %}
         <div class="artifact{{ artifact.pk }}" style="display: none;background-color: blue" align="center">
-            <a href="{% if artifact.type.type == 0 %}{% url 'main:artifact-download' artifact.id %}{% else %}{% url 'main:artifact-codeview' artifact.id %}{% endif %}" style="color:white">
+            <a href="{% if artifact.type.type == 0 %}{% url 'main:artifact-download' artifact.id %}{% elif artifact.type.type == 2 %}{% url 'main:artifact-activity'  artifact.id %}{% else %}{% url 'main:artifact-codeview' artifact.id %}{% endif %}" style="color:white">
                 {{ artifact.type.trace_code }}- {{ artifact.type.name }}
             </a>
         </div>
@@ -71,7 +71,7 @@
                     'id': 'artifact{{ artifact.pk }}',
                     'color': 'blue',
                     'shape': 'square',
-                    'label': '{{ artifact.type.trace_code }}'
+                    'label': '{{ artifact.type.get_type_display }}'
                 });
                 sys.addEdge(u{{ userstory.id }}, artifact{{ artifact.pk }}, {directed: false, weight: 3});
             {% endfor %}

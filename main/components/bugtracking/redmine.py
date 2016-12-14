@@ -10,3 +10,8 @@ class Connection(ConnectionInterface, Redmine):
 
     def getIssues(self):
         return self.connection.issue.filter(project_id=self.project_id, status_id='*')
+
+    def getIssue(self, issue_id):
+        return self.connection.issue.get(issue_id)
+
+

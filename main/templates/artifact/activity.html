@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load myutils %}
+
+{% block content %}
+    <h1>{% trans 'Activity' %}</h1>
+    <P><strong>{% trans 'Title' %}:</strong> {{ issue }}</P>
+    <P><strong>{% trans 'Description' %}:</strong> {{ issue.description }}</P>
+    <P><strong>{% trans 'Created On:' %}:</strong> {{ issue.created_on }}</P>
+    <P><strong>{% trans 'Closed On:' %}:</strong> {{ issue.closed_on }}</P>
+    <P><strong>{% trans 'Estimated Hours:' %}:</strong> {{ issue.estimated_hours }}</P>
+    <P><strong>{% trans 'Spent Hours:' %}:</strong> {{ issue.spent_hours }}</P>
+    <P><strong>{% trans 'Status:' %}:</strong> {{ issue.status }}</P>
+    <P><a href="{{ project.tracking_tool_url }}\issues\{{ artifact.reference }}" target="_blank">Link</a></P>
+
+{% endblock %}

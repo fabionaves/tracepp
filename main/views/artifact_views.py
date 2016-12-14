@@ -183,23 +183,74 @@ class ArtifactTraceBugTrackingView(TemplateViewProjectFilter):
         )
         bugtracking = BugTrackingFactory.getConnection(project=project)
         artifactsTypes = ArtifactType.objects.filter(project=project, type=2, )
-        acfinder = activityFinder(bugtracking.getIssues(), artifactsTypes)
+        acfinder = activityFinder(bugtracking, artifactsTypes)
         for artifact in acfinder.artifactList:
-            filterArtifact = Artifact.objects.get(project=project, reference=artifact['reference'])
-            if not filterArtifact:
-                Artifact.objects.create(project=project,
-                                        reference=artifact['reference'],
-                                        estimated_time=artifact['estimated_time'],
-                                        spent_time=artifact['spent_time'],
-                                        type=artifact['artifactType'])
+            try:
+                filterArtifact = Artifact.objects.get(project=project, reference=artifact['reference'])
+            except Artifact.DoesNotExist:
+                filterArtifact = None
+
+
+            if not filterArtifact is None:
+                if artifact['artifactType'].level == 0:
+                    filterArtifact.estimated_time = artifact['estimated_time']
+                    filterArtifact.spent_time = artifact['spent_time']
+                    filterArtifact.type = artifact['artifactType']
+                    filterArtifact.save()
+                elif artifact['artifactType'].level == 1:
+                    requeriment = Requeriment.objects.filter(code=artifact['code']).get()
+                    filterArtifact.estimated_time = artifact['estimated_time']
+                    filterArtifact.spent_time = artifact['spent_time']
+                    filterArtifact.type = artifact['artifactType']
+                    filterArtifact.requeriment = requeriment
+                    filterArtifact.save()
+                elif artifact['artifactType'].level == 2:
+                    sprint = Sprint.objects.filter(code=artifact['code']).get()
+                    filterArtifact.estimated_time = artifact['estimated_time']
+                    filterArtifact.spent_time = artifact['spent_time']
+                    filterArtifact.type = artifact['artifactType']
+                    filterArtifact.sprint = sprint
+                    filterArtifact.save()
+                elif artifact['artifactType'].level == 3:
+                    userstory = UserStory.objects.filter(code=artifact['code']).get()
+                    filterArtifact.estimated_time = artifact['estimated_time']
+                    filterArtifact.spent_time = artifact['spent_time']
+                    filterArtifact.type = artifact['artifactType']
+                    filterArtifact.userstory = userstory
+                    filterArtifact.save()
             else:
-                filterArtifact.estimated_time = artifact['estimated_time']
-                filterArtifact.spent_time = artifact['spent_time']
-                filterArtifact.type = artifact['artifactType']
-                filterArtifact.save()
+                if artifact['artifactType'].level == 0:
+                    Artifact.objects.create(project=project,
+                                            reference=artifact['reference'],
+                                            estimated_time=artifact['estimated_time'],
+                                            spent_time=artifact['spent_time'],
+                                            type=artifact['artifactType'])
+                elif artifact['artifactType'].level == 1:
+                    requeriment = Requeriment.objects.filter(code=artifact['code']).get()
+                    Artifact.objects.create(project=project,
+                                            reference=artifact['reference'],
+                                            estimated_time=artifact['estimated_time'],
+                                            spent_time=artifact['spent_time'],
+                                            type=artifact['artifactType'],
+                                            requeriment=requeriment)
+                elif artifact['artifactType'].level == 2:
+                    sprint = Sprint.objects.filter(code=artifact['code']).get()
+                    Artifact.objects.create(project=project,
+                                            reference=artifact['reference'],
+                                            estimated_time=artifact['estimated_time'],
+                                            spent_time=artifact['spent_time'],
+                                            type=artifact['artifactType'],
+                                            sprint=sprint)
+                elif artifact['artifactType'].level == 3:
+                    userstory = UserStory.objects.filter(code=artifact['code']).get()
+                    Artifact.objects.create(project=project,
+                                            reference=artifact['reference'],
+                                            estimated_time=artifact['estimated_time'],
+                                            spent_time=artifact['spent_time'],
+                                            type=artifact['artifactType'],
+                                            userstory=userstory)
         context['project'] = project
         return context
-
 
 
 class ArtifactTraceCodeView(TemplateViewProjectFilter):
@@ -347,3 +398,106 @@ class ArtifactCodeView(TemplateViewProjectFilter):
             context['page_title'] = _('Project Artifact')
 
         return context
+
+
+class ArtifactActivityView(TemplateViewProjectFilter):
+    template_name = 'artifact/activity.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ArtifactActivityView, self).get_context_data(**kwargs)
+        artifact = get_object_or_404(
+            Artifact,
+            project=self.request.session.get('project_id', None),
+            id=self.kwargs['artifact']
+        )
+
+        project = get_object_or_404(
+            Project.objects.all(),
+            id=self.request.session.get('project_id', None),
+        )
+        bugtracking = BugTrackingFactory.getConnection(project=project)
+        issue = bugtracking.getIssue(artifact.reference)
+        context['artifact']=artifact
+        context['issue']=issue
+        context['project']=project
+
+        if 'pk' in self.kwargs:  # userstory
+            userstory = get_object_or_404(UserStory, pk=self.kwargs['pk'])
+            context['page_title'] = _('Userstory Artifact')
+            if 'sprint_id' in self.kwargs:
+                sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_id'])
+                context['breadcrumbs'] = (
+                    {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+                    {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
+                    {'link': reverse_lazy('main:sprint-details', kwargs={'sprint_id': self.kwargs['sprint_id']}),
+                     'class': '', 'name': sprint},
+                    {'link': reverse_lazy('main:sprint-userstory', kwargs={'sprint_id': self.kwargs['sprint_id']}),
+                     'class': '',
+                     'name': _('User Stories')},
+                    {'link': reverse_lazy('main:userstory-detail', kwargs={'pk': userstory.pk}), 'class': '',
+                     'name': userstory.code},
+                    {'link': reverse_lazy('main:artifact', kwargs={'pk': userstory.pk, 'sprint_id': self.kwargs['sprint_id']}),
+                        'class': '', 'name': _('Artifacts')},
+                    {'link': '#','class': '', 'name': _('Artifact')},
+                )
+            elif 'requeriment_id' in self.kwargs:
+                requeriment = get_object_or_404(Requeriment, pk=self.kwargs['requeriment_id'])
+                context['breadcrumbs'] = (
+                    {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+                    {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriments')},
+                    {'link': reverse_lazy('main:requeriment-details', kwargs={'pk': self.kwargs['requeriment_id']}),
+                     'class': '', 'name': requeriment},
+                    {'link': reverse_lazy('main:requeriment-userstory',
+                                          kwargs={'requeriment_id': self.kwargs['requeriment_id']}), 'class': '',
+                     'name': _('User Stories')},
+                    {'link': reverse_lazy('main:requeriment-userstory-detail',
+                                          kwargs={'requeriment_id': self.kwargs['requeriment_id'], 'pk': userstory.pk}),
+                     'class': '',
+                     'name': userstory.code},
+                    {'link': reverse_lazy('main:artifact',
+                                          kwargs={'pk': userstory.pk, 'requeriment_id': self.kwargs['requeriment_id']}),
+                     'class': '', 'name': _('Artifacts')},
+                    {'link': '#', 'class': '', 'name': _('Artifact')},
+                )
+            else:
+                context['breadcrumbs'] = (
+                    {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+                    {'link': reverse_lazy('main:userstory'), 'class': '',
+                     'name': _('User Stories')},
+                    {'link': reverse_lazy('main:userstory-detail', kwargs={'pk': userstory.pk}), 'class': '',
+                     'name': userstory.code},
+                    {'link': reverse_lazy('main:artifact',
+                                          kwargs={'pk': userstory.pk}),
+                     'class': '', 'name': _('Artifacts')},
+                    {'link': '#', 'class': '', 'name': _('Artifact')},
+                )
+        elif 'sprint_id' in self.kwargs:
+            sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_id'])
+            context['page_title'] = _('Sprint Artifacts')
+            context['breadcrumbs'] = (
+                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+                {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
+                {'link': reverse_lazy('main:sprint-details', kwargs={'sprint_id': sprint.id}), 'class': '',
+                 'name': sprint},
+                {'link': '#', 'class': '', 'name': _('Artifact')},
+            )
+        elif 'requeriment_id' in self.kwargs:
+            requeriment = get_object_or_404(Requeriment, pk=self.kwargs['requeriment_id'])
+            context['page_title'] = _('Requeriment Artifacts')
+            context['breadcrumbs'] = (
+                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+                {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriment')},
+                {'link': reverse_lazy('main:requeriment-details', kwargs={'pk': requeriment.id}), 'class': '',
+                 'name': requeriment.code},
+                {'link': '#', 'class': '', 'name': _('Artifacts')},
+            )
+        else:
+            context['breadcrumbs'] = (
+                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+                {'link': reverse_lazy('main:artifact'), 'class': '', 'name': _('Project Artifacts')},
+                {'link': '#', 'class': '', 'name': _('Artifact')},
+            )
+            context['page_title'] = _('Project Artifact')
+
+        return context
+

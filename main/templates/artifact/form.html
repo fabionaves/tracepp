@@ -150,7 +150,7 @@
                                     {% elif  row.type.type == 2 %}
                                         {%  trans 'Estimated Time' %}: {{ row.estimated_time }} -
                                         {%  trans 'Spent Time' %}: {{ row.spent_time }} -
-                                        <a  <a href="{% url 'main:artifact-download' row.id %}">View Activity</a>
+                                        <a  <a href="{{ row.id }}/activity/">View Activity</a>
                                     {% else %}
                                         <a href="{{ row.id }}/codeview/">{{ row.source }}</a>
                                     {% endif %}

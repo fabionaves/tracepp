@@ -40,8 +40,8 @@
         </div>
         {% for userstory in dependent.userstory_set.all %}
             <div class="u{{ userstory.id }}" style="background-color: green" align="center">
-                <a href="{% url 'main:requeriment-details' dependent.id %}" style="color: white">{{ userstory.code }}
-                    - {{ userstory.title }}</a>
+                <a href="{% url 'main:userstory-graph' userstory.id %}" style="color: white">{{ userstory.code }}
+                - {{ userstory.title }}</a>
             </div>
         {% endfor %}
     {% endfor %}
