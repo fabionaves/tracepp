@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block head %}
     <script>
@@ -9,14 +10,14 @@
                 data: {
                     labels: [1],
                     datasets: [{
-                        label: '% Task Effort Variation (Sprint 11)',
+                        label: '{% trans '% Task Effort Variation (Sprint 11)' %}',
                         data: [22],
                         backgroundColor: "hsla(360, 100%, 50%, 0.8)",
                         tension: 0,
                         fill: false
 
                     }, {
-                        label: '% Story Points Variation (Sprint 11)',
+                        label: '{% trans 'Story Points Variation (Sprint 11)' %}',
                         data: [32],
                         backgroundColor: "hsla(251, 100%, 50%, 0.8)",
                         tension: 0,
@@ -78,13 +79,13 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge">{{ num_requeriment }}</div>
-                            <div>Requeriments</div>
+                            <div>{% trans 'Requeriments' %}</div>
                         </div>
                     </div>
                 </div>
                 <a href="#">
                     <div class="panel-footer">
-                        <span class="pull-left"><a href="requeriment/">View Details</a></span>
+                        <span class="pull-left"><a href="requeriment/">{% trans 'View Details' %}</a></span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                         <div class="clearfix"></div>
                     </div>
@@ -101,13 +102,13 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge">{{ num_userstories }}</div>
-                            <div>User Stories</div>
+                            <div>{% trans 'User Stories' %}</div>
                         </div>
                     </div>
                 </div>
                 <a href="userstory/">
                     <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
+                        <span class="pull-left">{% trans 'View Details' %}</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                         <div class="clearfix"></div>
                     </div>
@@ -124,13 +125,13 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge">{{ total_artifacts }}</div>
-                            <div>Artifacts</div>
+                            <div>{% trans 'Artifacts' %}</div>
                         </div>
                     </div>
                 </div>
                 <a href="artifact/">
                     <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
+                        <span class="pull-left">{% trans 'View Details' %}</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                         <div class="clearfix"></div>
                     </div>
@@ -145,7 +146,7 @@
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    {{ sprint.title }}: Story Points x Tasks Effort (% of variation Sprint 11)
+                    {{ sprint.title }}: {%  trans 'Story Points x Tasks Effort (% of variation)' %}
                 </div>
                 <div class="panel-body">
                     <canvas id="graph_taks_force_per_userstory_json" width="80" height="25"
@@ -157,7 +158,7 @@
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <div>{{ sprint.title }} Details</div>
+                    <div>{{ sprint.title }} {% trans 'Details' %}</div>
                     <div align="right">
                         <a href="update/" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i> Edit</a>
                         <a href="delete/" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i> Delete</a>
@@ -166,9 +167,9 @@
                 </div>
                 <div class="panel-body">
 
-                    <p>Title: {{ sprint.title }}</p>
-                    <p>Status: {{ sprint.get_status_display }}</p>
-                    <p>Begin: {{ sprint.begin }}</p><p>End: {{ sprint.end }}</p>
+                    <p>{% trans 'Title' %}: {{ sprint.title }}</p>
+                    <p>{% trans 'Status' %}: {{ sprint.get_status_display }}</p>
+                    <p>{%  trans 'Begin' %}: {{ sprint.begin }}</p><p>End: {{ sprint.end }}</p>
                     <br/><br/>
                 </div>
             </div>

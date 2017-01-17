@@ -1,0 +1,9 @@
+{% extends "blank.html" %}
+
+{% load myutils %}
+{% load i18n %}
+
+{% block content %}
+    <h1>{% trans 'Successful logout' %}</h1>
+    <a href="{% url 'main:home' %}">{% trans 'Back' %}</a>
+{% endblock %}

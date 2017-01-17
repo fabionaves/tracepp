@@ -1,8 +1,10 @@
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Count
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.shortcuts import  get_object_or_404
+from django.views.generic import DeleteView
 from django.views.generic import ListView
 from main.components.lists import  ModelListProjectFilter, TemplateViewProjectFilter
 from main.decorators import require_project
@@ -17,7 +19,7 @@ class RequerimentListView(ModelListProjectFilter):
     list_display = ('code','title', 'description','type')
     action_template = 'requeriment/choose_action.html'
     top_bar = 'requeriment/top_bar.html'
-    page_title = 'Requeriments'
+    page_title = _('Requeriments')
     breadcrumbs = (
         {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
         {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriment')},
@@ -44,7 +46,7 @@ class RequerimentListView(ModelListProjectFilter):
 
 
 class RequerimentAddFormView(AddFormView):
-    page_title = 'Requeriment'
+    page_title = _('Requeriment')
     model = Requeriment
     form_class = RequerimentForm
     success_url = '/requeriment/'
@@ -167,6 +169,25 @@ class RequerimentHistoryView(ListView):
         )
         return context
 
+
+class RequerimentDeleteView(SuccessMessageMixin, DeleteView):
+    model = Requeriment
+    template_name = 'requeriment/delete.html'
+    fields = ('code', 'title', 'description')
+    success_url = '/requeriment/'
+
+    @method_decorator(require_project())
+    def dispatch(self, request, *args, **kwargs):
+        return super(RequerimentDeleteView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(RequerimentDeleteView, self).get_context_data()
+        context['breadcrumbs'] = (
+            {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+            {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriment')},
+            {'link': '#', 'class': '', 'name': _('History')},
+        )
+        return context
 
 class RequerimentGraphView(TemplateViewProjectFilter):
     template_name = 'requeriment/graph.html'

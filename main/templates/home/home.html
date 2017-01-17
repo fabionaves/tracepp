@@ -10,14 +10,14 @@
                 data: {
                     labels: ['US1', 'US2', 'US3', 'US4', 'US5', 'US6'],
                     datasets: [{
-                        label: '% Task Effort Variation per Sprint',
+                        label: '{% trans '% Task Effort Variation per Sprint' %}',
                         data: [34, 35, 45, 56, 34, 54, 23, 23],
                         borderColor: "hsla(360, 100%, 50%, 1)",
                         tension: 0,
                         fill: false
 
                     }, {
-                        label: '% Story Points Variation per Sprint',
+                        label: '{% trans '% Story Points Variation per Sprint' %}',
                         data: [32, 34, 23, 45, 34, 12, 34, 56],
                         borderColor: "hsla(251, 100%, 50%, 1)",
                         tension: 0,
@@ -40,8 +40,8 @@
             var ctx = document.getElementById('graph_contract_implemented_points').getContext('2d');
             var data = {
                 labels: [
-                    "Contratado",
-                    "Executado",
+                    "{% trans 'Contrated' %}",
+                    "{% trans 'Executed' %}",
                 ],
                 datasets: [
                     {
@@ -146,7 +146,7 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge">{{ total_artifacts }}</div>
-                            <div>Artifacts</div>
+                            <div>{% trans 'Artifacts' %}</div>
                         </div>
                     </div>
                 </div>
@@ -166,9 +166,7 @@
         <div class="col-lg-12 col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <i class="fa fa-bar-chart-o fa-fw"></i> Story Points x Tasks Effort x Businnes Value (% of variation
-                    per
-                    Sprint)
+                    <i class="fa fa-bar-chart-o fa-fw"></i> {% trans 'Story Points x Tasks Effort x Businnes Value (% of variation per Sprint)' %}
                 </div>
                 <div class="panel-body">
                     <canvas id="graph_taks_force_per_userstory_json" width="80" height="20"
@@ -183,7 +181,7 @@
         <div class="col-lg-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <i class="glyphicon glyphicon-road"></i> Contract x Implemented Points
+                    <i class="glyphicon glyphicon-road"></i> {% trans 'Contract x Implemented Points' %}
                 </div>
                 <div class="panel-body">
                     <canvas id="graph_contract_implemented_points" width="80" height="45" style="background: white"></canvas>

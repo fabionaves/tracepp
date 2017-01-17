@@ -60,11 +60,11 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="{% url 'main:home' %}">Home</a></li>
-                    <li><a href="{% url 'main:requeriment' %}">Requirement</a></li>
-                    <li><a href="{% url 'main:sprint' %}">Sprints</a></li>
-                    <li><a href="{% url 'main:userstory' %}">User Story</a></li>
-                    <li><a href="{% url 'main:artifacttype' %}">Artifact Type</a></li>
+                    <li class="active"><a href="{% url 'main:home' %}">{% trans 'Home' %}</a></li>
+                    <li><a href="{% url 'main:requeriment' %}">{% trans 'Requirement' %}</a></li>
+                    <li><a href="{% url 'main:sprint' %}">{% trans 'Sprint' %}</a></li>
+                    <li><a href="{% url 'main:userstory' %}">{% trans 'User Story' %}</a></li>
+                    <li><a href="{% url 'main:artifacttype' %}">{% trans 'Artifact Type' %}</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                       <li class="dropdown ">
@@ -72,9 +72,9 @@
                             <i class="fa fa-gear fa-fw"></i> <i class="fa fa-caret-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-adm">
-                            <li><a href="#"><i class="fa fa-gear fa-fw"></i> Administration</a>
+                            <li><a href="/admin/"><i class="fa fa-gear fa-fw"></i> {% trans 'Administration' %}</a>
                             </li>
-                            <li><a href="/project/list/"><i class="fa fa-file-text fa-fw"></i> Project(s)</a>
+                            <li><a href="{% url 'main:project-list' %}"><i class="fa fa-file-text fa-fw"></i>  {% trans 'Project(s)' %}</a>
                             </li>
                         </ul>
                         <!-- /.dropdown-user -->
@@ -84,11 +84,7 @@
                             <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-user">
-                            <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                            </li>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="login/form.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            <li><a href="{%  url 'main:logout' %}"><i class="fa fa-sign-out fa-fw"></i> {% trans 'Logout' %}</a>
                             </li>
                         </ul>
                         <!-- /.dropdown-user -->

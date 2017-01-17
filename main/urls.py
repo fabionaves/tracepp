@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     url(r'^accounts/login/', loginviews.login,{'template_name': 'login/form.html'}, name='login'),
+    url(r'^accounts/logout/', loginviews.logout,{'template_name': 'login/logout.html'}, name='logout'),
     url(r'^$',                                   login_required(home_views.HomeView.as_view()), name='home'),
     url(r'^project/list/add/',                   login_required(project_views.ProjectAddFormView.as_view()), name='project-add'),
     url(r'^project/list/(?P<pk>[0-9]+)/update/', login_required(project_views.ProjectUpdateFormView.as_view()), name='project-update'),
@@ -71,6 +72,7 @@ urlpatterns = [
     url(r'^requeriment/(?P<pk>[0-9]+)/graph/',      login_required(requeriment_views.RequerimentGraphDetailView.as_view()), name='requeriment-graph'),
     url(r'^requeriment/(?P<pk>[0-9]+)/history/',    login_required(requeriment_views.RequerimentHistoryView.as_view()), name='requeriment-history'),
     url(r'^requeriment/(?P<pk>[0-9]+)/update/',     login_required(requeriment_views.RequerimentUpdateFormView.as_view()), name='requeriment-update'),
+    url(r'^requeriment/(?P<pk>[0-9]+)/delete/',                    login_required(requeriment_views.RequerimentDeleteView.as_view()), name='requeriment-delete'),
     url(r'^requeriment/(?P<requeriment_id>[0-9]+)/artifact/', login_required(artifact_views.ArtifactView.as_view()), name='artifact-requeriment'),
     url(r'^requeriment/(?P<pk>[0-9]+)/',            login_required(requeriment_views.RequerimentDetailView.as_view()), name='requeriment-details'),
     url(r'^requeriment/',                           login_required(requeriment_views.RequerimentListView.as_view()), name='requeriment'),
@@ -89,7 +91,5 @@ urlpatterns = [
     url(r'^artifact/tracecode/',        login_required(artifact_views.ArtifactTraceCodeView.as_view()), name='artifact-tracecode'),
     url(r'^artifact/tracebugtracking/',        login_required(artifact_views.ArtifactTraceBugTrackingView.as_view()), name='artifact-bugtracking'),
     url(r'^artifact/',                                login_required(artifact_views.ArtifactView.as_view()), name='artifact'),
-
-
 
 ]

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 {% block head %}
 
 {% endblock %}
@@ -25,7 +25,7 @@
                 </div>
                 <a href="userstory/">
                     <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
+                        <span class="pull-left">{% trans  'View Details' %}</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                         <div class="clearfix"></div>
                     </div>
@@ -42,13 +42,13 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge">{{ total_artifacts }}</div>
-                            <div>Artifacts</div>
+                            <div>{% trans  'Artifacts' %}</div>
                         </div>
                     </div>
                 </div>
                 <a href="artifact/">
                     <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
+                        <span class="pull-left">{% trans  'View Details' %}</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                         <div class="clearfix"></div>
                     </div>
@@ -63,15 +63,15 @@
                     <div class="panel-heading">
                         <div>{{ requeriment.title }} Details</div>
                         <div align="right">
-                            <a href="update/" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i> Edit</a>
-                            <a href="delete/" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i> Delete</a>
-                            <a href="history/" class="btn btn-default btn-circle" ><i class="fa fa-list"></i> History</a>
-                            <a href="graph/" class="btn btn-default " "=""><i class="fa  fa-share-alt"></i> Graph</a>
+                            <a href="update/" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i> {% trans  'Edit' %}</a>
+                            <a href="delete/" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i> {% trans  'Delete' %}</a>
+                            <a href="history/" class="btn btn-default btn-circle" ><i class="fa fa-list"></i> {% trans  'History' %}</a>
+                            <a href="graph/" class="btn btn-default " "=""><i class="fa  fa-share-alt"></i> {% trans  'Graph' %}</a>
                         </div>
                     </div>
                     <div class="panel-body">
-                        <p>Description: {{ requeriment.description }}</p>
-                        <p>Tipo: {{ requeriment.get_type_display }}</p>
+                        <p>{% trans  'Description' %}: {{ requeriment.description }}</p>
+                        <p>{% trans  'Tipo' %}: {{ requeriment.get_type_display }}</p>
                         <br/><br/>
                     </div>
                 </div>
@@ -83,14 +83,14 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                     Dependents Requeriments
+                    {% trans  'Dependents Requeriments' %}
                 </div>
                 <div class="panel-body">
                     <div class="list-group">
                         {% for row in dependent_requeriments %}
                             <a href="{% url 'main:requeriment-details'  row.id  %}" class="list-group-item"> <i class="fa fa-list-alt fa-1x"></i> {{ row.code }} - {{ row.title }}</a></a>
                         {% empty %}
-                           No dependent requirements
+                            {% trans  'No dependent requirements' %}
                         {% endfor %}
                     </div>
                 </div>
@@ -103,14 +103,14 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                     Depends on
+                      {% trans  'Depends on' %}
                 </div>
                 <div class="panel-body">
                     <div class="list-group">
                         {% for row in depends_on %}
                             <a href="{% url 'main:requeriment-details'  row.id  %}" class="list-group-item"> <i class="fa fa-list-alt fa-1x"></i> {{ row.code }} - {{ row.title }}</a>
                         {% empty %}
-                            This requirement does not depend on any other
+                            {% trans  'This requirement does not depend on any other' %}
                         {% endfor %}
                     </div>
                 </div>

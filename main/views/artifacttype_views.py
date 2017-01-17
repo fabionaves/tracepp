@@ -17,26 +17,26 @@ class ArtifactTypeView(ModelListProjectFilter):
     paginate_by = 20
     list_display = ('name', 'level', 'type', 'trace_code')
     top_bar = 'artifacttype/top_bar.html'
-    page_title = 'Artifact Type'
+    page_title = _('Artifact type')
     breadcrumbs = (
         {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-        {'link': reverse_lazy('main:artifacttype'), 'class': '', 'name': _('Artifact Type')},
+        {'link': reverse_lazy('main:artifacttype'), 'class': '', 'name': _('Artifact type')},
     )
 
 
 class ArtifactTypeAddFormView(AddFormView):
-    page_title = 'Artifact Type'
+    page_title = _('Artifact type')
     model = ArtifactType
     form_class = ArtifactTypeForm
     success_url = '/artifacttype/'
     success_message = _('Artifacty Type was created successfully')
     tabs = (
-        {"title": "Artifact Type", "id": "artifacttype", "class": "active",
+        {"title": _('Artifact type'), "id": "artifacttype", "class": "active",
          "fields": ('name', 'level', 'type', 'trace_code')},
     )
     breadcrumbs = (
         {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-        {'link': reverse_lazy('main:artifacttype'), 'class': '', 'name': _('Artifact Type')},
+        {'link': reverse_lazy('main:artifacttype'), 'class': '', 'name': _('Artifact type')},
     )
 
     @method_decorator(require_project())
@@ -51,13 +51,13 @@ class ArtifactTypeAddFormView(AddFormView):
 
 
 class ArtifactTypeUpdateFormView(UpdateFormView):
-    page_title = 'Artifact Type'
+    page_title = _('Artifact type')
     model = ArtifactType
     form_class = ArtifactTypeForm
     success_url = '/artifacttype/'
     success_message = _('Artifacty Type was updated successfully')
     tabs = (
-        {"title": "Artifact Type", "id": "artifacttype", "class": "active",
+        {"title": _('Artifact type'), "id": "artifacttype", "class": "active",
          "fields": ('name', 'level', 'type', 'trace_code')},
     )
     breadcrumbs = (
