@@ -1,2 +1,11 @@
 {% load i18n %}
-<a href="add/" class="btn btn-primary " "=""><i class="fa fa-plus"></i> {% trans 'Add' %}</a>
+<div class="col-md-9">
+<a href="add/" class="btn btn-primary "><i class="fa fa-plus"></i> {% trans 'Add' %}</a>
+</div>
+<div class="col-md-3">
+    <div class="form-group has-feedback">
+        <input type="text" placeholder="Filter"  name="filter" id="filter" onkeyup="myFind('filter','myList')"  class="form-control" rel="tooltip" /    >
+        <i class="form-control-feedback  glyphicon glyphicon-search"></i>
+    </div>
+</div>
+

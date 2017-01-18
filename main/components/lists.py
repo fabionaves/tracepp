@@ -27,7 +27,6 @@ class ModelList(ListView):
         context['action_template'] = self.action_template
         return context
 
-
 class ModelListProjectFilter(ModelList):
 
     @method_decorator(require_project())

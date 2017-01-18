@@ -41,6 +41,34 @@
 
     <script src="{% static 'js/jquery.formset.js'%}"></script>
 
+    <!-- Find for tables -->
+    <script>
+        function myFind(myInput,myTable) {
+              var input, filter, table, tr, td, i;
+              input = document.getElementById(myInput);
+              filter = input.value.toUpperCase();
+              table = document.getElementById(myTable);
+              tr = table.getElementsByTagName("tr");
+              find = false;
+              for (t=0; t < table.rows[0].cells.length;t++ ){
+                  if(find){
+                    break
+                  }
+                  for (i = 0; i < tr.length; i++) {
+                        td = tr[i].getElementsByTagName("td")[t];
+                        if (td) {
+                          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                            find = true;
+                          } else {
+                            tr[i].style.display = "none";
+                          }
+                        }
+                    }
+                }
+        }
+    </script>
+
     {% block head %}{% endblock %}
 </head>
 <body>

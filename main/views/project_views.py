@@ -6,8 +6,12 @@ from main.forms import ProjectForm
 from main.models import Project
 from main.components.formviews import AddFormView, UpdateFormView
 
-#class:US004
+
 class ProjectView(ModelList):
+    """
+    #class:US004
+    Projects Choose Page. Super user gets all projects, other users get their projects
+    """
     model = Project
     list_display = ('name', )
     page_title = _('Choose a project:')
@@ -29,6 +33,10 @@ class ProjectView(ModelList):
 
 
 class ProjectListView(ProjectView):
+    """
+    #class:US002
+    List of projects for options for choosing, adding, changing, or deleting
+    """
     model = Project
     page_title = 'Projects'
     list_display = ('name', 'requester', 'points_type')
@@ -41,6 +49,10 @@ class ProjectListView(ProjectView):
 
 
 class ProjectAddFormView(AddFormView):
+    """
+    #class:US002
+    Add project form
+    """
     model = Project
     form_class = ProjectForm
     template_name = 'project/form.html'
@@ -60,6 +72,10 @@ class ProjectAddFormView(AddFormView):
 
 
 class ProjectUpdateFormView(UpdateFormView):
+    """
+    #class:US002
+    Edit project form
+    """
     model = Project
     form_class = ProjectForm
     template_name = 'project/form.html'

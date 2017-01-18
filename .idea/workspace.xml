@@ -1,28 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="75a9e5b2-515a-4560-8233-370d9d8f5088" name="Default" comment="New changelist">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/locale/pt_BR/LC_MESSAGES/django.mo" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/locale/pt_BR/LC_MESSAGES/django.po" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/templates/login/logout.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/templates/requeriment/delete.html" />
+    <list default="true" id="75a9e5b2-515a-4560-8233-370d9d8f5088" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/tracepp.iml" afterPath="$PROJECT_DIR$/.idea/tracepp.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/artifact/tracebugtracking.html" afterPath="$PROJECT_DIR$/main/templates/artifact/tracebugtracking.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/artifacttype/delete.html" afterPath="$PROJECT_DIR$/main/templates/artifacttype/delete.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/components/lists.py" afterPath="$PROJECT_DIR$/main/components/lists.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/artifacttype/top_bar.html" afterPath="$PROJECT_DIR$/main/templates/artifacttype/top_bar.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/base.html" afterPath="$PROJECT_DIR$/main/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/home/home.html" afterPath="$PROJECT_DIR$/main/templates/home/home.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/login/form.html" afterPath="$PROJECT_DIR$/main/templates/login/form.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/requeriment/detail.html" afterPath="$PROJECT_DIR$/main/templates/requeriment/detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/sprint/detail.html" afterPath="$PROJECT_DIR$/main/templates/sprint/detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/userstory/delete.html" afterPath="$PROJECT_DIR$/main/templates/userstory/delete.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/userstory/detail.html" afterPath="$PROJECT_DIR$/main/templates/userstory/detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/urls.py" afterPath="$PROJECT_DIR$/main/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/views/artifacttype_views.py" afterPath="$PROJECT_DIR$/main/views/artifacttype_views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/views/requeriment_views.py" afterPath="$PROJECT_DIR$/main/views/requeriment_views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tracepp/settings.py" afterPath="$PROJECT_DIR$/tracepp/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/blank.html" afterPath="$PROJECT_DIR$/main/templates/blank.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/components/lists/list.html" afterPath="$PROJECT_DIR$/main/templates/components/lists/list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/components/lists/top_bar.html" afterPath="$PROJECT_DIR$/main/templates/components/lists/top_bar.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/project/action.html" afterPath="$PROJECT_DIR$/main/templates/project/action.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/project/choose_action.html" afterPath="$PROJECT_DIR$/main/templates/project/choose_action.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/project/form.html" afterPath="$PROJECT_DIR$/main/templates/project/form.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/project/top_bar.html" afterPath="$PROJECT_DIR$/main/templates/project/top_bar.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/views/project_views.py" afterPath="$PROJECT_DIR$/main/views/project_views.py" />
     </list>
     <list id="4ae9251b-657d-4132-8cbd-3ff689d77587" name="New changelist" comment="" />
     <ignored path="tracepp.iws" />
@@ -60,7 +52,48 @@
     <favorites_list name="tracepp" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="project_views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main/views/project_views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="918">
+              <caret line="75" column="7" selection-start-line="75" selection-start-column="7" selection-end-line="75" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="action.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main/templates/project/action.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="form.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main/templates/project/form.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="24" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="choose_action.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/main/templates/project/choose_action.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="20" selection-start-line="0" selection-start-column="20" selection-end-line="0" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -84,13 +117,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/tracepp/urls.py" />
-        <option value="$PROJECT_DIR$/main/templates/project/action.html" />
-        <option value="$PROJECT_DIR$/main/templates/components/lists/list.html" />
-        <option value="$PROJECT_DIR$/main/templates/components/forms/form_tabs.html" />
-        <option value="$PROJECT_DIR$/main/templates/userstory/sprint.html" />
-        <option value="$PROJECT_DIR$/main/views/user_story.py" />
-        <option value="$PROJECT_DIR$/main/views.py" />
         <option value="$PROJECT_DIR$/main/views/__init__.py" />
         <option value="$PROJECT_DIR$/main/templates/userstory/history.html" />
         <option value="$PROJECT_DIR$/main/templates/userstory/top_bar.html" />
@@ -102,7 +128,6 @@
         <option value="$PROJECT_DIR$/main/templates/userstory/action.html" />
         <option value="$PROJECT_DIR$/main/templates/userstory/acceptancecriteria.html" />
         <option value="$PROJECT_DIR$/main/views/userstory_views.py" />
-        <option value="$PROJECT_DIR$/main/templates/artifacttype/top_bar.html" />
         <option value="$PROJECT_DIR$/main/views/artifact__views.py" />
         <option value="$PROJECT_DIR$/static/css/dropzone.css" />
         <option value="$PROJECT_DIR$/main/templates/components/forms/form.html" />
@@ -110,7 +135,6 @@
         <option value="$PROJECT_DIR$/static/js/dropzone.js" />
         <option value="$PROJECT_DIR$/main/views/home_views.py" />
         <option value="$PROJECT_DIR$/main/templates/artifact/delete.html" />
-        <option value="$PROJECT_DIR$/main/views/project_views.py" />
         <option value="$PROJECT_DIR$/main/components/git.py" />
         <option value="$PROJECT_DIR$/main/forms.py" />
         <option value="$PROJECT_DIR$/main/templates/artifact/tracecode.html" />
@@ -121,20 +145,29 @@
         <option value="$PROJECT_DIR$/main/templates/login/form.html" />
         <option value="$PROJECT_DIR$/main/templates/home/home.html" />
         <option value="$PROJECT_DIR$/main/templates/requeriment/detail.html" />
-        <option value="$PROJECT_DIR$/main/templates/project/top_bar.html" />
         <option value="$PROJECT_DIR$/main/templates/artifact/tracebugtracking.html" />
         <option value="$PROJECT_DIR$/main/templates/sprint/detail.html" />
         <option value="$PROJECT_DIR$/main/templates/userstory/delete.html" />
         <option value="$PROJECT_DIR$/main/templates/userstory/detail.html" />
         <option value="$PROJECT_DIR$/main/templates/requeriment/delete.html" />
         <option value="$PROJECT_DIR$/main/urls.py" />
-        <option value="$PROJECT_DIR$/main/templates/base.html" />
         <option value="$PROJECT_DIR$/main/templates/login/logout.html" />
         <option value="$PROJECT_DIR$/main/views/requeriment_views.py" />
         <option value="$PROJECT_DIR$/locale/pt_BR/LC_MESSAGES/django.po" />
         <option value="$PROJECT_DIR$/tracepp/settings.py" />
         <option value="$PROJECT_DIR$/main/templates/artifacttype/delete.html" />
         <option value="$PROJECT_DIR$/main/views/artifacttype_views.py" />
+        <option value="$PROJECT_DIR$/main/views/project_views.py" />
+        <option value="$PROJECT_DIR$/main/components/lists.py" />
+        <option value="$PROJECT_DIR$/main/templates/blank.html" />
+        <option value="$PROJECT_DIR$/main/templates/components/lists/list.html" />
+        <option value="$PROJECT_DIR$/main/templates/base.html" />
+        <option value="$PROJECT_DIR$/main/templates/artifacttype/top_bar.html" />
+        <option value="$PROJECT_DIR$/main/templates/components/lists/top_bar.html" />
+        <option value="$PROJECT_DIR$/main/templates/project/top_bar.html" />
+        <option value="$PROJECT_DIR$/main/templates/project/action.html" />
+        <option value="$PROJECT_DIR$/main/templates/project/form.html" />
+        <option value="$PROJECT_DIR$/main/templates/project/choose_action.html" />
       </list>
     </option>
   </component>
@@ -174,7 +207,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -187,20 +220,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="tracepp" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tracepp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tracepp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tracepp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="tracepp" />
@@ -275,57 +294,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="artifacttype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tracepp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tracepp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="artifact" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tracepp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tracepp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="locale" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pt_BR" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LC_MESSAGES" />
+              <option name="myItemId" value="project" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -739,32 +714,39 @@
       <option name="project" value="LOCAL" />
       <updated>1475522335530</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Tradução funcionando.">
+      <created>1484661160323</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1484661160323</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1934" height="1047" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24713244" sideWeight="0.49369085" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="manage.py@tracepp" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27534685" sideWeight="0.49121523" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32870865" sideWeight="0.30307466" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.49707174" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3276414" sideWeight="0.69692534" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24713244" sideWeight="0.49369085" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32870865" sideWeight="0.4941435" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24816984" sideWeight="0.50630915" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3511206" sideWeight="0.48535872" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="manage.py@tracepp" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27534685" sideWeight="0.49121523" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.329653" sideWeight="0.49707174" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32870865" sideWeight="0.4941435" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -818,7 +800,8 @@
     <MESSAGE value="Pull do repositorio remoto e comeco do SourceFinder" />
     <MESSAGE value="Pull do repositorio remoto e SourceFinder, ainda fatlta fazer os niveis no sourcefinder" />
     <MESSAGE value="New changelist" />
-    <option name="LAST_COMMIT_MESSAGE" value="New changelist" />
+    <MESSAGE value="Tradução funcionando." />
+    <option name="LAST_COMMIT_MESSAGE" value="Tradução funcionando." />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="false" />
   </component>
   <component name="XDebuggerManager">
@@ -847,55 +830,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/main/templates/project/action.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/templates/requeriment/choose_action.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/templates/requeriment/detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1860">
-          <caret line="112" column="84" selection-start-line="112" selection-start-column="84" selection-end-line="112" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/templates/requeriment/graph.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/templates/requeriment/graph_detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/templates/sprint/delete.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/templates/sprint/choose_action.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/templates/userstory/delete.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -970,27 +904,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/views/project_views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="12" column="39" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/templates/project/choose_action.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/templates/project/top_bar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="72" selection-start-line="0" selection-start-column="72" selection-end-line="0" selection-end-column="72" />
         </state>
       </provider>
     </entry>
@@ -1085,13 +998,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/components/lists.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="30" column="6" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/apps.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -1111,7 +1017,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1179,14 +1084,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="62" column="77" selection-start-line="62" selection-start-column="77" selection-end-line="62" selection-end-column="77" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/templates/artifacttype/delete.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -1199,7 +1096,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="191">
           <caret line="257" column="17" selection-start-line="257" selection-start-column="7" selection-end-line="257" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1208,15 +1104,113 @@
         <state relative-caret-position="41">
           <caret line="59" column="36" selection-start-line="59" selection-start-column="36" selection-end-line="59" selection-end-column="36" />
           <folding>
+            <element signature="e#0#61#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/templatetags/myutils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/templates/components/lists/top_bar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="148" selection-start-line="7" selection-start-column="148" selection-end-line="7" selection-end-column="148" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/templates/blank.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="56" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/components/lists.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="542">
+          <caret line="69" column="13" selection-start-line="69" selection-start-column="13" selection-end-line="69" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/templates/components/lists/list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="59" selection-start-line="12" selection-start-column="53" selection-end-line="12" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/components/formviews.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="43" selection-start-line="5" selection-start-column="43" selection-end-line="5" selection-end-column="43" />
+          <folding>
             <element signature="e#0#61#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/templates/project/top_bar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="15" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main/templates/artifacttype/top_bar.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/views/project_views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="918">
+          <caret line="75" column="7" selection-start-line="75" selection-start-column="7" selection-end-line="75" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/templates/project/action.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/templates/project/form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="24" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/templates/project/choose_action.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="20" selection-start-line="0" selection-start-column="20" selection-end-line="0" selection-end-column="20" />
           <folding />
         </state>
       </provider>
