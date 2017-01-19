@@ -10,6 +10,7 @@ from main.components.formviews import AddFormView, UpdateFormView
 class ProjectView(ModelList):
     """
     #class:US004
+    #class:US003
     Projects Choose Page. Super user gets all projects, other users get their projects
     """
     model = Project

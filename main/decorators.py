@@ -4,6 +4,9 @@ from django.utils.six import wraps
 
 
 def require_project():
+    """
+    #class:US003
+    """
     def decorator(func):
         def inner(request, *args, **kwargs):
             if not 'project_id' in request.session:

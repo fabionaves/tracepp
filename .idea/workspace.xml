@@ -4,10 +4,8 @@
     <list default="true" id="75a9e5b2-515a-4560-8233-370d9d8f5088" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/project/action.html" afterPath="$PROJECT_DIR$/main/templates/project/action.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/project/choose_action.html" afterPath="$PROJECT_DIR$/main/templates/project/choose_action.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/project/form.html" afterPath="$PROJECT_DIR$/main/templates/project/form.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/userstory/graph_detail.html" afterPath="$PROJECT_DIR$/main/templates/userstory/graph_detail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/decorators.py" afterPath="$PROJECT_DIR$/main/decorators.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/views/project_views.py" afterPath="$PROJECT_DIR$/main/views/project_views.py" />
     </list>
     <list id="4ae9251b-657d-4132-8cbd-3ff689d77587" name="New changelist" comment="" />
     <ignored path="tracepp.iws" />
@@ -45,7 +43,30 @@
     <favorites_list name="tracepp" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="project_views.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/main/views/project_views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="decorators.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main/decorators.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -69,7 +90,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/main/templates/userstory/top_bar.html" />
         <option value="$PROJECT_DIR$/main/templates/requeriment/choose_action.html" />
         <option value="$PROJECT_DIR$/main/views/sprint_views.py" />
         <option value="$PROJECT_DIR$/main/templates/requeriment/graph.html" />
@@ -107,7 +127,6 @@
         <option value="$PROJECT_DIR$/tracepp/settings.py" />
         <option value="$PROJECT_DIR$/main/templates/artifacttype/delete.html" />
         <option value="$PROJECT_DIR$/main/views/artifacttype_views.py" />
-        <option value="$PROJECT_DIR$/main/views/project_views.py" />
         <option value="$PROJECT_DIR$/main/components/lists.py" />
         <option value="$PROJECT_DIR$/main/templates/blank.html" />
         <option value="$PROJECT_DIR$/main/templates/components/lists/list.html" />
@@ -120,6 +139,8 @@
         <option value="$PROJECT_DIR$/main/templates/project/choose_action.html" />
         <option value="$PROJECT_DIR$/main/templates/project/form.html" />
         <option value="$PROJECT_DIR$/main/templates/userstory/graph_detail.html" />
+        <option value="$PROJECT_DIR$/main/views/project_views.py" />
+        <option value="$PROJECT_DIR$/main/decorators.py" />
       </list>
     </option>
   </component>
@@ -206,29 +227,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tracepp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tracepp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="project" />
+              <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -669,14 +668,21 @@
       <option name="project" value="LOCAL" />
       <updated>1484752496933</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Marcação para rastreabilidade nos templates do cadastro de projetos">
+      <created>1484826042068</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1484826042068</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1934" height="1047" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24713244" sideWeight="0.49369085" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24713244" sideWeight="0.49369085" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32870865" sideWeight="0.30307466" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -751,7 +757,8 @@
     <MESSAGE value="Tradução funcionando." />
     <MESSAGE value="Busca na table por javascript&#10;Documentacoes da US002" />
     <MESSAGE value="Melhorias do sourceFinder , para aceitar codigos de rastreios com espacos(carece de testes)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Melhorias do sourceFinder , para aceitar codigos de rastreios com espacos(carece de testes)" />
+    <MESSAGE value="Marcação para rastreabilidade nos templates do cadastro de projetos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Marcação para rastreabilidade nos templates do cadastro de projetos" />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="false" />
   </component>
   <component name="XDebuggerManager">
@@ -775,13 +782,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/main/templates/sprint/top_bar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/templates/sprint/history.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-189">
@@ -1061,16 +1061,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/views/project_views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1275">
-          <caret line="75" column="7" selection-start-line="75" selection-start-column="7" selection-end-line="75" selection-end-column="7" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/views/artifact_views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="412">
@@ -1165,6 +1155,24 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/decorators.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/views/project_views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="16" />
           <folding />
         </state>
       </provider>
