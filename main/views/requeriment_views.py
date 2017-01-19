@@ -14,6 +14,10 @@ from main.components.formviews import AddFormView, UpdateFormView
 
 
 class RequerimentListView(ModelListProjectFilter):
+    """
+    #class:US005
+    List of project's requeriments
+    """
     model = Requeriment
     paginate_by = 20
     list_display = ('code','title', 'description','type')
@@ -46,6 +50,10 @@ class RequerimentListView(ModelListProjectFilter):
 
 
 class RequerimentAddFormView(AddFormView):
+    """
+    #class:US005
+    Requeriment add
+    """
     page_title = _('Requeriment')
     model = Requeriment
     form_class = RequerimentForm
@@ -77,6 +85,10 @@ class RequerimentAddFormView(AddFormView):
 
 
 class RequerimentUpdateFormView(UpdateFormView):
+    """
+    #class:US005
+    Edit requeriment
+    """
     page_title = 'Requeriment'
     model = Requeriment
     form_class = RequerimentForm
@@ -116,6 +128,10 @@ class RequerimentUpdateFormView(UpdateFormView):
 
 
 class RequerimentDetailView(TemplateViewProjectFilter):
+    """
+    #class:US005
+    Detail of requeriment
+    """
     template_name = 'requeriment/detail.html'
 
     def get_context_data(self, **kwargs):
@@ -141,6 +157,10 @@ class RequerimentDetailView(TemplateViewProjectFilter):
 
 
 class RequerimentHistoryView(ListView):
+    """
+    #class:US005
+    Alter history of the requeriment
+    """
     model = Requeriment
     template_name = 'requeriment/history.html'
     list_display = ('history_user',)
@@ -171,6 +191,10 @@ class RequerimentHistoryView(ListView):
 
 
 class RequerimentDeleteView(SuccessMessageMixin, DeleteView):
+    """
+    #class:US005
+    Delete requeriment
+    """
     model = Requeriment
     template_name = 'requeriment/delete.html'
     fields = ('code', 'title', 'description')

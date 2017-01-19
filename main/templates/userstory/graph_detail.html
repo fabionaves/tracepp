@@ -26,7 +26,7 @@
     {% for artifact in userstory.artifact_set.all %}
         <div class="artifact{{ artifact.pk }}" style="display: none;background-color: blue" align="center">
             <a href="{% if artifact.type.type == 0 %}{% url 'main:artifact-download' artifact.id %}{% elif artifact.type.type == 2 %}{% url 'main:artifact-activity'  artifact.id %}{% else %}{% url 'main:artifact-codeview' artifact.id %}{% endif %}" style="color:white">
-                {{ artifact.type.trace_code }}- {{ artifact.type.name }}
+                {{ artifact.type.trace_code }}- {{ artifact.type.name }} {% if artifact.source is not None %}{{ artifact.source }}{%  endif %}
             </a>
         </div>
     {% endfor %}

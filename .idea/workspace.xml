@@ -4,8 +4,13 @@
     <list default="true" id="75a9e5b2-515a-4560-8233-370d9d8f5088" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/decorators.py" afterPath="$PROJECT_DIR$/main/decorators.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/views/project_views.py" afterPath="$PROJECT_DIR$/main/views/project_views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/requeriment/choose_action.html" afterPath="$PROJECT_DIR$/main/templates/requeriment/choose_action.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/requeriment/delete.html" afterPath="$PROJECT_DIR$/main/templates/requeriment/delete.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/requeriment/detail.html" afterPath="$PROJECT_DIR$/main/templates/requeriment/detail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/requeriment/history.html" afterPath="$PROJECT_DIR$/main/templates/requeriment/history.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/requeriment/top_bar.html" afterPath="$PROJECT_DIR$/main/templates/requeriment/top_bar.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/userstory/graph_detail.html" afterPath="$PROJECT_DIR$/main/templates/userstory/graph_detail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/views/requeriment_views.py" afterPath="$PROJECT_DIR$/main/views/requeriment_views.py" />
     </list>
     <list id="4ae9251b-657d-4132-8cbd-3ff689d77587" name="New changelist" comment="" />
     <ignored path="tracepp.iws" />
@@ -44,24 +49,72 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="project_views.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/main/views/project_views.py">
+      <file leaf-file-name="requeriment_views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main/views/requeriment_views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="16" />
+            <state relative-caret-position="2040">
+              <caret line="132" column="13" selection-start-line="132" selection-start-column="13" selection-end-line="132" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="decorators.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main/decorators.py">
+      <file leaf-file-name="choose_action.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main/templates/requeriment/choose_action.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="delete.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main/templates/requeriment/delete.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="detail.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main/templates/requeriment/detail.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="history.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main/templates/requeriment/history.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="top_bar.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/main/templates/requeriment/top_bar.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="project_views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main/views/project_views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="16" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -90,9 +143,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/main/templates/requeriment/choose_action.html" />
-        <option value="$PROJECT_DIR$/main/views/sprint_views.py" />
-        <option value="$PROJECT_DIR$/main/templates/requeriment/graph.html" />
         <option value="$PROJECT_DIR$/main/templates/requeriment/graph_detail.html" />
         <option value="$PROJECT_DIR$/main/components/formviews.py" />
         <option value="$PROJECT_DIR$/main/templates/userstory/action.html" />
@@ -114,15 +164,12 @@
         <option value="$PROJECT_DIR$/main/models.py" />
         <option value="$PROJECT_DIR$/main/templates/login/form.html" />
         <option value="$PROJECT_DIR$/main/templates/home/home.html" />
-        <option value="$PROJECT_DIR$/main/templates/requeriment/detail.html" />
         <option value="$PROJECT_DIR$/main/templates/artifact/tracebugtracking.html" />
         <option value="$PROJECT_DIR$/main/templates/sprint/detail.html" />
         <option value="$PROJECT_DIR$/main/templates/userstory/delete.html" />
         <option value="$PROJECT_DIR$/main/templates/userstory/detail.html" />
-        <option value="$PROJECT_DIR$/main/templates/requeriment/delete.html" />
         <option value="$PROJECT_DIR$/main/urls.py" />
         <option value="$PROJECT_DIR$/main/templates/login/logout.html" />
-        <option value="$PROJECT_DIR$/main/views/requeriment_views.py" />
         <option value="$PROJECT_DIR$/locale/pt_BR/LC_MESSAGES/django.po" />
         <option value="$PROJECT_DIR$/tracepp/settings.py" />
         <option value="$PROJECT_DIR$/main/templates/artifacttype/delete.html" />
@@ -138,9 +185,15 @@
         <option value="$PROJECT_DIR$/main/templates/project/action.html" />
         <option value="$PROJECT_DIR$/main/templates/project/choose_action.html" />
         <option value="$PROJECT_DIR$/main/templates/project/form.html" />
-        <option value="$PROJECT_DIR$/main/templates/userstory/graph_detail.html" />
         <option value="$PROJECT_DIR$/main/views/project_views.py" />
         <option value="$PROJECT_DIR$/main/decorators.py" />
+        <option value="$PROJECT_DIR$/main/templates/userstory/graph_detail.html" />
+        <option value="$PROJECT_DIR$/main/views/requeriment_views.py" />
+        <option value="$PROJECT_DIR$/main/templates/requeriment/choose_action.html" />
+        <option value="$PROJECT_DIR$/main/templates/requeriment/delete.html" />
+        <option value="$PROJECT_DIR$/main/templates/requeriment/detail.html" />
+        <option value="$PROJECT_DIR$/main/templates/requeriment/history.html" />
+        <option value="$PROJECT_DIR$/main/templates/requeriment/top_bar.html" />
       </list>
     </option>
   </component>
@@ -227,7 +280,29 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tracepp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tracepp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="requeriment" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -675,7 +750,14 @@
       <option name="project" value="LOCAL" />
       <updated>1484826042068</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Rastros para US003 e US004">
+      <created>1484830737564</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1484830737564</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -758,7 +840,8 @@
     <MESSAGE value="Busca na table por javascript&#10;Documentacoes da US002" />
     <MESSAGE value="Melhorias do sourceFinder , para aceitar codigos de rastreios com espacos(carece de testes)" />
     <MESSAGE value="Marcação para rastreabilidade nos templates do cadastro de projetos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Marcação para rastreabilidade nos templates do cadastro de projetos" />
+    <MESSAGE value="Rastros para US003 e US004" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rastros para US003 e US004" />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="false" />
   </component>
   <component name="XDebuggerManager">
@@ -782,34 +865,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/main/templates/sprint/history.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-189">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/templates/sprint/form_head.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/templates/sprint/detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="171" column="39" selection-start-line="171" selection-start-column="39" selection-end-line="171" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/templates/userstory/detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="75" column="94" selection-start-line="75" selection-start-column="94" selection-end-line="75" selection-end-column="94" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/templates/userstory/history.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -873,13 +928,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/templates/requeriment/delete.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="49" selection-start-line="5" selection-start-column="49" selection-end-line="5" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/views/sprint_views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="211">
@@ -898,13 +946,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="103" selection-start-line="9" selection-start-column="103" selection-end-line="9" selection-end-column="103" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/views/requeriment_views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2118">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1135,26 +1176,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main/templates/project/action.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main/templates/userstory/graph_detail.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="440">
-          <caret line="73" column="60" selection-start-line="73" selection-start-column="60" selection-end-line="73" selection-end-column="60" />
+          <caret line="28" column="142" selection-start-line="28" selection-start-column="142" selection-end-line="28" selection-end-column="142" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2074">
-          <caret line="205" column="14" selection-start-line="205" selection-start-column="4" selection-end-line="205" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/templates/project/action.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
+        <state relative-caret-position="126">
+          <caret line="212" column="10" selection-start-line="212" selection-start-column="4" selection-end-line="212" selection-end-column="10" />
           <folding />
         </state>
       </provider>
@@ -1173,6 +1214,54 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/views/requeriment_views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2040">
+          <caret line="132" column="13" selection-start-line="132" selection-start-column="13" selection-end-line="132" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/templates/requeriment/choose_action.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/templates/requeriment/delete.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/templates/requeriment/detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/templates/requeriment/history.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/templates/requeriment/top_bar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
           <folding />
         </state>
       </provider>
