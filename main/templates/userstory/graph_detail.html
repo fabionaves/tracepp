@@ -71,7 +71,7 @@
                     'id': 'artifact{{ artifact.pk }}',
                     'color': 'blue',
                     'shape': 'square',
-                    'label': '{{ artifact.type.get_type_display }}'
+                    'label': '{{ artifact.type.trace_code }}'
                 });
                 sys.addEdge(u{{ userstory.id }}, artifact{{ artifact.pk }}, {directed: false, weight: 3});
             {% endfor %}
