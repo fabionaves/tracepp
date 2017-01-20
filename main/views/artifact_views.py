@@ -23,6 +23,9 @@ from tracepp import settings
 
 
 class ArtifactView(SuccessMessageMixin, CreateView):
+    """
+    #class: US009
+    """
     template_name = 'artifact/form.html'
     model = Artifact
     form_class = ArtifactForm
@@ -146,6 +149,9 @@ class ArtifactView(SuccessMessageMixin, CreateView):
 
 
 def ArtifactDownloadView(request,pk):
+    """
+    #class: US009
+    """
     artifact = get_object_or_404(
         Artifact,
         project=request.session.get('project_id', None),
@@ -158,6 +164,9 @@ def ArtifactDownloadView(request,pk):
 
 
 class ArtifactDeleteView(SuccessMessageMixin, DeleteView):
+    """
+    #class: US009
+    """
     model = Artifact
     template_name = 'artifact/delete.html'
     fields = ('name', 'type', 'reference', 'requeriment','sprint','userstory','file')

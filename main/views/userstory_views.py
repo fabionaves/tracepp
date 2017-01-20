@@ -15,6 +15,10 @@ from main.components.formviews import AddFormView, UpdateFormView
 
 
 class UserStoryListView(ModelListProjectFilter):
+    """
+    #class:US007
+    List of US
+    """
     model = UserStory
     paginate_by = 20
     list_display = ('code', 'title','description')
@@ -62,6 +66,10 @@ class UserStoryListView(ModelListProjectFilter):
 
 
 class UserStoryDetailView(TemplateViewProjectFilter):
+    """
+    #class:US007
+    Detail of US
+    """
     template_name = 'userstory/detail.html'
 
     def get_context_data(self, **kwargs):
@@ -105,6 +113,10 @@ class UserStoryDetailView(TemplateViewProjectFilter):
 
 
 class UserStoryAddFormView(AddFormView):
+    """
+    #class:US007
+    Add US
+    """
     page_title = 'UserStory'
     model = UserStory
     form_class = UserStoryForm
@@ -178,6 +190,10 @@ class UserStoryAddFormView(AddFormView):
 
 
 class UserStoryUpdateFormView(UpdateFormView):
+    """
+    #class:US007
+    Update US
+    """
     page_title = 'UserStory'
     model = UserStory
     form_class = UserStoryForm
@@ -260,6 +276,10 @@ class UserStoryUpdateFormView(UpdateFormView):
 
 
 class UserStoryDeleteView(SuccessMessageMixin, DeleteView):
+    """
+    #class:US007
+    Delete US
+    """
     model = UserStory
     template_name = 'userstory/delete.html'
     list_display = ('code', 'title', 'description')

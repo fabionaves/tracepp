@@ -13,6 +13,9 @@ from main.decorators import require_project
 
 
 class ArtifactTypeView(ModelListProjectFilter):
+    """
+    #class:US008
+    """
     model = ArtifactType
     paginate_by = 20
     list_display = ('name', 'level', 'type', 'trace_code')
@@ -25,6 +28,9 @@ class ArtifactTypeView(ModelListProjectFilter):
 
 
 class ArtifactTypeAddFormView(AddFormView):
+    """
+    #class:US008
+    """
     page_title = _('Artifact type')
     model = ArtifactType
     form_class = ArtifactTypeForm
@@ -51,6 +57,9 @@ class ArtifactTypeAddFormView(AddFormView):
 
 
 class ArtifactTypeUpdateFormView(UpdateFormView):
+    """
+    #class:US008
+    """
     page_title = _('Artifact type')
     model = ArtifactType
     form_class = ArtifactTypeForm
@@ -77,6 +86,9 @@ class ArtifactTypeUpdateFormView(UpdateFormView):
 
 
 class ArtifactTypeDeleteView(SuccessMessageMixin, DeleteView):
+    """
+    #class:US008
+    """
     model = ArtifactType
     template_name = 'artifacttype/delete.html'
     list_display = ('name', 'level', 'type', 'trace_code')
