@@ -13,6 +13,10 @@ from main.components.formviews import AddFormView, UpdateFormView
 
 
 class SprintListView(ModelListProjectFilter):
+    """
+    #class:US006
+    Sprint List
+    """
     model = Sprint
     paginate_by = 20
     list_display = ('title', 'status', 'begin', 'end')
@@ -25,6 +29,10 @@ class SprintListView(ModelListProjectFilter):
 
 
 class SprintDetailView(TemplateViewProjectFilter):
+    """
+    #class:US006
+    Details of Sprint
+    """
     template_name = 'sprint/detail.html'
 
     def get_context_data(self, **kwargs):
@@ -52,6 +60,10 @@ class SprintDetailView(TemplateViewProjectFilter):
 
 
 class SprintAddFormView(AddFormView):
+    """
+    #class:US006
+    Add Sprint
+    """
     page_title = 'Sprint'
     model = Sprint
     head_template = 'sprint/form_head.html'
@@ -76,6 +88,10 @@ class SprintAddFormView(AddFormView):
 
 
 class SprintUpdateFormView(UpdateFormView):
+    """
+    #class:US006
+    Update Sprint
+    """
     page_title = 'Sprint'
     model = Sprint
     head_template = 'sprint/form_head.html'
@@ -107,6 +123,10 @@ class SprintUpdateFormView(UpdateFormView):
 
 
 class SprintDeleteView(SuccessMessageMixin, DeleteView):
+    """
+    #class:US006
+    Delete Sprint
+    """
     model = Sprint
     template_name = 'sprint/delete.html'
     fields = ('title', 'status', 'begin', 'end')
@@ -129,6 +149,10 @@ class SprintDeleteView(SuccessMessageMixin, DeleteView):
 
 
 class SprintHistoryView(ListView):
+    """
+    #class:US006
+    Alter History of sprint
+    """
     model = Sprint
     template_name = 'sprint/history.html'
     list_display = ('history_user',)
