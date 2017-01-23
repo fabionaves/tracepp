@@ -4,13 +4,10 @@
     <list default="true" id="75a9e5b2-515a-4560-8233-370d9d8f5088" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/artifact/form.html" afterPath="$PROJECT_DIR$/main/templates/artifact/form.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/artifacttype/delete.html" afterPath="$PROJECT_DIR$/main/templates/artifacttype/delete.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/userstory/delete.html" afterPath="$PROJECT_DIR$/main/templates/userstory/delete.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/userstory/detail.html" afterPath="$PROJECT_DIR$/main/templates/userstory/detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/userstory/history.html" afterPath="$PROJECT_DIR$/main/templates/userstory/history.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/requeriment/graph_detail.html" afterPath="$PROJECT_DIR$/main/templates/requeriment/graph_detail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/templates/userstory/graph_detail.html" afterPath="$PROJECT_DIR$/main/templates/userstory/graph_detail.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/views/artifact_views.py" afterPath="$PROJECT_DIR$/main/views/artifact_views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/views/artifacttype_views.py" afterPath="$PROJECT_DIR$/main/views/artifacttype_views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/views/requeriment_views.py" afterPath="$PROJECT_DIR$/main/views/requeriment_views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/views/userstory_views.py" afterPath="$PROJECT_DIR$/main/views/userstory_views.py" />
     </list>
     <list id="4ae9251b-657d-4132-8cbd-3ff689d77587" name="New changelist" comment="" />
@@ -49,28 +46,7 @@
     <favorites_list name="tracepp" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="artifact_views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main/views/artifact_views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="26" column="12" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="form.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/main/templates/artifact/form.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="3" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -94,7 +70,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/static/js/dropzone.js" />
         <option value="$PROJECT_DIR$/main/views/home_views.py" />
         <option value="$PROJECT_DIR$/main/templates/artifact/delete.html" />
         <option value="$PROJECT_DIR$/main/components/git.py" />
@@ -122,8 +97,6 @@
         <option value="$PROJECT_DIR$/main/templates/project/form.html" />
         <option value="$PROJECT_DIR$/main/views/project_views.py" />
         <option value="$PROJECT_DIR$/main/decorators.py" />
-        <option value="$PROJECT_DIR$/main/templates/userstory/graph_detail.html" />
-        <option value="$PROJECT_DIR$/main/views/requeriment_views.py" />
         <option value="$PROJECT_DIR$/main/templates/requeriment/choose_action.html" />
         <option value="$PROJECT_DIR$/main/templates/requeriment/delete.html" />
         <option value="$PROJECT_DIR$/main/templates/requeriment/detail.html" />
@@ -137,14 +110,17 @@
         <option value="$PROJECT_DIR$/main/templates/sprint/history.html" />
         <option value="$PROJECT_DIR$/main/templates/sprint/top_bar.html" />
         <option value="$PROJECT_DIR$/main/templates/sprint/form_head.html" />
-        <option value="$PROJECT_DIR$/main/views/userstory_views.py" />
         <option value="$PROJECT_DIR$/main/templates/userstory/delete.html" />
         <option value="$PROJECT_DIR$/main/templates/userstory/detail.html" />
         <option value="$PROJECT_DIR$/main/templates/userstory/history.html" />
         <option value="$PROJECT_DIR$/main/views/artifacttype_views.py" />
         <option value="$PROJECT_DIR$/main/templates/artifacttype/delete.html" />
-        <option value="$PROJECT_DIR$/main/views/artifact_views.py" />
         <option value="$PROJECT_DIR$/main/templates/artifact/form.html" />
+        <option value="$PROJECT_DIR$/main/views/artifact_views.py" />
+        <option value="$PROJECT_DIR$/main/views/requeriment_views.py" />
+        <option value="$PROJECT_DIR$/main/views/userstory_views.py" />
+        <option value="$PROJECT_DIR$/main/templates/userstory/graph_detail.html" />
+        <option value="$PROJECT_DIR$/main/templates/requeriment/graph_detail.html" />
       </list>
     </option>
   </component>
@@ -184,7 +160,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -271,12 +246,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="artifact" />
+              <option name="myItemId" value="requeriment" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -747,14 +723,21 @@
       <option name="project" value="LOCAL" />
       <updated>1484907905156</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Rastros para US009">
+      <created>1484921367058</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1484921367058</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1934" height="1047" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24713244" sideWeight="0.49369085" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24713244" sideWeight="0.49369085" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32870865" sideWeight="0.30307466" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -833,7 +816,9 @@
     <MESSAGE value="Rastros para US003 e US004" />
     <MESSAGE value="Rastros para US005" />
     <MESSAGE value="Rastros para US006" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rastros para US006" />
+    <MESSAGE value="Rastros para US009" />
+    <MESSAGE value="Rastros" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rastros" />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="false" />
   </component>
   <component name="XDebuggerManager">
@@ -857,14 +842,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://C:/python/Lib/site-packages/django/utils/translation/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="188" column="4" selection-start-line="188" selection-start-column="4" selection-end-line="188" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/python/Lib/site-packages/django/utils/text.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="431">
@@ -1038,14 +1015,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/templates/userstory/graph_detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="28" column="142" selection-start-line="28" selection-start-column="142" selection-end-line="28" selection-end-column="142" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
@@ -1064,19 +1033,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/views/requeriment_views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2040">
-          <caret line="132" column="13" selection-start-line="132" selection-start-column="13" selection-end-line="132" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/templates/requeriment/choose_action.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1108,7 +1068,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1124,7 +1083,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1132,7 +1090,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="2" selection-start-line="3" selection-start-column="2" selection-end-line="3" selection-end-column="2" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1148,7 +1105,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1164,7 +1120,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1188,7 +1143,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1196,7 +1150,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1224,14 +1177,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/views/userstory_views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="891">
-          <caret line="320" column="58" selection-start-line="320" selection-start-column="58" selection-end-line="320" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/templates/artifacttype/delete.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -1248,18 +1193,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/views/artifact_views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="26" column="12" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/templates/artifact/form.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/templates/requeriment/graph_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/templates/userstory/graph_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/views/userstory_views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="323" column="7" selection-start-line="323" selection-start-column="7" selection-end-line="323" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/views/requeriment_views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="449">
+          <caret line="238" column="7" selection-start-line="238" selection-start-column="7" selection-end-line="238" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/views/artifact_views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="422" column="16" selection-start-line="422" selection-start-column="16" selection-end-line="422" selection-end-column="16" />
           <folding />
         </state>
       </provider>

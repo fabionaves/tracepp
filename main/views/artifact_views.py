@@ -182,6 +182,9 @@ class ArtifactDeleteView(SuccessMessageMixin, DeleteView):
 
 
 class ArtifactTraceBugTrackingView(TemplateViewProjectFilter):
+    """
+    #class:US012
+    """
     template_name = 'artifact/tracebugtracking.html'
 
     def get_context_data(self, **kwargs):
@@ -263,6 +266,9 @@ class ArtifactTraceBugTrackingView(TemplateViewProjectFilter):
 
 
 class ArtifactTraceCodeView(TemplateViewProjectFilter):
+    """
+    #class:US010
+    """
     template_name = 'artifact/tracecode.html'
 
     def get_context_data(self, **kwargs):
@@ -298,6 +304,9 @@ class ArtifactTraceCodeView(TemplateViewProjectFilter):
 
 
 class ArtifactCodeView(TemplateViewProjectFilter):
+    """
+    #class:US011
+    """
     template_name = 'artifact/code.html'
 
     def get_context_data(self, **kwargs):
@@ -410,6 +419,9 @@ class ArtifactCodeView(TemplateViewProjectFilter):
 
 
 class ArtifactActivityView(TemplateViewProjectFilter):
+    """
+    #class:US013
+    """
     template_name = 'artifact/activity.html'
 
     def get_context_data(self, **kwargs):

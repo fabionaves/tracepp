@@ -24,6 +24,7 @@ class RequerimentListView(ModelListProjectFilter):
     action_template = 'requeriment/choose_action.html'
     top_bar = 'requeriment/top_bar.html'
     page_title = _('Requeriments')
+    ordering = 'code'
     breadcrumbs = (
         {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
         {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriment')},
@@ -214,6 +215,9 @@ class RequerimentDeleteView(SuccessMessageMixin, DeleteView):
         return context
 
 class RequerimentGraphView(TemplateViewProjectFilter):
+    """
+    #class:US014
+    """
     template_name = 'requeriment/graph.html'
 
     def get_context_data(self, **kwargs):
@@ -230,6 +234,9 @@ class RequerimentGraphView(TemplateViewProjectFilter):
 
 
 class RequerimentGraphDetailView(TemplateViewProjectFilter):
+    """
+    #class:US014
+    """
     template_name = 'requeriment/graph_detail.html'
 
     def get_context_data(self, **kwargs):

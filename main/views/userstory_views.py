@@ -319,6 +319,9 @@ class UserStoryDeleteView(SuccessMessageMixin, DeleteView):
 
 
 class UserStoryGraphDetailView(TemplateViewProjectFilter):
+    """
+    #class:US014
+    """
     template_name = 'userstory/graph_detail.html'
 
     def get_context_data(self, **kwargs):
