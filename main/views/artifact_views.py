@@ -151,6 +151,7 @@ class ArtifactView(SuccessMessageMixin, CreateView):
 def ArtifactDownloadView(request,pk):
     """
     #class:US009
+    Download
     """
     artifact = get_object_or_404(
         Artifact,
