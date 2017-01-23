@@ -24,7 +24,7 @@ from tracepp import settings
 
 class ArtifactView(SuccessMessageMixin, CreateView):
     """
-    #class: US009
+    #class:US009
     """
     template_name = 'artifact/form.html'
     model = Artifact
@@ -150,7 +150,7 @@ class ArtifactView(SuccessMessageMixin, CreateView):
 
 def ArtifactDownloadView(request,pk):
     """
-    #class: US009
+    #class:US009
     """
     artifact = get_object_or_404(
         Artifact,
