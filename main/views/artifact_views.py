@@ -165,7 +165,7 @@ def ArtifactDownloadView(request,pk):
 
 class ArtifactDeleteView(SuccessMessageMixin, DeleteView):
     """
-    #class: US009
+    #class:US009
     """
     model = Artifact
     template_name = 'artifact/delete.html'
@@ -285,20 +285,23 @@ class ArtifactTraceCodeView(TemplateViewProjectFilter):
         repo.repository.pull()
         sf = SourceFinder(project, artifactsTypes)
         for artifact in sf.artifactList:
-            if artifact['artifactType'].level == 0:
-                Artifact.objects.create(project=project, source=artifact['source'], line=artifact['line'], type=artifact['artifactType'])
-            elif artifact['artifactType'].level == 1:
-                requeriment = Requeriment.objects.filter(code=artifact['code']).get()
-                Artifact.objects.create(project=project, source=artifact['source'], line=artifact['line'],
-                                        type=artifact['artifactType'], requeriment=requeriment)
-            elif artifact['artifactType'].level == 2:
-                sprint = Sprint.objects.filter(code=artifact['code']).get()
-                Artifact.objects.create(project=project, source=artifact['source'], line=artifact['line'],
-                                        type=artifact['artifactType'], sprint=sprint)
-            elif artifact['artifactType'].level == 3:
-                userstory = UserStory.objects.filter(code=artifact['code']).get()
-                Artifact.objects.create(project=project, source=artifact['source'], line=artifact['line'],
-                                        type=artifact['artifactType'], userstory=userstory)
+            try:
+                if artifact['artifactType'].level == 0:
+                    Artifact.objects.create(project=project, source=artifact['source'], line=artifact['line'], type=artifact['artifactType'])
+                elif artifact['artifactType'].level == 1:
+                    requeriment = Requeriment.objects.filter(code=artifact['code']).get()
+                    Artifact.objects.create(project=project, source=artifact['source'], line=artifact['line'],
+                                            type=artifact['artifactType'], requeriment=requeriment)
+                elif artifact['artifactType'].level == 2:
+                    sprint = Sprint.objects.filter(code=artifact['code']).get()
+                    Artifact.objects.create(project=project, source=artifact['source'], line=artifact['line'],
+                                            type=artifact['artifactType'], sprint=sprint)
+                elif artifact['artifactType'].level == 3:
+                    userstory = UserStory.objects.filter(code=artifact['code']).get()
+                    Artifact.objects.create(project=project, source=artifact['source'], line=artifact['line'],
+                                            type=artifact['artifactType'], userstory=userstory)
+            except:
+                context['erros']="erros: {} {}", artifact['source'], artifact['line']
         context['project'] = project
         return context
 
