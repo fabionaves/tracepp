@@ -23,6 +23,6 @@ class activityFinder:
                              'estimated_time': estimated_time,
                              'spent_time': spent_time,
                              'artifactType': artifactType,
-                             'code': str(issue)[str(issue).find(trace_code):][len(artifactType.trace_code)+1:]
+                             'code': str(issue)[str(issue).find(trace_code):][len(artifactType.trace_code):]
                              }
                         )

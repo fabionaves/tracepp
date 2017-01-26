@@ -203,65 +203,67 @@ class ArtifactTraceBugTrackingView(TemplateViewProjectFilter):
             except Artifact.DoesNotExist:
                 filterArtifact = None
 
-
-            if not filterArtifact is None:
-                if artifact['artifactType'].level == 0:
-                    filterArtifact.estimated_time = artifact['estimated_time']
-                    filterArtifact.spent_time = artifact['spent_time']
-                    filterArtifact.type = artifact['artifactType']
-                    filterArtifact.save()
-                elif artifact['artifactType'].level == 1:
-                    requeriment = Requeriment.objects.filter(code=artifact['code']).get()
-                    filterArtifact.estimated_time = artifact['estimated_time']
-                    filterArtifact.spent_time = artifact['spent_time']
-                    filterArtifact.type = artifact['artifactType']
-                    filterArtifact.requeriment = requeriment
-                    filterArtifact.save()
-                elif artifact['artifactType'].level == 2:
-                    sprint = Sprint.objects.filter(code=artifact['code']).get()
-                    filterArtifact.estimated_time = artifact['estimated_time']
-                    filterArtifact.spent_time = artifact['spent_time']
-                    filterArtifact.type = artifact['artifactType']
-                    filterArtifact.sprint = sprint
-                    filterArtifact.save()
-                elif artifact['artifactType'].level == 3:
-                    userstory = UserStory.objects.filter(code=artifact['code']).get()
-                    filterArtifact.estimated_time = artifact['estimated_time']
-                    filterArtifact.spent_time = artifact['spent_time']
-                    filterArtifact.type = artifact['artifactType']
-                    filterArtifact.userstory = userstory
-                    filterArtifact.save()
-            else:
-                if artifact['artifactType'].level == 0:
-                    Artifact.objects.create(project=project,
-                                            reference=artifact['reference'],
-                                            estimated_time=artifact['estimated_time'],
-                                            spent_time=artifact['spent_time'],
-                                            type=artifact['artifactType'])
-                elif artifact['artifactType'].level == 1:
-                    requeriment = Requeriment.objects.filter(code=artifact['code']).get()
-                    Artifact.objects.create(project=project,
-                                            reference=artifact['reference'],
-                                            estimated_time=artifact['estimated_time'],
-                                            spent_time=artifact['spent_time'],
-                                            type=artifact['artifactType'],
-                                            requeriment=requeriment)
-                elif artifact['artifactType'].level == 2:
-                    sprint = Sprint.objects.filter(code=artifact['code']).get()
-                    Artifact.objects.create(project=project,
-                                            reference=artifact['reference'],
-                                            estimated_time=artifact['estimated_time'],
-                                            spent_time=artifact['spent_time'],
-                                            type=artifact['artifactType'],
-                                            sprint=sprint)
-                elif artifact['artifactType'].level == 3:
-                    userstory = UserStory.objects.filter(code=artifact['code']).get()
-                    Artifact.objects.create(project=project,
-                                            reference=artifact['reference'],
-                                            estimated_time=artifact['estimated_time'],
-                                            spent_time=artifact['spent_time'],
-                                            type=artifact['artifactType'],
-                                            userstory=userstory)
+            try:
+                if not filterArtifact is None:
+                    if artifact['artifactType'].level == 0:
+                        filterArtifact.estimated_time = artifact['estimated_time']
+                        filterArtifact.spent_time = artifact['spent_time']
+                        filterArtifact.type = artifact['artifactType']
+                        filterArtifact.save()
+                    elif artifact['artifactType'].level == 1:
+                        requeriment = Requeriment.objects.filter(code=artifact['code']).get()
+                        filterArtifact.estimated_time = artifact['estimated_time']
+                        filterArtifact.spent_time = artifact['spent_time']
+                        filterArtifact.type = artifact['artifactType']
+                        filterArtifact.requeriment = requeriment
+                        filterArtifact.save()
+                    elif artifact['artifactType'].level == 2:
+                        sprint = Sprint.objects.filter(code=artifact['code']).get()
+                        filterArtifact.estimated_time = artifact['estimated_time']
+                        filterArtifact.spent_time = artifact['spent_time']
+                        filterArtifact.type = artifact['artifactType']
+                        filterArtifact.sprint = sprint
+                        filterArtifact.save()
+                    elif artifact['artifactType'].level == 3:
+                        userstory = UserStory.objects.filter(code=artifact['code']).get()
+                        filterArtifact.estimated_time = artifact['estimated_time']
+                        filterArtifact.spent_time = artifact['spent_time']
+                        filterArtifact.type = artifact['artifactType']
+                        filterArtifact.userstory = userstory
+                        filterArtifact.save()
+                else:
+                    if artifact['artifactType'].level == 0:
+                        Artifact.objects.create(project=project,
+                                                reference=artifact['reference'],
+                                                estimated_time=artifact['estimated_time'],
+                                                spent_time=artifact['spent_time'],
+                                                type=artifact['artifactType'])
+                    elif artifact['artifactType'].level == 1:
+                        requeriment = Requeriment.objects.filter(code=artifact['code']).get()
+                        Artifact.objects.create(project=project,
+                                                reference=artifact['reference'],
+                                                estimated_time=artifact['estimated_time'],
+                                                spent_time=artifact['spent_time'],
+                                                type=artifact['artifactType'],
+                                                requeriment=requeriment)
+                    elif artifact['artifactType'].level == 2:
+                        sprint = Sprint.objects.filter(code=artifact['code']).get()
+                        Artifact.objects.create(project=project,
+                                                reference=artifact['reference'],
+                                                estimated_time=artifact['estimated_time'],
+                                                spent_time=artifact['spent_time'],
+                                                type=artifact['artifactType'],
+                                                sprint=sprint)
+                    elif artifact['artifactType'].level == 3:
+                        userstory = UserStory.objects.filter(code=artifact['code']).get()
+                        Artifact.objects.create(project=project,
+                                                reference=artifact['reference'],
+                                                estimated_time=artifact['estimated_time'],
+                                                spent_time=artifact['spent_time'],
+                                                type=artifact['artifactType'],
+                                                userstory=userstory)
+            except:
+                context['erros']="erros: {} {}", artifact['reference'], artifact['code']
         context['project'] = project
         return context
 

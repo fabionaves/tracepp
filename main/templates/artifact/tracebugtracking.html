@@ -4,5 +4,8 @@
 {% load myutils %}
 {% block content %}
 {% trans 'Bug Tracking Tool Traced !' %}
+     {% if erros %}
+        {{ erros }}
+    {% endif %}
     <button type="button" class="btn btn-lg btn-primary btn-block" onclick="javascript:window.history.go(-1)">Voltar</button>
 {% endblock %}
