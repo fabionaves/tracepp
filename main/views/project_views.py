@@ -1,19 +1,19 @@
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext as _
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import redirect
 from main.components.lists import ModelList
 from main.forms import ProjectForm
-from main.models import Project
 from main.components.formviews import AddFormView, UpdateFormView
+from main.services.project import ProjectService
 
 
 class ProjectView(ModelList):
     """
     #class:US004
     #class:US003
-    Projects Choose Page. Super user gets all projects, other users get their projects
+    Projects Choose Page.
     """
-    model = Project
+    model = ProjectService.get_project_model()
     list_display = ('name', )
     page_title = _('Choose a project:')
     action_template = 'project/choose_action.html'
@@ -27,10 +27,7 @@ class ProjectView(ModelList):
 
     def get_queryset(self):
         user = self.request.user
-        if user.is_superuser:
-            return Project.objects.all()
-        else:
-            return Project.objects.filter(user=user)
+        return ProjectService.get_user_projects(user)
 
 
 class ProjectListView(ProjectView):
@@ -38,7 +35,7 @@ class ProjectListView(ProjectView):
     #class:US002
     List of projects for options for choosing, adding, changing, or deleting
     """
-    model = Project
+    model = ProjectService.get_project_model()
     page_title = 'Projects'
     list_display = ('name', 'requester', 'points_type')
     action_template = "project/action.html"
@@ -54,7 +51,7 @@ class ProjectAddFormView(AddFormView):
     #class:US002
     Add project form
     """
-    model = Project
+    model = ProjectService.get_project_model()
     form_class = ProjectForm
     template_name = 'project/form.html'
     success_url = '/project/list/'
@@ -77,7 +74,7 @@ class ProjectUpdateFormView(UpdateFormView):
     #class:US002
     Edit project form
     """
-    model = Project
+    model = ProjectService.get_project_model()
     form_class = ProjectForm
     template_name = 'project/form.html'
     success_url = '/project/list/'

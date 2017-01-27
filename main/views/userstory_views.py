@@ -80,16 +80,16 @@ class UserStoryDetailView(TemplateViewProjectFilter):
         context['userstory'] = userstory
         context['total_artifacts'] = Artifact.objects.filter(
             project=self.request.session.get('project_id', None), userstory=userstory).count()
-        context['total_file_artifacts'] = Artifact.objects.filter(
-            project=self.request.session.get('project_id', None), type__type=0, userstory=userstory).count()
-        context['total_source_artifacts'] = Artifact.objects.filter(
-            project=self.request.session.get('project_id', None), type__type=1, userstory=userstory).count()
-        context['total_activities']=Artifact.objects.filter(
-            project=self.request.session.get('project_id', None), type__type=2, userstory=userstory).count()
-        context['total_estimated_time']=Artifact.objects.filter(
-            project=self.request.session.get('project_id', None), type__type=2, userstory=userstory).aggregate(time = Sum('estimated_time'))
-        context['total_spent_time'] = Artifact.objects.filter(
-            project=self.request.session.get('project_id', None), type__type=2, userstory=userstory).aggregate(time = Sum('spent_time'))
+        context['total_file_artifacts'] = Artifact.file_objects.filter(
+            project=self.request.session.get('project_id', None), userstory=userstory).count()
+        context['total_source_artifacts'] = Artifact.source_objects.filter(
+            project=self.request.session.get('project_id', None), userstory=userstory).count()
+        context['total_activities']=Artifact.activity_objects.filter(
+            project=self.request.session.get('project_id', None), userstory=userstory).count()
+        context['total_estimated_time']=Artifact.activity_objects.filter(
+            project=self.request.session.get('project_id', None), userstory=userstory).aggregate(time = Sum('estimated_time'))
+        context['total_spent_time'] = Artifact.activity_objects.filter(
+            project=self.request.session.get('project_id', None), userstory=userstory).aggregate(time = Sum('spent_time'))
         if 'sprint_id' in self.kwargs:
             sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_id'])
             context['breadcrumbs'] = (
