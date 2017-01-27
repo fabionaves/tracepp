@@ -1,15 +1,14 @@
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import Count
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
-from django.shortcuts import  get_object_or_404
 from django.views.generic import DeleteView
 from django.views.generic import ListView
 from main.components.lists import  ModelListProjectFilter, TemplateViewProjectFilter
 from main.decorators import require_project
-from main.models import Sprint, Project, SprintUserStory, Requeriment, Artifact
 from main.components.formviews import AddFormView, UpdateFormView
+from main.services.sprint import SprintService
+from main.services.project import ProjectService
 
 
 class SprintListView(ModelListProjectFilter):
@@ -17,7 +16,7 @@ class SprintListView(ModelListProjectFilter):
     #class:US006
     Sprint List
     """
-    model = Sprint
+    model = SprintService.get_sprint_model()
     paginate_by = 20
     list_display = ('title', 'status', 'begin', 'end')
     action_template = 'sprint/choose_action.html'
@@ -37,20 +36,13 @@ class SprintDetailView(TemplateViewProjectFilter):
 
     def get_context_data(self, **kwargs):
         context = super(SprintDetailView, self).get_context_data(**kwargs)
-        context['sprint'] = get_object_or_404(
-                                                Sprint.objects.all(),
-                                                project=self.request.session.get('project_id', None),
-                                                id=kwargs['sprint_id']
-                                              )
-        #context['num_requeriment'] = Sprint.objects.filter(pk=kwargs['sprint_id']).aggregate(total=Count('sprintuserstory__userstory__requeriment'))
-        #context['num_requeriment'] = Requeriment.objects.filter(userstory__sprintuserstory__sprint=kwargs['sprint_id']).a(total=Count('userstory__requeriment'))
-        #context['num_requeriment'] = SprintUserStory.objects.filter(sprint_id=kwargs['sprint_id']).aggregate(total=Count('userstory__requeriment'))
-        sprint_user_story = SprintUserStory.objects.filter(sprint_id=kwargs['sprint_id']).values_list('userstory_id')
-        context['num_requeriment']=Rqueryset = Requeriment.objects.filter(userstory__in=sprint_user_story).annotate(total=Count('*')).count()
-        context['num_userstories'] = SprintUserStory.objects.filter(sprint_id=kwargs['sprint_id']).count()
-        context['total_artifacts'] = Artifact.objects.filter(
-            project=self.request.session.get('project_id', None), sprint=context['sprint']).count()
-
+        context['sprint'] = SprintService.get_sprint(self.request.session.get('project_id', None), kwargs['sprint_id'])
+        sprint_user_story_list = SprintService.get_userstories_from_sprint(kwargs['sprint_id']).values_list('userstory_id')
+        context['num_requeriment'] = SprintService.get_num_requeriments_from_sprint(sprint_user_story_list)
+        context['num_userstories'] = SprintService.get_num_userstories_from_sprint(kwargs['sprint_id'])
+        context['total_artifacts'] = SprintService.get_num_artifacts_from_sprint(
+            self.request.session.get('project_id', None),kwargs['sprint_id']
+        )
         context['breadcrumbs'] = (
             {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
             {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
@@ -65,7 +57,7 @@ class SprintAddFormView(AddFormView):
     Add Sprint
     """
     page_title = 'Sprint'
-    model = Sprint
+    model = SprintService.get_sprint_model()
     head_template = 'sprint/form_head.html'
     fields = ('title', 'status', 'begin', 'end')
     success_url = '/sprint/'
@@ -81,7 +73,7 @@ class SprintAddFormView(AddFormView):
         return super(SprintAddFormView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        project = get_object_or_404(Project, pk=self.request.session['project_id'])
+        project = ProjectService.get_project(self.request.session['project_id'])
         form.instance.changed_by = self.request.user
         form.instance.project = project
         return super(SprintAddFormView, self).form_valid(form)
@@ -93,7 +85,7 @@ class SprintUpdateFormView(UpdateFormView):
     Update Sprint
     """
     page_title = 'Sprint'
-    model = Sprint
+    model = SprintService.get_sprint_model()
     head_template = 'sprint/form_head.html'
     fields = ('title', 'status', 'begin', 'end')
     success_message = _('Sprint was saved successfully')
@@ -106,7 +98,7 @@ class SprintUpdateFormView(UpdateFormView):
         return "/sprint/%d/" % self.object.id
 
     def form_valid(self, form):
-        project = get_object_or_404(Project, pk=self.request.session['project_id'])
+        project = ProjectService.get_project(self.request.session['project_id'])
         form.instance.project = project
         return super(SprintUpdateFormView, self).form_valid(form)
 
@@ -127,7 +119,7 @@ class SprintDeleteView(SuccessMessageMixin, DeleteView):
     #class:US006
     Delete Sprint
     """
-    model = Sprint
+    model = SprintService.get_sprint_model()
     template_name = 'sprint/delete.html'
     fields = ('title', 'status', 'begin', 'end')
     success_url = '/sprint/'
@@ -153,7 +145,7 @@ class SprintHistoryView(ListView):
     #class:US006
     Alter History of sprint
     """
-    model = Sprint
+    model = SprintService.get_sprint_model()
     template_name = 'sprint/history.html'
     list_display = ('history_user',)
     page_title = _('Sprint Change History:')
