@@ -22,6 +22,10 @@ class SprintService:
         return SprintUserStory.objects.filter(sprint_id=sprint_id)
 
     @staticmethod
+    def get_requeriments_from_sprint(sprint_user_story_list):
+        return Requeriment.objects.filter(userstory__in=sprint_user_story_list).annotate(total=Count('*'))
+
+    @staticmethod
     def get_num_requeriments_from_sprint(sprint_user_story_list):
         return Requeriment.objects.filter(userstory__in=sprint_user_story_list).annotate(total=Count('*')).count()
 

@@ -1,16 +1,18 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Count
-from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
-from django.shortcuts import  get_object_or_404
 from django.views.generic import DeleteView
 from django.views.generic import ListView
+
+from main.components.breadcrumbs import requeriments_breadcrumbs, requeriments_sucess_url
 from main.components.lists import  ModelListProjectFilter, TemplateViewProjectFilter
 from main.decorators import require_project
 from main.forms import RequerimentForm
-from main.models import Project, Requeriment, SprintUserStory, Sprint, UserStory, Artifact
 from main.components.formviews import AddFormView, UpdateFormView
+from main.services.project import ProjectService
+from main.services.requeriment import RequerimentService
+from main.services.sprint import SprintService
 
 
 class RequerimentListView(ModelListProjectFilter):
@@ -18,35 +20,28 @@ class RequerimentListView(ModelListProjectFilter):
     #class:US005
     List of project's requeriments
     """
-    model = Requeriment
+    model = RequerimentService.get_requeriment_model()
     paginate_by = 20
     list_display = ('code','title', 'description','type')
     action_template = 'requeriment/choose_action.html'
     top_bar = 'requeriment/top_bar.html'
     page_title = _('Requeriments')
     ordering = 'code'
-    breadcrumbs = (
-        {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-        {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriment')},
-    )
 
     def get_queryset(self):
         queryset = super(RequerimentListView, self).get_queryset()
         if 'sprint_id' in self.kwargs:
-            sprint_user_story = SprintUserStory.objects.filter(sprint_id=self.kwargs['sprint_id']).values_list('userstory_id')
-            queryset = Requeriment.objects.filter(userstory__in=sprint_user_story).annotate(total=Count('*'))
+            sprint_user_story_list = SprintService.get_userstories_from_sprint(self.kwargs['sprint_id']).values_list('userstory_id')
+            queryset = SprintService.get_requeriments_from_sprint(sprint_user_story_list)
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super(RequerimentListView, self).get_context_data()
-        if 'sprint_id' in self.kwargs:
-            sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_id'])
-            context['breadcrumbs'] = (
-               {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-               {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
-               {'link': reverse_lazy('main:sprint-details',kwargs={'sprint_id':sprint.id}), 'class': '', 'name': sprint},
-               {'link': '#', 'class': '', 'name': _('Requeriment')},
-            )
+        context['breadcrumbs'] = requeriments_breadcrumbs(
+            self.request.session['project_id'],
+            self.kwargs.get('pk'),
+            self.kwargs.get('sprint_id')
+        )
         return context
 
 
@@ -56,20 +51,18 @@ class RequerimentAddFormView(AddFormView):
     Requeriment add
     """
     page_title = _('Requeriment')
-    model = Requeriment
+    model = RequerimentService.get_requeriment_model()
     form_class = RequerimentForm
-    success_url = '/requeriment/'
     success_message = _('Requeriment was created successfully')
     tabs = (
         {"title": "Requirement", "id": "requeriment", "class": "active",
          "fields": ('code', 'title', 'description', 'type')},
         {"title": "Depends On", "id": "depends_on", "fields": ("depends_on",)},
     )
-    breadcrumbs = (
-        {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-        {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriment')},
-        {'link': '#', 'class': '', 'name': _('Add')},
-    )
+    breadcrumbs = False
+
+    def get_success_url(self):
+        return requeriments_sucess_url(False, False)
 
     def get_form(self):
         return self.form_class(request=self.request,**self.get_form_kwargs())
@@ -79,10 +72,20 @@ class RequerimentAddFormView(AddFormView):
         return super(RequerimentAddFormView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        project = get_object_or_404(Project, pk=self.request.session['project_id'])
+        project = ProjectService.get_project(self.request.session['project_id'])
         form.instance.changed_by = self.request.user
         form.instance.project = project
         return super(RequerimentAddFormView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(RequerimentAddFormView, self).get_context_data()
+        context['breadcrumbs'] = requeriments_breadcrumbs(
+            self.request.session['project_id'],
+            self.kwargs.get('pk'),
+            self.kwargs.get('sprint_id'),
+            _('Add')
+        )
+        return context
 
 
 class RequerimentUpdateFormView(UpdateFormView):
@@ -90,8 +93,8 @@ class RequerimentUpdateFormView(UpdateFormView):
     #class:US005
     Edit requeriment
     """
-    page_title = 'Requeriment'
-    model = Requeriment
+    page_title = _('Requeriment')
+    model = RequerimentService.get_requeriment_model()
     form_class = RequerimentForm
     success_url = '/requeriment/'
     success_message = _('Requeriment was created successfully')
@@ -105,25 +108,25 @@ class RequerimentUpdateFormView(UpdateFormView):
         return self.form_class(request=self.request,**self.get_form_kwargs())
 
     def get_success_url(self):
-        return "/requeriment/%d/" % self.object.id
+        return requeriments_sucess_url(self.kwargs.get('requeriment_id'), self.kwargs.get('sprint_id'))
 
     @method_decorator(require_project())
     def dispatch(self, request, *args, **kwargs):
         return super(RequerimentUpdateFormView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        project = get_object_or_404(Project, pk=self.request.session['project_id'])
+        project = ProjectService.get_project(self.request.session['project_id'])
         form.instance.changed_by = self.request.user
         form.instance.project = project
         return super(RequerimentUpdateFormView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super(RequerimentUpdateFormView, self).get_context_data()
-        context['breadcrumbs'] = (
-            {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-            {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriment')},
-            {'link': reverse_lazy('main:requeriment-details', kwargs={'pk' : self.object.id}), 'class': '', 'name': self.object.code},
-            {'link': '#', 'class': '', 'name': _('Add')},
+        context['breadcrumbs'] = requeriments_breadcrumbs(
+            self.request.session['project_id'],
+            self.kwargs.get('pk'),
+            self.kwargs.get('sprint_id'),
+            _('Update')
         )
         return context
 
@@ -137,21 +140,17 @@ class RequerimentDetailView(TemplateViewProjectFilter):
 
     def get_context_data(self, **kwargs):
         context = super(RequerimentDetailView, self).get_context_data(**kwargs)
-        requeriment = get_object_or_404(
-                                                Requeriment.objects.all(),
-                                                project=self.request.session.get('project_id', None),
-                                                id=kwargs['pk']
-                                              )
-        context['breadcrumbs'] = (
-            {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-            {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriment')},
-            {'link': reverse_lazy('main:requeriment-details', kwargs={'pk': requeriment.id}), 'class': '',
-             'name': requeriment.code},
+        requeriment = RequerimentService.get_requeriment(self.request.session.get('project_id', None), self.kwargs['pk'])
+        context['breadcrumbs'] = requeriments_breadcrumbs(
+            self.request.session['project_id'],
+            self.kwargs['pk'],
+            self.kwargs.get('sprint_id')
         )
-        context['num_userstories']= UserStory.objects.filter(requeriment=requeriment).aggregate(total=Count('*'))
-        context['total_artifacts'] = Artifact.objects.filter(
-            project=self.request.session.get('project_id', None),requeriment=requeriment).count()
-        context['dependent_requeriments'] = Requeriment.objects.filter(depends_on=requeriment)
+        context['num_userstories']= RequerimentService.get_num_userstories_from_requeriment(requeriment)
+        context['total_artifacts'] = RequerimentService.get_num_artifacts_from_requeriment(self.request.session.get('project_id', None),
+                                                                                           requeriment
+                                                                                           )
+        context['dependent_requeriments'] = RequerimentService.get_dependent_requeriments(requeriment)
         context['depends_on'] = requeriment.depends_on.all()
         context['requeriment']=requeriment
         return context
@@ -162,7 +161,7 @@ class RequerimentHistoryView(ListView):
     #class:US005
     Alter history of the requeriment
     """
-    model = Requeriment
+    model = RequerimentService.get_requeriment_model()
     template_name = 'requeriment/history.html'
     list_display = ('history_user',)
     page_title = _('Requeriment Change History:')
@@ -183,10 +182,11 @@ class RequerimentHistoryView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(RequerimentHistoryView, self).get_context_data()
-        context['breadcrumbs'] = (
-            {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-            {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriment')},
-            {'link': '#', 'class': '', 'name': _('History')},
+        context['breadcrumbs'] = requeriments_breadcrumbs(
+            self.request.session['project_id'],
+            self.kwargs.get('pk'),
+            self.kwargs.get('sprint_id'),
+            _('Change History')
         )
         return context
 
@@ -196,7 +196,7 @@ class RequerimentDeleteView(SuccessMessageMixin, DeleteView):
     #class:US005
     Delete requeriment
     """
-    model = Requeriment
+    model = RequerimentService.get_requeriment_model()
     template_name = 'requeriment/delete.html'
     fields = ('code', 'title', 'description')
     success_url = '/requeriment/'
@@ -207,10 +207,11 @@ class RequerimentDeleteView(SuccessMessageMixin, DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super(RequerimentDeleteView, self).get_context_data()
-        context['breadcrumbs'] = (
-            {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-            {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriment')},
-            {'link': '#', 'class': '', 'name': _('History')},
+        context['breadcrumbs'] = requeriments_breadcrumbs(
+            self.request.session['project_id'],
+            self.kwargs.get('pk'),
+            self.kwargs.get('sprint_id'),
+            _("Delete")
         )
         return context
 
@@ -222,13 +223,13 @@ class RequerimentGraphView(TemplateViewProjectFilter):
 
     def get_context_data(self, **kwargs):
         context = super(RequerimentGraphView, self).get_context_data(**kwargs)
-        requeriments = Requeriment.objects.filter(project=self.request.session.get('project_id', None))
+        requeriments = ProjectService.get_project_requeriments(self.request.session.get('project_id', None))
         context['requeriments']=requeriments
-
-        context['breadcrumbs'] = (
-            {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-            {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriment')},
-            {'link': '#', 'class': '', 'name': _('Graph')},
+        context['breadcrumbs'] = requeriments_breadcrumbs(
+            self.request.session['project_id'],
+            self.kwargs.get('requeriment_id'),
+            self.kwargs.get('sprint_id'),
+            _('Graph'),
         )
         return context
 
@@ -241,15 +242,15 @@ class RequerimentGraphDetailView(TemplateViewProjectFilter):
 
     def get_context_data(self, **kwargs):
         context = super(RequerimentGraphDetailView, self).get_context_data(**kwargs)
-        requeriment = get_object_or_404(Requeriment,  project=self.request.session.get('project_id', None), pk=self.kwargs['pk'])
-        context['breadcrumbs'] = (
-            {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-            {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriment')},
-            {'link': reverse_lazy('main:requeriment-details', kwargs={'pk': requeriment.id}), 'class': '',
-             'name': requeriment.code},
-            {'link':'#', 'class': '','name':_('Graph')},
+        requeriment = RequerimentService.get_requeriment(self.request.session.get('project_id', None), self.kwargs['pk'])
+
+        context['breadcrumbs'] = requeriments_breadcrumbs(
+            self.request.session['project_id'],
+            self.kwargs.get('pk'),
+            self.kwargs.get('sprint_id'),
+            _('Graph'),
         )
-        context['dependent_requeriments'] = Requeriment.objects.filter(depends_on=requeriment)
+        context['dependent_requeriments'] = RequerimentService.get_dependent_requeriments(requeriment)
         context['depends_on'] = requeriment.depends_on.all()
         context['requeriment'] = requeriment
 

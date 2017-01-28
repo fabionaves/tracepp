@@ -1,6 +1,5 @@
-from main.models import Project
+from main.models import Project, Requeriment
 from django.shortcuts import  get_object_or_404
-
 
 class ProjectService:
 
@@ -21,3 +20,7 @@ class ProjectService:
     @staticmethod
     def get_project(project_id):
         return get_object_or_404(Project, pk=project_id)
+
+    @staticmethod
+    def get_project_requeriments(project_id):
+        return Requeriment.objects.filter(project=project_id)
