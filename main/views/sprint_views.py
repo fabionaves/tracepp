@@ -37,7 +37,8 @@ class SprintDetailView(TemplateViewProjectFilter):
     def get_context_data(self, **kwargs):
         context = super(SprintDetailView, self).get_context_data(**kwargs)
         context['sprint'] = SprintService.get_sprint(self.request.session.get('project_id', None), kwargs['sprint_id'])
-        sprint_user_story_list = SprintService.get_userstories_from_sprint(kwargs['sprint_id']).values_list('userstory_id')
+        sprint_user_story_list = SprintService.get_userstories_from_sprint(self.request.session['project_id'],
+                                                                           self.kwargs['sprint_id']).values_list('id')
         context['num_requeriment'] = SprintService.get_num_requeriments_from_sprint(sprint_user_story_list)
         context['num_userstories'] = SprintService.get_num_userstories_from_sprint(kwargs['sprint_id'])
         context['total_artifacts'] = SprintService.get_num_artifacts_from_sprint(

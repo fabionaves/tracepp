@@ -2,6 +2,8 @@ from main.models import Sprint, SprintUserStory, Requeriment, Artifact
 from django.shortcuts import  get_object_or_404
 from django.db.models import Count
 
+from main.models import UserStory
+
 
 class SprintService:
 
@@ -18,8 +20,9 @@ class SprintService:
                                 )
 
     @staticmethod
-    def get_userstories_from_sprint(sprint_id):
-        return SprintUserStory.objects.filter(sprint_id=sprint_id)
+    def get_userstories_from_sprint(project_id, sprint_id):
+        return UserStory.objects.filter(project=project_id,
+                                        sprintuserstory__sprint =sprint_id)
 
     @staticmethod
     def get_requeriments_from_sprint(sprint_user_story_list):

@@ -25,6 +25,11 @@ class RequerimentService:
         return UserStory.objects.filter(requeriment=requeriment_id).aggregate(total=Count('*'))
 
     @staticmethod
+    def get_userstories_from_requeriment(project_id, requeriment_id):
+        return UserStory.objects.filter(project=project_id,
+                                        requeriment=requeriment_id)
+
+    @staticmethod
     def get_num_artifacts_from_requeriment(project_id, requeriment_id):
         return Artifact.objects.filter(
             project=project_id, requeriment=requeriment_id).count()

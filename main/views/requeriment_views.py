@@ -31,7 +31,7 @@ class RequerimentListView(ModelListProjectFilter):
     def get_queryset(self):
         queryset = super(RequerimentListView, self).get_queryset()
         if 'sprint_id' in self.kwargs:
-            sprint_user_story_list = SprintService.get_userstories_from_sprint(self.kwargs['sprint_id']).values_list('userstory_id')
+            sprint_user_story_list = SprintService.get_userstories_from_sprint(self.request.session['project_id'], self.kwargs['sprint_id']).values_list('id')
             queryset = SprintService.get_requeriments_from_sprint(sprint_user_story_list)
         return queryset
 

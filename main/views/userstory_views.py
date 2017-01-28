@@ -1,18 +1,18 @@
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
-from django.shortcuts import get_object_or_404
 from django.views.generic import DeleteView
-from django.views.generic import ListView
-
+from main.components.breadcrumbs import userstories_breadcrumbs
 from main.components.lists import ModelListProjectFilter, TemplateViewProjectFilter
 from main.decorators import require_project
 from main.forms import UserStoryForm, SprintUserStoryInlineFormSet
-from main.models import Sprint, Project, Requeriment, SprintUserStory, UserStory, Artifact
 from main.components.formviews import AddFormView, UpdateFormView
+from main.services.project import ProjectService
+from main.services.requeriment import RequerimentService
+from main.services.sprint import SprintService
+from main.services.userstory import UserStoryService
 
 
 class UserStoryListView(ModelListProjectFilter):
@@ -20,7 +20,7 @@ class UserStoryListView(ModelListProjectFilter):
     #class:US007
     List of US
     """
-    model = UserStory
+    model = UserStoryService.get_userstory_model()
     paginate_by = 30
     page_title = _('User Story')
     list_display = ('code', 'title','description','storypoints_planned','bussinessvalue_planned','storypoints_realized','bussinessvalue_realized')
@@ -29,41 +29,22 @@ class UserStoryListView(ModelListProjectFilter):
 
     def get_queryset(self):
         if 'sprint_id' in self.kwargs:
-            return UserStory.objects.filter(project=self.request.session.get('project_id', None),
-                                            sprintuserstory__sprint =self.kwargs['sprint_id'])
+            return SprintService.get_userstories_from_sprint(self.request.session.get('project_id', None),
+                                                             self.kwargs['sprint_id'])
         elif 'requeriment_id' in self.kwargs:
-            return UserStory.objects.filter(project=self.request.session.get('project_id', None), requeriment=self.kwargs['requeriment_id'])
+            return RequerimentService.get_userstories_from_requeriment(self.request.session.get('project_id', None),
+                                                                       self.kwargs['requeriment_id'])
         else:
-            return UserStory.objects.filter(project=self.request.session.get('project_id', None))
+            return super(UserStoryListView, self).get_queryset()
 
     def get_context_data(self, **kwargs):
         context = super(UserStoryListView, self).get_context_data()
 
-        if 'sprint_id' in self.kwargs:
-            sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_id'])
-            context['page_title']= '%s - User Stories' % str(sprint)
-            context['breadcrumbs'] = (
-                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-                {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
-                {'link': reverse_lazy('main:sprint-details', kwargs={'sprint_id': self.kwargs['sprint_id']}),
-                 'class': '', 'name': sprint},
-                {'link': '#', 'class': '', 'name': _('User Stories')},
-            )
-        elif 'requeriment_id' in self.kwargs:
-            requeriment = get_object_or_404(Requeriment, pk=self.kwargs['requeriment_id'])
-            context['page_title'] = '%s - User Stories' % str(requeriment)
-            context['breadcrumbs'] = (
-                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-                {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriments')},
-                {'link': reverse_lazy('main:requeriment-details', kwargs={'pk': self.kwargs['requeriment_id']}),
-                 'class': '', 'name': requeriment},
-                {'link': '#', 'class': '', 'name': _('User Stories')},
-            )
-        else:
-            context['breadcrumbs'] = (
-                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-                {'link': '#', 'class': '', 'name': _('User Stories')},
-            )
+        context['breadcrumbs'] = userstories_breadcrumbs(
+            self.request.session.get('project_id'),
+            self.kwargs.get('requeriment_id'),
+            self.kwargs.get('sprint_id')
+        )
         return context
 
 
@@ -76,51 +57,38 @@ class UserStoryDetailView(TemplateViewProjectFilter):
 
     def get_context_data(self, **kwargs):
         context = super(UserStoryDetailView, self).get_context_data()
-        userstory = get_object_or_404(UserStory, pk=self.kwargs['pk'])
+        userstory = UserStoryService.get_userstory(self.request.session.get('project_id', None), self.kwargs['pk'])
         context['userstory'] = userstory
-        context['total_artifacts'] = Artifact.objects.filter(
-            project=self.request.session.get('project_id', None), userstory=userstory).count()
-        context['total_file_artifacts'] = Artifact.file_objects.filter(
-            project=self.request.session.get('project_id', None), userstory=userstory).count()
-        context['total_source_artifacts'] = Artifact.source_objects.filter(
-            project=self.request.session.get('project_id', None), userstory=userstory).count()
-        context['total_activities']=Artifact.activity_objects.filter(
-            project=self.request.session.get('project_id', None), userstory=userstory).count()
-        context['total_estimated_time']=Artifact.activity_objects.filter(
-            project=self.request.session.get('project_id', None), userstory=userstory).aggregate(time = Sum('estimated_time'))
-        context['total_spent_time'] = Artifact.activity_objects.filter(
-            project=self.request.session.get('project_id', None), userstory=userstory).aggregate(time = Sum('spent_time'))
-        if 'sprint_id' in self.kwargs:
-            sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_id'])
-            context['breadcrumbs'] = (
-                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-                {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
-                {'link': reverse_lazy('main:sprint-details', kwargs={'sprint_id': self.kwargs['sprint_id']}),
-                 'class': '', 'name': sprint},
-                {'link': reverse_lazy('main:sprint-userstory',kwargs={'sprint_id': self.kwargs['sprint_id']}), 'class': '',
-                 'name': _('User Stories')},
-                {'link': reverse_lazy('main:userstory-detail', kwargs={'pk': userstory.pk}), 'class': '',
-                 'name': userstory.code},
-            )
-        elif 'requeriment_id' in self.kwargs:
-            requeriment = get_object_or_404(Requeriment, pk=self.kwargs['requeriment_id'])
-            context['breadcrumbs'] = (
-                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-                {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriments')},
-                {'link': reverse_lazy('main:requeriment-details', kwargs={'pk': self.kwargs['requeriment_id']}),
-                 'class': '', 'name': requeriment},
-                {'link': reverse_lazy('main:requeriment-userstory', kwargs={'requeriment_id': self.kwargs['requeriment_id']}), 'class': '', 'name': _('User Stories')},
-                {'link': reverse_lazy('main:userstory-detail', kwargs={'pk': userstory.pk}), 'class': '',
-                 'name': userstory.code},
-            )
-        else:
-            context['breadcrumbs'] = (
-                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-                {'link': reverse_lazy('main:userstory'), 'class': '',
-                 'name': _('User Stories')},
-                {'link': reverse_lazy('main:userstory-detail', kwargs={'pk': userstory.pk}), 'class': '',
-                 'name':userstory.code},
-            )
+        context['total_artifacts'] = UserStoryService.get_num_artifacts_from_userstory(
+            self.request.session.get('project_id', None),
+            userstory
+        )
+        context['total_file_artifacts'] = UserStoryService.get_num_file_artifacts_from_userstory(
+            self.request.session.get('project_id', None),
+            userstory
+        )
+        context['total_source_artifacts'] = UserStoryService.get_num_source_artifacts_from_userstory(
+            self.request.session.get('project_id', None),
+            userstory
+        )
+        context['total_activities'] = UserStoryService.get_num_activity_artifacts_from_userstory(
+            self.request.session.get('project_id', None),
+            userstory
+        )
+        context['total_estimated_time'] = UserStoryService.get_total_estimated_time_from_userstory(
+            self.request.session.get('project_id', None),
+            userstory
+        )
+        context['total_spent_time'] = UserStoryService.get_total_spent_time_from_userstory(
+            self.request.session.get('project_id', None),
+            userstory
+        )
+        context['breadcrumbs'] = userstories_breadcrumbs(
+            self.request.session.get('project_id'),
+            self.kwargs.get('requeriment_id'),
+            self.kwargs.get('sprint_id'),
+            self.kwargs.get('pk')
+        )
         return context
 
 
@@ -130,7 +98,7 @@ class UserStoryAddFormView(AddFormView):
     Add US
     """
     page_title = 'UserStory'
-    model = UserStory
+    model = UserStoryService.get_userstory_model()
     form_class = UserStoryForm
     success_message = _('UserStory was created successfully')
     tabs = (
@@ -166,7 +134,7 @@ class UserStoryAddFormView(AddFormView):
         return super(UserStoryAddFormView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form, sprint_userstory_form):
-        project = get_object_or_404(Project, pk=self.request.session['project_id'])
+        project = ProjectService.get_project(self.get.session['project_id'])
         form.instance.changed_by = self.request.user
         form.instance.project = project
         self.object = form.save()
@@ -177,27 +145,13 @@ class UserStoryAddFormView(AddFormView):
     def get_context_data(self, **kwargs):
         context = super(UserStoryAddFormView, self).get_context_data()
         context['SprintUserStoryInline']=SprintUserStoryInlineFormSet()
-        if 'sprint_id' in self.kwargs:
-            sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_id'])
-            context['breadcrumbs'] = (
-                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-                {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
-                {'link': reverse_lazy('main:sprint-details', kwargs={'sprint_id': self.kwargs['sprint_id']}),'class': '', 'name':sprint},
-                {'link': '#', 'class': '', 'name': _('User Stories')},
-            )
-        elif 'requeriment_id' in self.kwargs:
-            requeriment = get_object_or_404(Requeriment, pk=self.kwargs['requeriment_id'])
-            context['breadcrumbs'] = (
-                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-                {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriments')},
-                {'link': reverse_lazy('main:requeriment-details', kwargs={'pk': requeriment.id}), 'class': '', 'name': requeriment},
-                {'link': '#', 'class': '', 'name': _('User Stories')},
-            )
-        else:
-            context['breadcrumbs'] = (
-                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-                {'link': reverse_lazy('main:userstory'), 'class': '', 'name': _('User Stories')},
-            )
+        context['breadcrumbs'] = userstories_breadcrumbs(
+            self.request.session.get('project_id'),
+            self.kwargs.get('requeriment_id'),
+            self.kwargs.get('sprint_id'),
+            self.kwargs.get('pk'),
+            _('Add')
+        )
         return context
 
 
@@ -207,7 +161,7 @@ class UserStoryUpdateFormView(UpdateFormView):
     Update US
     """
     page_title = 'UserStory'
-    model = UserStory
+    model = UserStoryService.get_userstory_model()
     form_class = UserStoryForm
     success_message = _('UserStory was created successfully')
     tabs = (
@@ -250,7 +204,7 @@ class UserStoryUpdateFormView(UpdateFormView):
 
 
     def form_valid(self, form, sprint_userstory_form):
-        project = get_object_or_404(Project, pk=self.request.session['project_id'])
+        project = ProjectService.get_project(self.get.session['project_id'])
         form.instance.changed_by = self.request.user
         form.instance.project = project
         self.object = form.save()
@@ -260,30 +214,15 @@ class UserStoryUpdateFormView(UpdateFormView):
 
     def get_context_data(self, **kwargs):
         context = super(UserStoryUpdateFormView, self).get_context_data()
-        sprint_userstory = SprintUserStory.objects.filter(userstory=self.object)
+        sprint_userstory = UserStoryService.get_sprints_from_userstory(self.object)
         context['SprintUserStoryInline']=SprintUserStoryInlineFormSet(instance=self.object)
-        if 'sprint_id' in self.kwargs:
-            sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_id'])
-            context['breadcrumbs'] = (
-                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-                {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
-                {'link': reverse_lazy('main:sprint-details', kwargs={'sprint_id': self.kwargs['sprint_id']}),'class': '', 'name': sprint.name},
-                {'link': '#', 'class': '', 'name': _('User Stories')},
-            )
-        elif 'requeriment_id' in self.kwargs:
-            requeriment = get_object_or_404(Requeriment, pk=self.kwargs['requeriment_id'])
-            context['breadcrumbs'] = (
-                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-                {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriments')},
-                {'link': reverse_lazy('main:requeriment-details', kwargs={'pk': requeriment.id}), 'class': '',
-                 'name': requeriment},
-                {'link': '#', 'class': '', 'name': _('User Stories')},
-            )
-        else:
-            context['breadcrumbs'] = (
-                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-                {'link': reverse_lazy('main:userstory'), 'class': '', 'name': _('User Stories')},
-            )
+        context['breadcrumbs'] = userstories_breadcrumbs(
+            self.request.session.get('project_id'),
+            self.kwargs.get('requeriment_id'),
+            self.kwargs.get('sprint_id'),
+            self.kwargs.get('pk'),
+            _('Add')
+        )
         return context
 
 
@@ -292,7 +231,7 @@ class UserStoryDeleteView(SuccessMessageMixin, DeleteView):
     #class:US007
     Delete US
     """
-    model = UserStory
+    model = UserStoryService.get_userstory_model()
     template_name = 'userstory/delete.html'
     list_display = ('code', 'title', 'description')
     success_url = '/userstory/'
@@ -303,30 +242,15 @@ class UserStoryDeleteView(SuccessMessageMixin, DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super(UserStoryDeleteView, self).get_context_data()
-        sprint_userstory = SprintUserStory.objects.filter(userstory=self.object)
-        context['SprintUserStoryInline']=SprintUserStoryInlineFormSet(instance=self.object)
-        if 'sprint_id' in self.kwargs:
-            sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_id'])
-            context['breadcrumbs'] = (
-                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-                {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
-                {'link': reverse_lazy('main:sprint-details', kwargs={'sprint_id': self.kwargs['sprint_id']}),'class': '', 'name': sprint},
-                {'link': '#', 'class': '', 'name': _('User Stories')},
-            )
-        elif 'requeriment_id' in self.kwargs:
-            requeriment = get_object_or_404(Requeriment, pk=self.kwargs['requeriment_id'])
-            context['breadcrumbs'] = (
-                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-                {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriments')},
-                {'link': reverse_lazy('main:requeriment-details', kwargs={'pk': requeriment.id}), 'class': '',
-                 'name': requeriment},
-                {'link': '#', 'class': '', 'name': _('User Stories')},
-            )
-        else:
-            context['breadcrumbs'] = (
-                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-                {'link': reverse_lazy('main:userstory'), 'class': '', 'name': _('User Stories')},
-            )
+        #sprint_userstory = SprintUserStory.objects.filter(userstory=self.object)
+        #context['SprintUserStoryInline']=SprintUserStoryInlineFormSet(instance=self.object)
+        context['breadcrumbs'] = userstories_breadcrumbs(
+            self.request.session.get('project_id'),
+            self.kwargs.get('requeriment_id'),
+            self.kwargs.get('sprint_id'),
+            self.kwargs.get('pk'),
+            _('Delete')
+        )
         return context
 
 
@@ -338,45 +262,13 @@ class UserStoryGraphDetailView(TemplateViewProjectFilter):
 
     def get_context_data(self, **kwargs):
         context = super(UserStoryGraphDetailView, self).get_context_data(**kwargs)
-        userstory = get_object_or_404(UserStory,  project=self.request.session.get('project_id', None), pk=self.kwargs['pk'])
-
-
-        if 'sprint_id' in self.kwargs:
-            sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_id'])
-            context['breadcrumbs'] = (
-                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-                {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
-                {'link': reverse_lazy('main:sprint-details', kwargs={'sprint_id': self.kwargs['sprint_id']}),
-                 'class': '', 'name': sprint},
-                {'link': reverse_lazy('main:sprint-userstory', kwargs={'sprint_id': self.kwargs['sprint_id']}),
-                 'class': '',
-                 'name': _('User Stories')},
-                {'link': reverse_lazy('main:userstory-detail', kwargs={'pk': userstory.pk}), 'class': '',
-                 'name': userstory.code},
-            )
-        elif 'requeriment_id' in self.kwargs:
-            requeriment = get_object_or_404(Requeriment, pk=self.kwargs['requeriment_id'])
-            context['breadcrumbs'] = (
-                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-                {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriments')},
-                {'link': reverse_lazy('main:requeriment-details', kwargs={'pk': self.kwargs['requeriment_id']}),
-                 'class': '', 'name': requeriment},
-                {'link': reverse_lazy('main:requeriment-userstory',
-                                      kwargs={'requeriment_id': self.kwargs['requeriment_id']}), 'class': '',
-                 'name': _('User Stories')},
-                {'link': reverse_lazy('main:userstory-detail', kwargs={'pk': userstory.pk}), 'class': '',
-                 'name': userstory.code},
-            )
-        else:
-            context['breadcrumbs'] = (
-                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
-                {'link': reverse_lazy('main:userstory'), 'class': '',
-                 'name': _('User Stories')},
-                {'link': reverse_lazy('main:userstory-detail', kwargs={'pk': userstory.pk}), 'class': '',
-                 'name': userstory.code},
-            )
-
+        userstory = UserStoryService.get_userstory(self.request.session.get('project_id', None), self.kwargs['pk'])
+        context['breadcrumbs'] = userstories_breadcrumbs(
+            self.request.session.get('project_id'),
+            self.kwargs.get('requeriment_id'),
+            self.kwargs.get('sprint_id'),
+            self.kwargs.get('pk'),
+            _('Delete')
+        )
         context['userstory'] = userstory
-
-
         return context
