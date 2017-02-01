@@ -38,4 +38,8 @@ class RequerimentService:
     def get_dependent_requeriments(requeriment):
         return Requeriment.objects.filter(depends_on=requeriment)
 
+    @staticmethod
+    def get_artifacts(project_id, requeriment_id):
+        return  Artifact.objects.filter(project_id=project_id, requeriment=requeriment_id)
+
 

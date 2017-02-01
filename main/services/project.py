@@ -1,3 +1,4 @@
+from main.models import Artifact
 from main.models import Project, Requeriment
 from django.shortcuts import  get_object_or_404
 
@@ -24,3 +25,12 @@ class ProjectService:
     @staticmethod
     def get_project_requeriments(project_id):
         return Requeriment.objects.filter(project=project_id)
+
+    @staticmethod
+    def get_artifacts(project_id):
+        return Artifact.objects.filter(project_id=project_id,
+                                       requeriment__isnull=True,
+                                       sprint__isnull=True,
+                                       userstory__isnull=True,
+                                      )
+

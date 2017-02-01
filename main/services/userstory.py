@@ -52,3 +52,7 @@ class UserStoryService:
     @staticmethod
     def get_sprints_from_userstory(userstory_id):
         return SprintUserStory.objects.filter(userstory=userstory_id)
+
+    @staticmethod
+    def get_artifacts(project_id, userstory_id):
+        return Artifact.objects.filter(project_id=project_id, sprint__isnull=True, userstory=userstory_id)

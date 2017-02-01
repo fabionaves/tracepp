@@ -40,3 +40,7 @@ class SprintService:
     def get_num_artifacts_from_sprint(project_id, sprint_id):
         return Artifact.objects.filter(
             project=project_id, sprint=sprint_id).count()
+
+    @staticmethod
+    def get_artifacts(project_id, sprint_id):
+        return Artifact.objects.filter(project_id=project_id, sprint=sprint_id, userstory__isnull=True)
