@@ -23,7 +23,7 @@ class UserStoryListView(ModelListProjectFilter):
     model = UserStoryService.get_userstory_model()
     paginate_by = 30
     page_title = _('User Story')
-    list_display = ('code', 'title','description','storypoints_planned','bussinessvalue_planned','storypoints_realized','bussinessvalue_realized')
+    list_display = ('code', 'title','description','storypoints_planned','storypoints_realized', 'bussinessvalue_planned','bussinessvalue_realized')
     action_template = 'userstory/action.html'
     top_bar = 'userstory/top_bar.html'
 
@@ -204,7 +204,7 @@ class UserStoryUpdateFormView(UpdateFormView):
 
 
     def form_valid(self, form, sprint_userstory_form):
-        project = ProjectService.get_project(self.get.session['project_id'])
+        project = ProjectService.get_project(self.request.session.get('project_id'))
         form.instance.changed_by = self.request.user
         form.instance.project = project
         self.object = form.save()

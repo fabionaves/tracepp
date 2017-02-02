@@ -1,6 +1,6 @@
 from main.models import Sprint, SprintUserStory, Requeriment, Artifact
 from django.shortcuts import  get_object_or_404
-from django.db.models import Count
+from django.db.models import Count, Sum
 
 from main.models import UserStory
 
@@ -44,3 +44,21 @@ class SprintService:
     @staticmethod
     def get_artifacts(project_id, sprint_id):
         return Artifact.objects.filter(project_id=project_id, sprint=sprint_id, userstory__isnull=True)
+
+    @staticmethod
+    def task_effort_per_sprint(sprint_id):
+        return SprintUserStory.objects.values('sprint_id').annotate(
+            estimated_time=Sum('userstory__artifact__estimated_time'),
+            realizated_time=Sum('userstory__artifact__spent_time'),
+            percentual=100 * (Sum('userstory__artifact__spent_time') - Sum('userstory__artifact__estimated_time')) / Sum('userstory__artifact__estimated_time')
+        ).filter(sprint=sprint_id)
+
+    @staticmethod
+    def storypoint_per_sprint(sprint_id):
+        return SprintUserStory.objects.values('sprint_id').annotate(
+            estimated = Sum('userstory__storypoints_planned'),
+            realized = Sum('userstory__storypoints_realized'),
+            percentual=100 * (
+                                Sum('userstory__storypoints_realized') - Sum('userstory__storypoints_planned')) / Sum(
+                                    'userstory__storypoints_planned')
+                            ).filter(sprint=sprint_id)

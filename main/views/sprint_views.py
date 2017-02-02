@@ -44,6 +44,8 @@ class SprintDetailView(TemplateViewProjectFilter):
         context['total_artifacts'] = SprintService.get_num_artifacts_from_sprint(
             self.request.session.get('project_id', None),kwargs['sprint_id']
         )
+        context['task_force_per_userstory']=SprintService.task_effort_per_sprint(kwargs['sprint_id'])
+        context['storypoint_per_sprint']=SprintService.storypoint_per_sprint(kwargs['sprint_id'])
         context['breadcrumbs'] = (
             {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
             {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
