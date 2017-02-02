@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="75a9e5b2-515a-4560-8233-370d9d8f5088" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/services/artifact.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/services/artifacttype.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/tracepp.iml" afterPath="$PROJECT_DIR$/.idea/tracepp.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/services/project.py" afterPath="$PROJECT_DIR$/main/services/project.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/services/requeriment.py" afterPath="$PROJECT_DIR$/main/services/requeriment.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/services/sprint.py" afterPath="$PROJECT_DIR$/main/services/sprint.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/services/userstory.py" afterPath="$PROJECT_DIR$/main/services/userstory.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/views/artifact_views.py" afterPath="$PROJECT_DIR$/main/views/artifact_views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/views/artifacttype_views.py" afterPath="$PROJECT_DIR$/main/views/artifacttype_views.py" />
     </list>
     <list id="4ae9251b-657d-4132-8cbd-3ff689d77587" name="New changelist" comment="" />
     <ignored path="tracepp.iws" />
@@ -796,7 +785,14 @@
       <option name="project" value="LOCAL" />
       <updated>1485528888053</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Regornaizacao artifact">
+      <created>1485959977303</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1485959977303</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -860,7 +856,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="SHOW_UNVERSIONED_FILES_WHILE_COMMIT" value="false" />
-    <MESSAGE value="Sprint History View" />
     <MESSAGE value="Breadcumps, Graph to requiriments dependencies." />
     <MESSAGE value="Listagem de UserStories" />
     <MESSAGE value="Reorganizacao das classes de view, ligacao de requisitos com sprint" />
@@ -885,7 +880,8 @@
     <MESSAGE value="Correção bug rastreabilidade com erro no fonte" />
     <MESSAGE value="graficos nas User stories" />
     <MESSAGE value="Reorganizacao das classes de modelo, começo da organizacao de uma camada de servicos, situada entre model e views." />
-    <option name="LAST_COMMIT_MESSAGE" value="Reorganizacao das classes de modelo, começo da organizacao de uma camada de servicos, situada entre model e views." />
+    <MESSAGE value="Regornaizacao artifact" />
+    <option name="LAST_COMMIT_MESSAGE" value="Regornaizacao artifact" />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="false" />
   </component>
   <component name="XDebuggerManager">
