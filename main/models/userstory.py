@@ -23,6 +23,15 @@ class UserStory(models.Model,MyModel):
     history = HistoricalRecords()
 
     @property
+    def percentual_of_storypoints_variation(self):
+        if self.storypoints_planned != 0:
+            return  100 * ( (self.storypoints_realized - self.storypoints_planned) / self.storypoints_planned)
+        elif self.storypoints_realized != 0:
+            return 0
+        else:
+            return 0
+
+    @property
     def _history_user(self):
         return self.changed_by
 
@@ -32,3 +41,7 @@ class UserStory(models.Model,MyModel):
 
     def __str__(self):
         return self.code+' - '+self.title
+
+
+
+

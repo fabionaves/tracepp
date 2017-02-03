@@ -1,27 +1,41 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load l10n %}
 
 {% block head %}
     <script>
+    {% localize off %}
+
         $(document).ready(function () {
             var ctx = document.getElementById('graph_taks_force_per_userstory_json').getContext('2d');
             var graph_taks_force_per_userstory_json = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['US1', 'US2', 'US3', 'US4', 'US5', 'US6'],
+                    labels: [
+                    {% for teffort in task_effort %}
+                        '{{ teffort.userstory__code }}',
+                    {% endfor %}
+                    ],
                     datasets: [{
                         label: '{% trans '% Task Effort Variation per Sprint' %}',
-                        data: [34, 35, 45, 56, 34, 54, 23, 23],
-                        borderColor: "hsla(360, 100%, 50%, 1)",
-                        tension: 0.1,
-                        fill: false
-
+                        data: [
+                             {% for teffort in task_effort %}
+                                '{{ teffort.percentual }}',
+                            {% endfor %}
+                        ],
+                        borderColor: "hsla(360, 100%, 50%, 0.9)",
+                        fill: false,
+                        lineTension: 0
                     }, {
                         label: '{% trans '% Story Points Variation per Sprint' %}',
-                        data: [32, 34, 23, 45, 34, 12, 34, 56],
-                        borderColor: "hsla(251, 100%, 50%, 1)",
-                        tension: 0.1,
-                        fill: false
+                        data: [
+                            {% for us in storypoints_variation  %}
+                                {{ us.percentual_of_storypoints_variation }},
+                            {% endfor %}
+                        ],
+                        borderColor: "hsla(251, 100%, 50%, 0.9)",
+                        fill: false,
+                        lineTension: 0
                     }],
                 },
                 options: {
@@ -37,30 +51,10 @@
                 }
             });
 
-            var ctx = document.getElementById('graph_contract_implemented_points').getContext('2d');
-            var data = {
-                labels: [
-                    "{% trans 'Contrated' %}",
-                    "{% trans 'Executed' %}",
-                ],
-                datasets: [
-                    {
-                        data: [300, 53],
-                        backgroundColor: [
-                            "#FF6384",
-                            "#36A2EB"
-                        ],
-                        hoverBackgroundColor: [
-                            "#FF6384",
-                            "#36A2EB"
-                        ]
-                    }]
-            };
-            var graph_contract_implemented_points = new Chart(ctx, {
-                type: 'doughnut',
-                data: data
-            });
+
         });
+
+{% endlocalize %}
     </script>
 {% endblock %}
 
@@ -177,18 +171,5 @@
     </div>
     <!-- div.row -->
 
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <i class="glyphicon glyphicon-road"></i> {% trans 'Contract x Implemented Points' %}
-                </div>
-                <div class="panel-body">
-                    <canvas id="graph_contract_implemented_points" width="80" height="45" style="background: white"></canvas>
-                </div>
-            </div>
-        </div>
 
-    </div>
-    <!-- div.row -->
 {% endblock %}

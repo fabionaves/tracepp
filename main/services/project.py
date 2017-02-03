@@ -2,6 +2,9 @@ from main.models import Artifact
 from main.models import Project, Requeriment
 from django.shortcuts import  get_object_or_404
 
+from main.models import UserStory
+
+
 class ProjectService:
 
     @staticmethod
@@ -25,6 +28,11 @@ class ProjectService:
     @staticmethod
     def get_project_requeriments(project_id):
         return Requeriment.objects.filter(project=project_id)
+
+
+    @staticmethod
+    def get_userstories(project_id):
+        return UserStory.objects.filter(project=project_id).order_by('code')
 
     @staticmethod
     def get_artifacts(project_id):

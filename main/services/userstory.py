@@ -50,6 +50,32 @@ class UserStoryService:
             project=project_id, userstory=userstory_id).aggregate(time=Sum('spent_time'))
 
     @staticmethod
+    def get_task_effor_per_userstory(project_id):
+        resultsets =  Artifact.objects.values('userstory','userstory__code').annotate(
+            estimated_time=Sum('estimated_time'),
+            realizated_time=Sum('spent_time'),
+        ).filter(project=project_id, userstory__code__isnull=False).order_by('userstory__code')
+        retorno = []
+        for resultset in resultsets:
+            if resultset['estimated_time'] and resultset['estimated_time'] != 0:
+                retorno.append({
+                    'userstory__code': resultset['userstory__code'],
+                    'estimated_time': resultset['estimated_time'],
+                    'spent_time': resultset['realizated_time'],
+                    'percentual': 100*((resultset['realizated_time']-resultset['estimated_time'])/resultset['estimated_time'])
+                })
+            else:
+                retorno.append({
+                    'userstory__code': resultset['userstory__code'],
+                    'estimated_time': resultset['estimated_time'],
+                    'spent_time': resultset['realizated_time'],
+                    'percentual': 0
+                })
+        return retorno
+
+
+
+    @staticmethod
     def get_sprints_from_userstory(userstory_id):
         return SprintUserStory.objects.filter(userstory=userstory_id)
 
