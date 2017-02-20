@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Trace++</title>
+    <title>Tracepp</title>
 
     <link rel="shortcut icon" href="{%  static 'img/tracepp.ico' %}" />
 
@@ -84,15 +84,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img src="{% static 'img/traceName.png' %}"/></a>
+                <a class="navbar-brand" href="#"><img src="{% static 'img/traceName2.png' %}"/></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="{% url 'main:home' %}">{% trans 'Home' %}</a></li>
-                    <li><a href="{% url 'main:requeriment' %}">{% trans 'Requirement' %}</a></li>
-                    <li><a href="{% url 'main:sprint' %}">{% trans 'Sprint' %}</a></li>
-                    <li><a href="{% url 'main:userstory' %}">{% trans 'User Story' %}</a></li>
-                    <li><a href="{% url 'main:artifacttype' %}">{% trans 'Artifact Type' %}</a></li>
+                    <li class="{% if request.resolver_match.url_name == "home" %}active{% endif %}"><a href="{% url 'main:home' %}">{% trans 'Home' %}</a></li>
+                    <li class="{% if request.resolver_match.url_name == "requeriment" %}active{% endif %}"><a href="{% url 'main:requeriment' %}">{% trans 'Requirement' %}</a></li>
+                    <li class="{% if request.resolver_match.url_name == "sprint" %}active{% endif %}"><a href="{% url 'main:sprint' %}">{% trans 'Sprint' %}</a></li>
+                    <li class="{% if request.resolver_match.url_name == "userstory" %}active{% endif %}"><a href="{% url 'main:userstory' %}">{% trans 'User Story' %}</a></li>
+                    <li class="{% if request.resolver_match.url_name == "artifacttype" %}active{% endif %}"><a href="{% url 'main:artifacttype' %}">{% trans 'Artifact Type' %}</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                       <li class="dropdown ">
