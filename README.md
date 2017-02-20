@@ -1,6 +1,10 @@
 <H1>Tracepp requeriments traceability tool</H1>
 <p>Tool to help in the requirements traceability. The aim is to facilitate traceability
-processes in order to reduce the impact of these activities on the development team's.</p>
+processes in order to reduce the impact of these activities on the development team's.
+Provides integration with Redmine and GIT repositories to obtain the artifacts and trace the artifacts with project, requirements,
+sprint or user stories according to user defined tracking codes.
+</p>
+<P>This tool is part of the research project of the Master in Software Engineering of CESAR.EDU.</P>
 <h2>Screens</h2>
 <P>Initial Screen
 <img src="screens/screen1.png"></p>
@@ -22,3 +26,6 @@ processes in order to reduce the impact of these activities on the development t
 
 <h2>TODO</h2>
 <p>Tests,  PIP Installer and documentation</p>
+
+<h2>LICENCE</h2>
+<p>Distributed under the GNU General Public License version 2 or later</p>
