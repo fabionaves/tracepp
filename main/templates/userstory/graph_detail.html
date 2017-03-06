@@ -72,7 +72,13 @@
             {% for artifact in userstory.artifact_set.all %}
                 var artifact{{ artifact.pk }} = sys.addNode('{{ artifact.pk }}', {
                     'id': 'artifact{{ artifact.pk }}',
-                    'color': 'blue',
+                    {% if artifact.type.type == 0 %}
+                        'color': '#0047b3',
+                    {% elif artifact.type.type == 1 %}
+                        'color': '#336699',
+                    {% else %}
+                        'color': '#0066ff',
+                    {% endif %}
                     'shape': 'square',
                     'label': '{{ artifact.type.trace_code }}'
                 });

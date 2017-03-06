@@ -1,3 +1,5 @@
+from django.shortcuts import get_object_or_404
+
 from main.models import Artifact
 from main.services.sprint import SprintService
 from main.services.userstory import UserStoryService
@@ -18,4 +20,12 @@ class ArtifactService:
                                     userstory=userstory)
         elif sprint_id:
             sprint = SprintService.get_sprint(project_id, sprint_id)
+
+    @staticmethod
+    def get_artifact(project_id, pk):
+        return get_object_or_404(
+                    Artifact.objects.all(),
+                    project=project_id,
+                    id=pk
+                )
 

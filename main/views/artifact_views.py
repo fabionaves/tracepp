@@ -111,12 +111,12 @@ class ArtifactView(SuccessMessageMixin, CreateView):
         return super(ArtifactView, self).form_valid(form)
 
 
-def ArtifactDownloadView(request,pk):
+def ArtifactDownloadView(request, pk):
     """
     #class:US009
     Download
     """
-    artifact = ArtifactTypeService.get_artifactstype(request.session.get('project_id', None), pk)
+    artifact = ArtifactService.get_artifact(request.session.get('project_id', None), pk)
     filename = artifact.file.name.split('/')[-1]
     response = HttpResponse(artifact.file, content_type='text/plain')
     response['Content-Disposition'] = 'attachment; filename=%s' % filename
