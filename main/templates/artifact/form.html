@@ -132,7 +132,16 @@
                     <div>{% trans 'Artifacts' %}</div>
                 </div>
                 <div class="panel-body">
-                    <table class="table table-hover">
+                    <div class="col-md-9">
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <input type="text" placeholder="Filter"  name="filter" id="filter" onkeyup="myFind('filter','myList')"  class="form-control" rel="tooltip" />
+                            <i class="form-control-feedback  glyphicon glyphicon-search"></i>
+                        </div>
+                    </div>
+                    <table class="table table-hover" id="myList">
                         <thead>
                         <tr>
                             <th>{% trans 'Level' %}</th>
