@@ -73,7 +73,19 @@ class UserStoryService:
                 })
         return retorno
 
+    @staticmethod
+    def get_userstory_storypoints(project_id, userstory_id):
+        return Artifact.activity_objects.filter(
+            project=project_id, userstory=userstory_id).aggregate(
+                estimated_storypoints=Sum('estimated_storypoints'), realized_storypoints=Sum('realized_storypoints')
+        )
 
+    @staticmethod
+    def get_userstory_businnesvalue(project_id, userstory_id):
+        return Artifact.activity_objects.filter(
+            project=project_id, userstory=userstory_id).aggregate(
+            estimated_businnesvalue=Sum('estimated_businnesvalue'), realized_businnesvalue=Sum('realized_businnesvalue')
+        )
 
     @staticmethod
     def get_sprints_from_userstory(userstory_id):

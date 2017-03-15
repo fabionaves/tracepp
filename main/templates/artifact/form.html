@@ -160,8 +160,13 @@
                                     {% if row.type.type == 0 %}
                                         <a href="{% url 'main:artifact-download' row.id %}">{{ row.file }}</a>
                                     {% elif  row.type.type == 2 %}
-                                        {%  trans 'Estimated Time' %}: {{ row.estimated_time }} -
+                                        <br/>{%  trans 'Estimated Time' %}: {{ row.estimated_time }} -
                                         {%  trans 'Spent Time' %}: {{ row.spent_time }} -
+                                         {%  trans 'Estimated SP' %}: {{ row.estimated_storypoints }} -
+                                        {%  trans 'Spent SP' %}: {{ row.realized_storypoints }} -
+                                         {%  trans 'Estimated BV' %}: {{ row.estimated_businnesvalue }} -
+                                        {%  trans 'Spent BV' %}: {{ row.realized_businnesvalue }}
+                                        <br/>
                                         <a  <a href="{{ row.id }}/activity/">View Activity</a>
                                     {% else %}
                                         <a href="{{ row.id }}/codeview/">{{ row.source }}</a>

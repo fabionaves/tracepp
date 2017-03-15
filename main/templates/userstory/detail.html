@@ -68,7 +68,7 @@
                     labels: ['{%  trans 'Planned' %}','{%  trans 'Realized' %}'],
                     datasets: [{
                         label: [''],
-                        data: [{{ userstory.storypoints_planned }},{{ userstory.storypoints_realized }}],
+                        data: [{{ userstory_storypoints.estimated_storypoints}},{{ userstory_storypoints.realized_storypoints }}],
                         backgroundColor: ['rgba(54, 162, 235, 0.2)','rgba(255, 99, 132, 0.2)'],
                         borderColor: [
                             'rgba(54, 162, 235, 1)',
@@ -122,7 +122,7 @@
                     labels: ['{%  trans 'Planned' %}','{%  trans 'Realized' %}'],
                     datasets: [{
                         label: [''],
-                        data: [{{ userstory.bussinessvalue_planned }},{{ userstory.bussinessvalue_realized }}],
+                        data: [{{ userstory_businnesvalue.estimated_businnesvalue }},{{ userstory_businnesvalue.realized_businnesvalue }}],
                         backgroundColor: ['rgba(54, 162, 235, 0.2)','rgba(255, 99, 132, 0.2)'],
                         borderColor: [
                             'rgba(54, 162, 235, 1)',

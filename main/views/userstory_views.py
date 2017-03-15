@@ -23,7 +23,7 @@ class UserStoryListView(ModelListProjectFilter):
     model = UserStoryService.get_userstory_model()
     paginate_by = 30
     page_title = _('User Story')
-    list_display = ('code', 'title','description','storypoints_planned','storypoints_realized', 'bussinessvalue_planned','bussinessvalue_realized')
+    list_display = ('code', 'title','description')
     action_template = 'userstory/action.html'
     top_bar = 'userstory/top_bar.html'
 
@@ -83,6 +83,14 @@ class UserStoryDetailView(TemplateViewProjectFilter):
             self.request.session.get('project_id', None),
             userstory
         )
+        context['userstory_storypoints'] = UserStoryService.get_userstory_storypoints(
+            self.request.session.get('project_id', None),
+            userstory
+        )
+        context['userstory_businnesvalue'] = UserStoryService.get_userstory_businnesvalue(
+            self.request.session.get('project_id', None),
+            userstory
+        )
         context['breadcrumbs'] = userstories_breadcrumbs(
             self.request.session.get('project_id'),
             self.kwargs.get('requeriment_id'),
@@ -103,7 +111,7 @@ class UserStoryAddFormView(AddFormView):
     success_message = _('UserStory was created successfully')
     tabs = (
         {"title": "UserStory", "id": "userstory", "class": "active",
-         "fields": ('code', 'title', 'description', 'acceptanceCriteria', 'storypoints_planned', 'storypoints_realized', 'bussinessvalue_planned', 'bussinessvalue_realized')},
+         "fields": ('code', 'title', 'description', 'acceptanceCriteria', )},
         {"title": "Sprints", "id": "sprints", "inlines": ("userstory/sprint.html",)},
         {"title": "Requeriments", "id": "requeriments", "fields": ('requeriment',)},
     )
@@ -166,7 +174,7 @@ class UserStoryUpdateFormView(UpdateFormView):
     success_message = _('UserStory was created successfully')
     tabs = (
         {"title": "UserStory", "id": "userstory", "class": "active",
-         "fields": ('code', 'title', 'description', 'acceptanceCriteria', 'storypoints_planned', 'storypoints_realized', 'bussinessvalue_planned', 'bussinessvalue_realized')},
+         "fields": ('code', 'title', 'description', 'acceptanceCriteria')},
         {"title": "Sprints", "id": "sprints", "inlines": ("userstory/sprint.html",)},
         {"title": "Requeriments", "id": "requeriments", "fields": ('requeriment',)},
     )

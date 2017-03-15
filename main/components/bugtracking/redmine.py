@@ -15,3 +15,4 @@ class Connection(ConnectionInterface, Redmine):
         return self.connection.issue.get(issue_id)
 
 
+

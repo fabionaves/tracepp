@@ -28,7 +28,23 @@ class Project(models.Model, MyModel):
         ('Redmine', 'Redmine'),
     )
     tracking_tool_type = models.CharField(_('Bug Tracking Tool Type'), choices=TRACKING_TOOL_TYPE, blank=True,
-                                          null=True, max_length=30)
+                                          null=True, max_length=50)
+    tracking_sp_planned_variable = models.CharField(_('Story Points Planned Custom Field Name'),
+                                                    blank=True,
+                                                    null=True,
+                                                    max_length=50)
+    tracking_sp_realized_variable = models.CharField(_('Story Points Realized Custom Field Name'),
+                                                    blank=True,
+                                                    null=True,
+                                                    max_length=50)
+    tracking_bv_planned_variable = models.CharField(_('Businnes Value Planned Custom Field Name'),
+                                                   blank=True,
+                                                   null=True,
+                                                   max_length=50)
+    tracking_bv_realized_variable = models.CharField(_('Businnes Value Realized Custom Field Name'),
+                                                     blank=True,
+                                                     null=True,
+                                                     max_length=50)
     tracking_tool_url = models.URLField(_('Bug Tracking Tool URL'), blank=True, null=True)
     tracking_tool_user = models.CharField(_('Bug Tracking Tool User'), blank=True, null=True, max_length=30)
     tracking_tool_password = models.CharField(_('Bug Tracking Tool Password'), blank=True, null=True, max_length=30)

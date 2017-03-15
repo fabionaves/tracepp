@@ -22,7 +22,13 @@ class ProjectForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        fields = ['name','requester','description','points_type','total_points','repository_type','repository_url','tracking_tool_type', 'tracking_tool_url', 'tracking_tool_user', 'tracking_tool_password', 'tracking_tool_project_id', 'user']
+        fields = ['name', 'requester', 'description', 'points_type', 'total_points',
+                  'repository_type', 'repository_url','tracking_tool_type',
+                  'tracking_tool_url',
+                  'tracking_sp_planned_variable', 'tracking_sp_realized_variable',
+                  'tracking_bv_planned_variable', 'tracking_bv_realized_variable',
+                  'tracking_tool_user', 'tracking_tool_password', 'tracking_tool_project_id',
+                  'user']
 
 
 class RequerimentForm(forms.ModelForm):
@@ -71,7 +77,7 @@ class UserStoryForm(forms.ModelForm):
 
     class Meta:
         model = UserStory
-        fields = ('code', 'title', 'description', 'acceptanceCriteria', 'storypoints_planned', 'storypoints_realized', 'bussinessvalue_planned', 'bussinessvalue_realized', 'requeriment')
+        fields = ('code', 'title', 'description', 'acceptanceCriteria', 'requeriment')
 
 SprintUserStoryInlineFormSet = inlineformset_factory(UserStory,
                                                      SprintUserStory,

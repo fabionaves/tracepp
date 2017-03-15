@@ -54,10 +54,12 @@ class Artifact(models.Model):
     )
     estimated_time = models.IntegerField(_('Estimated Time'), null=True, blank=True)
     spent_time = models.IntegerField(_('Spent Time'), null=True, blank=True)
+    estimated_storypoints = models.IntegerField(_('Estimated Story Points'), null=True, blank=True)
+    realized_storypoints = models.IntegerField(_('Realized Time'), null=True, blank=True)
+    estimated_businnesvalue = models.IntegerField(_('Estimated Businnes Value'), null=True, blank=True)
+    realized_businnesvalue = models.IntegerField(_('Realized Businnes Value'), null=True, blank=True)
     file = models.FileField(_('File'), upload_to=settings.UPLOAD_DIR)
     objects = models.Manager()
     file_objects = FileArtifactsManager()
     source_objects = SourceArtifactsManager()
     activity_objects = ActivityArtifactsManager()
-
-

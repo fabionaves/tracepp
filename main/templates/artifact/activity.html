@@ -12,6 +12,9 @@
     <P><strong>{% trans 'Estimated Hours:' %}:</strong> {{ issue.estimated_hours }}</P>
     <P><strong>{% trans 'Spent Hours:' %}:</strong> {{ issue.spent_hours }}</P>
     <P><strong>{% trans 'Status:' %}:</strong> {{ issue.status }}</P>
+    {% for custom_field in issue.custom_fields %}
+        <p><strong>{{ custom_field.name }}:</strong> {{ custom_field.value }}</p>
+    {% endfor %}
     <P><a href="{{ project.tracking_tool_url }}\issues\{{ artifact.reference }}" target="_blank">Link</a></P>
 
 {% endblock %}
