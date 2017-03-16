@@ -38,6 +38,9 @@ class UserStory(models.Model,MyModel):
     def __str__(self):
         return self.code+' - '+self.title
 
+    class Meta:
+        ordering = ["code"]
+
 
 
 

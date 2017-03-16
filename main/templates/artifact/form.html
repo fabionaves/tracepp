@@ -172,7 +172,11 @@
                                         <a href="{{ row.id }}/codeview/">{{ row.source }}</a>
                                     {% endif %}
                                 </td>
-                                <td><a href="{{ row.id }}/delete/" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i> Delete</a></td>
+                                <td>
+                                    {% if row.type.type == 0 %}
+                                        <a href="{{ row.id }}/delete/" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i> Delete</a>
+                                    {% endif %}
+                                </td>
                             </tr>
                         {% empty %}
                             <tr>

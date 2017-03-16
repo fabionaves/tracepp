@@ -156,7 +156,9 @@ class ArtifactTraceBugTrackingView(TemplateViewProjectFilter):
                                   project.tracking_sp_planned_variable, project.tracking_sp_realized_variable,
                                   project.tracking_bv_planned_variable, project.tracking_bv_realized_variable,
                                   )
+        references = []
         for artifact in acfinder.artifactList:
+            references.append(artifact['reference'])
             try:
                 filterArtifact = Artifact.objects.get(project=project, reference=artifact['reference'])
             except Artifact.DoesNotExist:
@@ -164,6 +166,7 @@ class ArtifactTraceBugTrackingView(TemplateViewProjectFilter):
 
             try:
                 if not filterArtifact is None:
+                    #upldate a exist artifact
                     if artifact['artifactType'].level == 0:
                         filterArtifact.type = artifact['artifactType']
                         filterArtifact.save()
@@ -182,6 +185,7 @@ class ArtifactTraceBugTrackingView(TemplateViewProjectFilter):
                         filterArtifact.estimated_time = artifact['estimated_time']
                         filterArtifact.spent_time = artifact['spent_time']
                         filterArtifact.type = artifact['artifactType']
+
                         filterArtifact.estimated_storypoints = artifact['estimated_storypoints']
                         filterArtifact.realized_storypoints = artifact['realized_storypoints']
                         filterArtifact.estimated_businnesvalue = artifact['estimated_businnesvalue']
@@ -189,6 +193,7 @@ class ArtifactTraceBugTrackingView(TemplateViewProjectFilter):
                         filterArtifact.userstory = userstory
                         filterArtifact.save()
                 else:
+                    #create a new artifact
                     if artifact['artifactType'].level == 0:
                         Artifact.objects.create(project=project,
                                                 reference=artifact['reference'],
@@ -219,6 +224,7 @@ class ArtifactTraceBugTrackingView(TemplateViewProjectFilter):
                                                 userstory=userstory)
             except:
                 context['erros']="erros: {} {}", artifact['reference'], artifact['code']
+        Artifact.objects.exclude(reference__in=references).filter(type__type=2).delete() #delete the artifacts not detected in bugtracking
         context['project'] = project
         return context
 

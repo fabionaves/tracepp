@@ -21,8 +21,7 @@ class SprintService:
 
     @staticmethod
     def get_userstories_from_sprint(project_id, sprint_id):
-        return UserStory.objects.filter(project=project_id,
-                                        sprintuserstory__sprint =sprint_id)
+        return UserStory.objects.filter(project=project_id, sprintuserstory__sprint =sprint_id)
 
     @staticmethod
     def get_requeriments_from_sprint(sprint_user_story_list):
@@ -56,9 +55,9 @@ class SprintService:
     @staticmethod
     def storypoint_per_sprint(sprint_id):
         return SprintUserStory.objects.values('sprint_id').annotate(
-            estimated = Sum('userstory__storypoints_planned'),
-            realized = Sum('userstory__storypoints_realized'),
+            estimated = Sum('userstory__artifact__estimated_storypoints'),
+            realized = Sum('userstory__artifact__realized_storypoints'),
             percentual=100 * (
-                                Sum('userstory__storypoints_realized') - Sum('userstory__storypoints_planned')) / Sum(
-                                    'userstory__storypoints_planned')
+                                Sum('userstory__artifact__realized_storypoints') - Sum('userstory__artifact__estimated_storypoints')) / Sum(
+                                    'userstory__artifact__estimated_storypoints')
                             ).filter(sprint=sprint_id)

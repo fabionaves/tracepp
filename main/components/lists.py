@@ -18,7 +18,10 @@ class ModelList(ListView):
         context['list_display'] = self.list_display
         titles = []
         for item in self.list_display:
-            titles.append(self.model._meta.get_field(item).verbose_name)
+            try:
+                titles.append(self.model._meta.get_field(item).verbose_name)
+            except:
+                titles.append(item)
         context['titles'] = titles
         if not self.page_title:
             context['page_title'] = self.model._meta.verbose_name_plural
