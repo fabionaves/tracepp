@@ -62,7 +62,37 @@ def requeriments_sucess_url(requeriment_id, sprint_id):
 
 
 def userstories_breadcrumbs(project_id=False, requeriment_id=False, sprint_id=False, userstory_id=False, last_name=False):
-    if sprint_id and userstory_id:
+    if sprint_id and userstory_id and requeriment_id:
+        sprint = SprintService.get_sprint(project_id, sprint_id)
+        requeriment = RequerimentService.get_requeriment(project_id, requeriment_id)
+        userstory = UserStoryService.get_userstory(project_id, userstory_id)
+        breadcrumbs = (
+            {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+            {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
+            {'link': reverse_lazy('main:sprint-details', kwargs={'sprint_id': sprint_id}),
+             'class': '', 'name': sprint},
+            {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriment')},
+            {'link': reverse_lazy('main:requeriment-details',  kwargs={'pk': requeriment_id, 'sprint_id': sprint_id}),
+             'class': '', 'name': sprint},
+            {'link': reverse_lazy('main:sprint-requeriment-userstory', kwargs={'sprint_id': sprint_id, 'requeriment_id': requeriment_id}), 'class': '',
+             'name': _('User Stories')},
+            {'link': reverse_lazy('main:sprint-requeriment-userstory-detail', kwargs={'sprint_id': sprint_id, 'requeriment_id': requeriment_id, 'pk': userstory.pk}), 'class': '',
+             'name': userstory.code}
+        )
+    elif sprint_id and requeriment_id:
+        sprint = SprintService.get_sprint(project_id, sprint_id)
+        requeriment = RequerimentService.get_requeriment(project_id, requeriment_id)
+
+        breadcrumbs = (
+            {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+            {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
+            {'link': reverse_lazy('main:sprint-details', kwargs={'sprint_id': sprint_id}),
+             'class': '', 'name': sprint},
+            {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriment')},
+            {'link': reverse_lazy('main:requeriment-details', kwargs={'pk': requeriment_id, 'sprint_id': sprint_id}),
+             'class': '', 'name': requeriment.code}
+        )
+    elif sprint_id and userstory_id:
         sprint = SprintService.get_sprint(project_id, sprint_id)
         userstory = UserStoryService.get_userstory(project_id, userstory_id)
         breadcrumbs = (

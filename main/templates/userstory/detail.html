@@ -7,6 +7,13 @@
     <script>
         $(document).ready(function () {
             var ctx = document.getElementById('graph_taks_force_per_userstory_json').getContext('2d');
+            estimated_time = {% if total_estimated_time.time %}{{ total_estimated_time.time }}{% else %}0{% endif %};
+            spent_time = {%  if total_spent_time.time %}{{ total_spent_time.time }}{% else %}0{% endif %}
+            if(estimated_time>spent_time){
+                maxValue = estimated_time;
+            }else{
+                maxValue = spent_time;
+            }
             var graph_taks_force_per_userstory_json = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -29,7 +36,8 @@
                     scales: {
                         yAxes: [{
                             ticks: {
-                                beginAtZero: true
+                                beginAtZero: true,
+                                suggestedMax: maxValue+2,
                             },
                             id: "1"
                         }]
@@ -62,6 +70,13 @@
 
 
             var ctx = document.getElementById('sp_per_userstory_json').getContext('2d');
+            estimated_sp = {{ userstory_storypoints.estimated_storypoints}};
+            realized_sp = {{ userstory_storypoints.realized_storypoints }};
+            if(estimated_sp > realized_sp){
+                maxValue = estimated_sp;
+            }else{
+                maxValue = realized_sp;
+            }
             var sp_per_userstory_json = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -85,7 +100,8 @@
                     scales: {
                         yAxes: [{
                             ticks: {
-                                beginAtZero: true
+                                beginAtZero: true,
+                                suggestedMax: maxValue+2,
                             },
                             id: "1"
                         }]
@@ -116,6 +132,13 @@
             });
 
             var ctx = document.getElementById('bv_per_userstory_json').getContext('2d');
+            estimated_bv = {{ userstory_businnesvalue.estimated_businnesvalue }};
+            realized_bv = {{ userstory_businnesvalue.realized_businnesvalue }};
+            if(estimated_bv>realized_bv){
+                maiorValor=estimated_bv;
+            }else{
+                maiorValor=realized_bv;
+            }
             var bv_per_userstory_json = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -138,7 +161,8 @@
                     scales: {
                         yAxes: [{
                             ticks: {
-                                beginAtZero: true
+                                beginAtZero: true,
+                                suggestedMax: maiorValor+2,
                             },
                             id: "1"
                         }]

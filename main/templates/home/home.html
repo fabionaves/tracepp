@@ -13,14 +13,14 @@
                 data: {
                     labels: [
                     {% for teffort in task_effort %}
-                        '{{ teffort.userstory__code }}',
+                        '{{ teffort.sprint__title }}',
                     {% endfor %}
                     ],
                     datasets: [{
                         label: '{% trans '% Task Effort Variation per Sprint' %}',
                         data: [
                              {% for teffort in task_effort %}
-                                '{{ teffort.percentual }}',
+                                '{% if teffort.percentual %}{{ teffort.percentual }}{% else %}0{% endif %}',
                             {% endfor %}
                         ],
                         borderColor: "hsla(360, 100%, 50%, 0.9)",
@@ -30,7 +30,7 @@
                         label: '{% trans '% Story Points Variation per Sprint' %}',
                         data: [
                             {% for us in storypoints_variation  %}
-                                {{ us.percentual_of_storypoints_variation }},
+                                '{% if us.percentual %}{{ us.percentual }}{% else %}0{% endif %}',
                             {% endfor %}
                         ],
                         borderColor: "hsla(251, 100%, 50%, 0.9)",

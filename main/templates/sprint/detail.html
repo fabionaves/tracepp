@@ -14,6 +14,12 @@
                {%  for sp in storypoint_per_sprint %}
                         sp_percentual = {{ sp.percentual }}
                {% endfor %}
+
+            if(task_percentual > sp_percentual){
+                maiorValor = task_percentual;
+            }else{
+                maiorValor = sp_percentual;
+            }
             var graph_taks_force_per_userstory_json = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -38,6 +44,8 @@
                     scales: {
                         yAxes: [{
                             ticks: {
+                                suggestedMin: 0,
+                                suggestedMax: maiorValor+2,
                                 beginAtZero: true
                             },
                             id: "1"

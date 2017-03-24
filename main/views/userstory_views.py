@@ -28,7 +28,11 @@ class UserStoryListView(ModelListProjectFilter):
     top_bar = 'userstory/top_bar.html'
 
     def get_queryset(self):
-        if 'sprint_id' in self.kwargs:
+
+        if 'sprint_id' in self.kwargs and 'requeriment_id' in self.kwargs:
+            return RequerimentService.get_userstories_from_requeriment(self.request.session.get('project_id', None),
+                                                                       self.kwargs['requeriment_id'])
+        elif 'sprint_id' in self.kwargs:
             return SprintService.get_userstories_from_sprint(self.request.session.get('project_id', None),
                                                              self.kwargs['sprint_id'])
         elif 'requeriment_id' in self.kwargs:
