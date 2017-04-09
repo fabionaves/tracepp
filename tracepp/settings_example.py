@@ -122,7 +122,7 @@ USE_L10N = True
 USE_TZ = True
 
 LOCALE_PATHS = (
-  os.path.join(BASE_DIR, "../../locale"),
+  os.path.join(BASE_DIR, "locale"),
 )
 
 
@@ -132,7 +132,7 @@ LOCALE_PATHS = (
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "../../static"),
+    os.path.join(BASE_DIR, "static"),
 ]
 
 UPLOAD_DIR = "upload"
