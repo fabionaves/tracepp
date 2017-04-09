@@ -23,7 +23,7 @@ class Project(models.Model, MyModel):
     )
     repository_type = models.CharField(_('Repository Type'), choices=REPOSITORY_TYPE, blank=True, null=True,
                                        max_length=30)
-    repository_url = models.URLField(_('Repository URL'))
+    repository_url = models.URLField(_('Repository URL'), blank=True, null=True)
     TRACKING_TOOL_TYPE = (
         ('Redmine', 'Redmine'),
     )
