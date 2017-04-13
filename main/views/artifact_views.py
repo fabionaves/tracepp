@@ -157,10 +157,25 @@ class ArtifactTraceBugTrackingView(TemplateViewProjectFilter):
         project = ProjectService.get_project(self.request.session.get('project_id', None))
         bugtracking = BugTrackingFactory.getConnection(project=project)
         artifactsTypes = ArtifactType.objects.filter(project=project, type=2, )
+
+        try:
+            tracking_sp_planned_variable = project.tracking_sp_planned_variable
+            tracking_sp_realized_variable = project.tracking_sp_realized_variable
+            tracking_bv_planned_variable = project.tracking_bv_planned_variable
+            tracking_bv_realized_variable = project.tracking_bv_realized_variable
+        except:
+            tracking_sp_planned_variable =''
+            tracking_sp_realized_variable = ''
+            tracking_bv_planned_variable = ''
+            tracking_bv_realized_variable = ''
+
+
         acfinder = activityFinder(bugtracking, artifactsTypes,
-                                  project.tracking_sp_planned_variable, project.tracking_sp_realized_variable,
-                                  project.tracking_bv_planned_variable, project.tracking_bv_realized_variable,
-                                  )
+                                      tracking_sp_planned_variable, tracking_sp_realized_variable,
+                                      tracking_bv_planned_variable, tracking_bv_realized_variable,
+                                      )
+
+
         references = []
         for artifact in acfinder.artifactList:
             references.append(artifact['reference'])
@@ -176,17 +191,17 @@ class ArtifactTraceBugTrackingView(TemplateViewProjectFilter):
                         filterArtifact.type = artifact['artifactType']
                         filterArtifact.save()
                     elif artifact['artifactType'].level == 1:
-                        requeriment = Requeriment.objects.filter(code=artifact['code']).get()
+                        requeriment = Requeriment.objects.filter(project=project, code=artifact['code']).get()
                         filterArtifact.type = artifact['artifactType']
                         filterArtifact.requeriment = requeriment
                         filterArtifact.save()
                     elif artifact['artifactType'].level == 2:
-                        sprint = Sprint.objects.filter(code=artifact['code']).get()
+                        sprint = Sprint.objects.filter(project=project, code=artifact['code']).get()
                         filterArtifact.type = artifact['artifactType']
                         filterArtifact.sprint = sprint
                         filterArtifact.save()
                     elif artifact['artifactType'].level == 3:
-                        userstory = UserStory.objects.filter(code=artifact['code']).get()
+                        userstory = UserStory.objects.filter(project=project, code=artifact['code']).get()
                         filterArtifact.estimated_time = artifact['estimated_time']
                         filterArtifact.spent_time = artifact['spent_time']
                         filterArtifact.type = artifact['artifactType']
@@ -204,19 +219,19 @@ class ArtifactTraceBugTrackingView(TemplateViewProjectFilter):
                                                 reference=artifact['reference'],
                                                 type=artifact['artifactType'])
                     elif artifact['artifactType'].level == 1:
-                        requeriment = Requeriment.objects.filter(code=artifact['code']).get()
+                        requeriment = Requeriment.objects.filter(project=project, code=artifact['code']).get()
                         Artifact.objects.create(project=project,
                                                 reference=artifact['reference'],
                                                 type=artifact['artifactType'],
                                                 requeriment=requeriment)
                     elif artifact['artifactType'].level == 2:
-                        sprint = Sprint.objects.filter(code=artifact['code']).get()
+                        sprint = Sprint.objects.filter(project=project, code=artifact['code']).get()
                         Artifact.objects.create(project=project,
                                                 reference=artifact['reference'],
                                                 type=artifact['artifactType'],
                                                 sprint=sprint)
                     elif artifact['artifactType'].level == 3:
-                        userstory = UserStory.objects.filter(code=artifact['code']).get()
+                        userstory = UserStory.objects.filter(project=project, code=artifact['code']).get()
                         Artifact.objects.create(project=project,
                                                 reference=artifact['reference'],
                                                 estimated_time=artifact['estimated_time'],
