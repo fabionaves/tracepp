@@ -2,6 +2,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
@@ -36,7 +37,9 @@ class ArtifactView(SuccessMessageMixin, CreateView):
     template_name = 'artifact/form.html'
     model = Artifact
     form_class = ArtifactForm
-    success_url = '/artifact/'
+
+    def get_success_url(self):
+        return reverse('main:artifact')
 
     def get_context_data(self, **kwargs):
         context = super(ArtifactView, self).get_context_data(**kwargs)
@@ -130,7 +133,9 @@ class ArtifactDeleteView(SuccessMessageMixin, DeleteView):
     model = ArtifactService.get_model()
     template_name = 'artifact/delete.html'
     fields = ('name', 'type', 'reference', 'requeriment','sprint','userstory','file')
-    success_url = '/artifact/'
+
+    def get_success_url(self):
+        return reverse('main:artifact')
 
     @method_decorator(require_project())
     def dispatch(self, request, *args, **kwargs):

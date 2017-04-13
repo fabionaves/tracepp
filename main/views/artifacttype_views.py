@@ -1,4 +1,5 @@
 from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
@@ -33,7 +34,7 @@ class ArtifactTypeAddFormView(AddFormView):
     page_title = _('Artifact type')
     model = ArtifactTypeService.get_artifacttype_model()
     form_class = ArtifactTypeForm
-    success_url = '/artifacttype/'
+
     success_message = _('Artifacty Type was created successfully')
     tabs = (
         {"title": _('Artifact type'), "id": "artifacttype", "class": "active",
@@ -43,6 +44,9 @@ class ArtifactTypeAddFormView(AddFormView):
         {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
         {'link': reverse_lazy('main:artifacttype'), 'class': '', 'name': _('Artifact type')},
     )
+
+    def get_success_url(self):
+        return reverse('main:artifacttype')
 
     @method_decorator(require_project())
     def dispatch(self, request, *args, **kwargs):
@@ -62,7 +66,7 @@ class ArtifactTypeUpdateFormView(UpdateFormView):
     page_title = _('Artifact type')
     model = ArtifactTypeService.get_artifacttype_model()
     form_class = ArtifactTypeForm
-    success_url = '/artifacttype/'
+
     success_message = _('Artifacty Type was updated successfully')
     tabs = (
         {"title": _('Artifact type'), "id": "artifacttype", "class": "active",
@@ -72,6 +76,9 @@ class ArtifactTypeUpdateFormView(UpdateFormView):
         {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
         {'link': reverse_lazy('main:artifacttype'), 'class': '', 'name': _('Artifact Type')},
     )
+
+    def get_success_url(self):
+        return reverse('main:artifacttype')
 
     @method_decorator(require_project())
     def dispatch(self, request, *args, **kwargs):
@@ -91,7 +98,9 @@ class ArtifactTypeDeleteView(SuccessMessageMixin, DeleteView):
     model = ArtifactTypeService.get_artifacttype_model()
     template_name = 'artifacttype/delete.html'
     list_display = ('name', 'level', 'type', 'trace_code')
-    success_url = '/artifacttype/'
+
+    def get_success_url(self):
+        return reverse('main:artifacttype')
 
     @method_decorator(require_project())
     def dispatch(self, request, *args, **kwargs):

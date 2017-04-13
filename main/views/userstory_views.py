@@ -1,5 +1,6 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
@@ -114,10 +115,10 @@ class UserStoryAddFormView(AddFormView):
     form_class = UserStoryForm
     success_message = _('UserStory was created successfully')
     tabs = (
-        {"title": "UserStory", "id": "userstory", "class": "active",
+        {"title": _("UserStory"), "id": "userstory", "class": "active",
          "fields": ('code', 'title', 'description', 'acceptanceCriteria', )},
         {"title": "Sprints", "id": "sprints", "inlines": ("userstory/sprint.html",)},
-        {"title": "Requeriments", "id": "requeriments", "fields": ('requeriment',)},
+        {"title": _("Requeriments"), "id": "requeriments", "fields": ('requeriment',)},
     )
 
     def get_success_url(self):
@@ -146,7 +147,7 @@ class UserStoryAddFormView(AddFormView):
         return super(UserStoryAddFormView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form, sprint_userstory_form):
-        project = ProjectService.get_project(self.get.session['project_id'])
+        project = ProjectService.get_project(self.request.session['project_id'])
         form.instance.changed_by = self.request.user
         form.instance.project = project
         self.object = form.save()
@@ -177,10 +178,10 @@ class UserStoryUpdateFormView(UpdateFormView):
     form_class = UserStoryForm
     success_message = _('UserStory was created successfully')
     tabs = (
-        {"title": "UserStory", "id": "userstory", "class": "active",
+        {"title": _("UserStory"), "id": "userstory", "class": "active",
          "fields": ('code', 'title', 'description', 'acceptanceCriteria')},
         {"title": "Sprints", "id": "sprints", "inlines": ("userstory/sprint.html",)},
-        {"title": "Requeriments", "id": "requeriments", "fields": ('requeriment',)},
+        {"title": _("Requeriments"), "id": "requeriments", "fields": ('requeriment',)},
     )
     breadcrumbs = (
         {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
@@ -246,7 +247,9 @@ class UserStoryDeleteView(SuccessMessageMixin, DeleteView):
     model = UserStoryService.get_userstory_model()
     template_name = 'userstory/delete.html'
     list_display = ('code', 'title', 'description')
-    success_url = '/userstory/'
+
+    def get_success_url(self):
+        return reverse('main:userstory')
 
     @method_decorator(require_project())
     def dispatch(self, request, *args, **kwargs):

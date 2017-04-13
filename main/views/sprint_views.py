@@ -1,4 +1,5 @@
 from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
@@ -63,13 +64,16 @@ class SprintAddFormView(AddFormView):
     model = SprintService.get_sprint_model()
     head_template = 'sprint/form_head.html'
     fields = ('title', 'status', 'begin', 'end')
-    success_url = '/sprint/'
+
     success_message = _('Sprint was created successfully')
     breadcrumbs = (
         {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
         {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
         {'link': '#', 'class': '', 'name': _('Add')},
     )
+
+    def get_success_url(self):
+        return reverse('main:sprint')
 
     @method_decorator(require_project())
     def dispatch(self, request, *args, **kwargs):
@@ -98,7 +102,7 @@ class SprintUpdateFormView(UpdateFormView):
         return super(SprintUpdateFormView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return "/sprint/%d/" % self.object.id
+        return reverse("main:sprint-details", kwargs={'sprint_id':self.object.id})
 
     def form_valid(self, form):
         project = ProjectService.get_project(self.request.session['project_id'])
@@ -125,7 +129,9 @@ class SprintDeleteView(SuccessMessageMixin, DeleteView):
     model = SprintService.get_sprint_model()
     template_name = 'sprint/delete.html'
     fields = ('title', 'status', 'begin', 'end')
-    success_url = '/sprint/'
+
+    def get_success_url(self):
+        return reverse('main:sprint')
 
     @method_decorator(require_project())
     def dispatch(self, request, *args, **kwargs):

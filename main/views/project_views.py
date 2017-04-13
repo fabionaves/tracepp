@@ -55,7 +55,6 @@ class ProjectAddFormView(AddFormView):
     model = ProjectService.get_project_model()
     form_class = ProjectForm
     template_name = 'project/form.html'
-    success_url = '/project/list/'
     success_message = _('Project was created successfully')
     tabs = (
         {"title": "Project", "id": "project", "class": "active",
@@ -76,6 +75,9 @@ class ProjectAddFormView(AddFormView):
         {'link': '#', 'class': 'active', 'name': _('Add')},
     )
 
+    def get_success_url(self):
+        return reverse('main:project-list')
+
 
 class ProjectUpdateFormView(UpdateFormView):
     """
@@ -85,7 +87,6 @@ class ProjectUpdateFormView(UpdateFormView):
     model = ProjectService.get_project_model()
     form_class = ProjectForm
     template_name = 'project/form.html'
-    success_url = '/project/list/'
     success_message = _('Project was saved successfully')
     tabs = (
         {"title": "Project", "id": "project", "class": "active",
@@ -105,3 +106,6 @@ class ProjectUpdateFormView(UpdateFormView):
         {'link': reverse_lazy('main:project-list'), 'class': 'active', 'name': _('Project')},
         {'link': '#', 'class': 'active', 'name': _('Update')},
     )
+
+    def get_success_url(self):
+        return reverse('main:project-list')

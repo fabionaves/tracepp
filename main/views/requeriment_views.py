@@ -1,5 +1,6 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Count
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import DeleteView
@@ -55,9 +56,9 @@ class RequerimentAddFormView(AddFormView):
     form_class = RequerimentForm
     success_message = _('Requeriment was created successfully')
     tabs = (
-        {"title": "Requirement", "id": "requeriment", "class": "active",
+        {"title": _("Requirement"), "id": "requeriment", "class": "active",
          "fields": ('code', 'title', 'description', 'type')},
-        {"title": "Depends On", "id": "depends_on", "fields": ("depends_on",)},
+        {"title": _("Depends on"), "id": "depends_on", "fields": ("depends_on",)},
     )
     breadcrumbs = False
 
@@ -96,19 +97,18 @@ class RequerimentUpdateFormView(UpdateFormView):
     page_title = _('Requeriment')
     model = RequerimentService.get_requeriment_model()
     form_class = RequerimentForm
-    success_url = '/requeriment/'
-    success_message = _('Requeriment was created successfully')
+    success_message = _('Requeriment was updated successfully')
     tabs = (
-        {"title": "Requirement", "id": "requeriment", "class": "active",
+        {"title": _("Requirement"), "id": "requeriment", "class": "active",
          "fields": ('code', 'title', 'description', 'type')},
-        {"title": "Depends On", "id": "depends_on", "fields": ("depends_on",)},
+        {"title": _("Depends on"), "id": "depends_on", "fields": ("depends_on",)},
     )
 
     def get_form(self):
         return self.form_class(request=self.request,**self.get_form_kwargs())
 
     def get_success_url(self):
-        return requeriments_sucess_url(self.kwargs.get('requeriment_id'), self.kwargs.get('sprint_id'))
+        return requeriments_sucess_url(self.kwargs.get('pk'), self.kwargs.get('sprint_id'))
 
     @method_decorator(require_project())
     def dispatch(self, request, *args, **kwargs):
@@ -199,7 +199,9 @@ class RequerimentDeleteView(SuccessMessageMixin, DeleteView):
     model = RequerimentService.get_requeriment_model()
     template_name = 'requeriment/delete.html'
     fields = ('code', 'title', 'description')
-    success_url = '/requeriment/'
+
+    def get_success_url(self):
+        return reverse('main:requeriment')
 
     @method_decorator(require_project())
     def dispatch(self, request, *args, **kwargs):

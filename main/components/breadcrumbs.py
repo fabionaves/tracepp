@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext as _
 
@@ -52,13 +53,13 @@ def requeriments_breadcrumbs(project_id, requeriment_id, sprint_id, last_name=Fa
 
 def requeriments_sucess_url(requeriment_id, sprint_id):
     if sprint_id and requeriment_id:
-        return '/sprint/'+sprint_id+'/requeriment/'+requeriment_id
+        return reverse("main:requeriment-details",kwargs={'sprint_id':sprint_id, 'pk':requeriment_id})
     elif sprint_id:
-        return '/sprint/'+sprint_id+'/requeriment/'
+        return reverse("main:sprint-requeriment", kwargs={'sprint_id':sprint_id})
     elif requeriment_id:
-        return '/requeriment/'+requeriment_id
+        return reverse("main:requeriment-details", kwargs={'pk':requeriment_id})
     else:
-        return '/requeriment/'
+        return reverse("main:requeriment")
 
 
 def userstories_breadcrumbs(project_id=False, requeriment_id=False, sprint_id=False, userstory_id=False, last_name=False):

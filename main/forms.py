@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.auth.models import User
 from django.forms import inlineformset_factory
+from django.utils.translation import ugettext as _
 
 from main.models import Project, Requeriment, UserStory, SprintUserStory, ArtifactType, Artifact
 
@@ -37,7 +38,7 @@ class RequerimentForm(forms.ModelForm):
         super(RequerimentForm, self).__init__(*args, **kwargs)
         self.fields['depends_on'] = forms.ModelMultipleChoiceField(queryset=Requeriment.objects.filter(project_id= request.session.get('project_id', None)),
                                           required=False,
-                                          widget=FilteredSelectMultiple("Depends on", is_stacked=False))
+                                          widget=FilteredSelectMultiple(_("Depends on"), is_stacked=False))
 
 
     class Media:
@@ -64,9 +65,9 @@ class UserStoryForm(forms.ModelForm):
 
     def __init__(self, request, *args, **kwargs):
         super(UserStoryForm, self).__init__(*args, **kwargs)
-        self.fields['requeriment'] = forms.ModelMultipleChoiceField(queryset=Requeriment.objects.filter(project_id= request.session.get('project_id', None)),
+        self.fields['requeriment'] = forms.ModelMultipleChoiceField(queryset=Requeriment.objects.filter(project_id= request.session['project_id']),
                                           required=False,
-                                          widget=FilteredSelectMultiple("Requeriments", is_stacked=False))
+                                          widget=FilteredSelectMultiple(_("Requeriments"), is_stacked=False))
     class Media:
         css = {
             'all': ['admin/css/widgets.css',
