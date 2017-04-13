@@ -4,7 +4,6 @@ from django.utils.decorators import available_attrs
 from django.utils.six import wraps
 
 
-
 def require_project():
     """
     #class:US003
