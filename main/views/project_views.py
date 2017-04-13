@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext as _
 from django.shortcuts import redirect
@@ -21,7 +22,7 @@ class ProjectView(ModelList):
     def dispatch(self, request, *args, **kwargs):
         if 'project_id' in self.kwargs:
             self.request.session['project_id'] = self.kwargs['project_id']
-            return redirect('/')
+            return redirect(reverse('main:home'))
         else:
             return super(ProjectView, self).dispatch(request, *args, **kwargs)
 
