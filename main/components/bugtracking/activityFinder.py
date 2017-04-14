@@ -16,7 +16,11 @@ class activityFinder:
                     try:
                         estimated_time = issue.estimated_hours
                     except:
-                        estimated_time = 0
+                        try:
+                            iss = bugtracking.getIssue(issue.id)
+                            estimated_time = iss.total_estimated_hours #bug in python-redmine dont take estimated_hours in getIssues
+                        except:
+                            estimated_time = 0
 
                     sp_planned = 0
                     sp_realized = 0

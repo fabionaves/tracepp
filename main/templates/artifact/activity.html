@@ -9,8 +9,8 @@
     <P><strong>{% trans 'Description' %}:</strong> {{ issue.description }}</P>
     <P><strong>{% trans 'Created On:' %}:</strong> {{ issue.created_on }}</P>
     <P><strong>{% trans 'Closed On:' %}:</strong> {{ issue.closed_on }}</P>
-    <P><strong>{% trans 'Estimated Hours:' %}:</strong> {{ issue.estimated_hours }}</P>
-    <P><strong>{% trans 'Spent Hours:' %}:</strong> {{ issue.spent_hours }}</P>
+    <P><strong>{% trans 'Estimated Hours:' %}:</strong> {% if issue.estimated_hours %} {{ issue.estimated_hours }} {% else %}{{ issue.total_estimated_hours }}{% endif %}</P>
+    <P><strong>{% trans 'Spent Hours:' %}:</strong> {% if issue.spent_hours %}{{ issue.spent_hours }}{% else %} {{ issue.total_spent_hours }}{% endif %}</P>
     <P><strong>{% trans 'Status:' %}:</strong> {{ issue.status }}</P>
     {% for custom_field in issue.custom_fields %}
         <p><strong>{{ custom_field.name }}:</strong> {{ custom_field.value }}</p>
