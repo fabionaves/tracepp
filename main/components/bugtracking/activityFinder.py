@@ -23,7 +23,7 @@ class activityFinder:
                     bv_planned = 0
                     bv_realized = 0
 
-                    if sp_variable_planned != '' and sp_variable_realized != '' and bv_variable_planned != '' and bv_variable_realized != '':
+                    if sp_variable_planned  and sp_variable_realized and bv_variable_planned and bv_variable_realized:
                         for custom_field in issue.custom_fields:
                             try:
                                 if custom_field['name'] == sp_variable_planned and custom_field['value'] != '':

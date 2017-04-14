@@ -158,16 +158,16 @@ class ArtifactTraceBugTrackingView(TemplateViewProjectFilter):
         bugtracking = BugTrackingFactory.getConnection(project=project)
         artifactsTypes = ArtifactType.objects.filter(project=project, type=2, )
 
-        try:
-            tracking_sp_planned_variable = project.tracking_sp_planned_variable
-            tracking_sp_realized_variable = project.tracking_sp_realized_variable
-            tracking_bv_planned_variable = project.tracking_bv_planned_variable
-            tracking_bv_realized_variable = project.tracking_bv_realized_variable
-        except:
-            tracking_sp_planned_variable =''
-            tracking_sp_realized_variable = ''
-            tracking_bv_planned_variable = ''
-            tracking_bv_realized_variable = ''
+
+        tracking_sp_planned_variable = project.tracking_sp_planned_variable
+        tracking_sp_realized_variable = project.tracking_sp_realized_variable
+        tracking_bv_planned_variable = project.tracking_bv_planned_variable
+        tracking_bv_realized_variable = project.tracking_bv_realized_variable
+        if tracking_sp_planned_variable == '' and tracking_sp_realized_variable == '' and tracking_bv_planned_variable == '' and tracking_bv_realized_variable == '':
+            tracking_sp_planned_variable = False
+            tracking_sp_realized_variable = False
+            tracking_bv_planned_variable = False
+            tracking_bv_realized_variable = False
 
 
         acfinder = activityFinder(bugtracking, artifactsTypes,
