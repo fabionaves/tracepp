@@ -38,6 +38,7 @@ class SourceFinder:
         for file in self.files:
             with open(str(file), 'rb') as f:  # open in binary mode
                 linecount = 0
+                #print('open no arquivo')
                 for line in f:
                     linecount += 1
                     for cp in ('cp1252', 'cp850'):
@@ -47,8 +48,12 @@ class SourceFinder:
                             pass
                         else:
                             for artifactType in self.artifactTypes:
-                                sourcecode = s[:-2].strip()
+                                sourcecode = s[:-1].strip()
+                                #print(file)
+                                #if str(file) == '/var/www/repositorio/1/app/src/main/AndroidManifest.xml':
+                                #     print('{} {} {}',sourcecode[0:len(artifactType.trace_code)],artifactType.trace_code, s)
                                 if sourcecode[0:len(artifactType.trace_code)] == artifactType.trace_code:
+                                    #print(file)
                                     try:
                                         self.artifactList.append({'source': str(file)[len(settings.REPOSITORY_DIR):],
                                                                   'line': linecount, 'artifactType': artifactType,
