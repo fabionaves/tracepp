@@ -5,6 +5,7 @@ from django.forms import inlineformset_factory
 from django.utils.translation import ugettext as _
 
 from main.models import Project, Requeriment, UserStory, SprintUserStory, ArtifactType, Artifact
+from tracepp import settings
 
 
 class ProjectForm(forms.ModelForm):
@@ -19,7 +20,7 @@ class ProjectForm(forms.ModelForm):
                     'css/uid-manage-form.css'],
         }
         # Adding this javascript is crucial
-        js = ['/admin/jsi18n/']
+        js = [settings.FORCE_SCRIPT_NAME+'/admin/jsi18n/']
 
     class Meta:
         model = Project
@@ -47,7 +48,7 @@ class RequerimentForm(forms.ModelForm):
                     'css/uid-manage-form.css'],
         }
         # Adding this javascript is crucial
-        js = ['/admin/jsi18n/']
+        js = [settings.FORCE_SCRIPT_NAME+'/admin/jsi18n/']
 
     class Meta:
         model = Requeriment
@@ -74,7 +75,7 @@ class UserStoryForm(forms.ModelForm):
                     'css/uid-manage-form.css'],
         }
         # Adding this javascript is crucial
-        js = ['/admin/jsi18n/']
+        js = [settings.FORCE_SCRIPT_NAME+'/admin/jsi18n/']
 
     class Meta:
         model = UserStory

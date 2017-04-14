@@ -138,3 +138,7 @@ STATICFILES_DIRS = [
 UPLOAD_DIR = "upload"
 
 REPOSITORY_DIR = 'C:\\repository\\'
+
+#FORCE_SCRIPT_NAME = ''
+#SCRIPT_NAME = ''
+#LOGIN_URL = ''

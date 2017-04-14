@@ -100,7 +100,7 @@
                             <i class="fa fa-gear fa-fw"></i> <i class="fa fa-caret-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-adm">
-                            <li><a href="/admin/"><i class="fa fa-gear fa-fw"></i> {% trans 'Administration' %}</a>
+                            <li><a href="{% url 'admin:index' %}"><i class="fa fa-gear fa-fw"></i> {% trans 'Administration' %}</a>
                             </li>
                             <li><a href="{% url 'main:project-list' %}"><i class="fa fa-file-text fa-fw"></i>  {% trans 'Project(s)' %}</a>
                             </li>
