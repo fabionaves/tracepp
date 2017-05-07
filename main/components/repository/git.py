@@ -15,7 +15,12 @@ class GitImplementation(RepositoryInterface):
         except git.GitCommandError:
             origin = repo.remotes.origin
         finally:
-            origin.fetch()
+            try:
+                origin.fetch()
+            except:
+                ssh_cmd = 'ssh -i id_dsa.pub'
+                with origin.custom_environment(GIT_SSH_COMMAND=ssh_cmd):
+                    origin.origin.fetch()
             origin.pull(origin.refs[0].remote_head)
 
 """def pull(project: Project):
