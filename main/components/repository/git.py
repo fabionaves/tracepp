@@ -7,6 +7,7 @@ class GitImplementation(RepositoryInterface):
     """
     Git implementation of Repository Interface, use RepositoryFactory to instance this
     #class:US010
+
     """
     def pull(self):
         try:
