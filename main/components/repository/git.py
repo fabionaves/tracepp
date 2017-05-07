@@ -19,6 +19,8 @@ class GitImplementation(RepositoryInterface):
             try:
                 origin.fetch()
             except:
+                repo = git.Repo.init(self.dirname)
+                origin = repo.create_remote('origin', 'localhost')
                 ssh_cmd = 'ssh -i id_dsa.pub'
                 with repo.git.custom_environment(GIT_SSH_COMMAND=ssh_cmd):
                     origin.fetch()
