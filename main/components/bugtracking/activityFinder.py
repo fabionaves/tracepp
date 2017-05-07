@@ -27,27 +27,38 @@ class activityFinder:
                     bv_planned = 0
                     bv_realized = 0
 
-                    if sp_variable_planned  and sp_variable_realized and bv_variable_planned and bv_variable_realized:
+                    if sp_variable_planned:
                         for custom_field in issue.custom_fields:
                             try:
                                 if custom_field['name'] == sp_variable_planned and custom_field['value'] != '':
                                     sp_planned = custom_field['value']
-                                elif custom_field['name'] == sp_variable_realized and custom_field['value'] != '':
-                                    sp_realized = custom_field['value']
                             except:
                                 sp_planned = 0
+
+                    if sp_variable_realized:
+                        for custom_field in issue.custom_fields:
+                            try:
+                                if custom_field['name'] == sp_variable_realized and custom_field['value'] != '':
+                                    sp_realized = custom_field['value']
+                            except:
                                 sp_realized = 0
 
-                    if bv_variable_planned and bv_variable_realized:
+                    if bv_variable_planned:
                         for custom_field in issue.custom_fields:
                             try:
                                 if custom_field['name'] == bv_variable_planned and custom_field['value'] != '':
                                     bv_planned = custom_field['value']
-                                elif custom_field['name'] == bv_variable_realized and custom_field['value'] != '':
-                                    bv_realized = custom_field['value']
                             except:
                                 bv_planned = 0
+
+                    if bv_variable_realized:
+                        for custom_field in issue.custom_fields:
+                            try:
+                                if custom_field['name'] == bv_variable_realized and custom_field['value'] != '':
+                                    bv_realized = custom_field['value']
+                            except:
                                 bv_realized = 0
+
 
                     self.artifactList.append(
                             {'reference': issue.id,
