@@ -11,9 +11,12 @@ urlpatterns = [
     url(r'^$',                                   login_required(home_views.HomeView.as_view()), name='home'),
     url(r'^project/list/add/',                   login_required(project_views.ProjectAddFormView.as_view()), name='project-add'),
     url(r'^project/list/(?P<pk>[0-9]+)/update/', login_required(project_views.ProjectUpdateFormView.as_view()), name='project-update'),
+    url(r'^project/list/(?P<pk>[0-9]+)/delete/', login_required(project_views.ProjectDeleteView.as_view()), name='project-delete'),
     url(r'^project/list/',                       login_required(project_views.ProjectListView.as_view()), name='project-list'),
     url(r'^project/(?P<project_id>[0-9]+)/',     login_required(project_views.ProjectView.as_view()), name='project'),
     url(r'^project/',                            login_required(project_views.ProjectView.as_view()), name='project'),
+
+
 
     url(r'^userstory/add/',                                                login_required(userstory_views.UserStoryAddFormView.as_view()), name='userstory-add'),
     url(r'^userstory/(?P<pk>[0-9]+)/update/',                              login_required(userstory_views.UserStoryUpdateFormView.as_view()),name='userstory-update'),
