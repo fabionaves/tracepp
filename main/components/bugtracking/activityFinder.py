@@ -35,6 +35,7 @@ class activityFinder:
                             except:
                                 sp_planned = 0
 
+                    '''
                     if sp_variable_realized:
                         for custom_field in issue.custom_fields:
                             try:
@@ -58,6 +59,7 @@ class activityFinder:
                                     bv_realized = custom_field['value']
                             except:
                                 bv_realized = 0
+                                '''
 
 
                     self.artifactList.append(
