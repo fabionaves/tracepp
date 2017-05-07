@@ -20,7 +20,7 @@ class GitImplementation(RepositoryInterface):
                 origin.fetch()
             except:
                 ssh_cmd = 'ssh -i id_dsa.pub'
-                with origin.custom_environment(GIT_SSH_COMMAND=ssh_cmd):
+                with repo.git.custom_environment(GIT_SSH_COMMAND=ssh_cmd):
                     origin.origin.fetch()
             origin.pull(origin.refs[0].remote_head)
 
