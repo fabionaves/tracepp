@@ -1,7 +1,10 @@
+from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext as _
 from django.shortcuts import redirect
+from django.views.generic import DeleteView
+
 from main.components.lists import ModelList
 from main.forms import ProjectForm
 from main.components.formviews import AddFormView, UpdateFormView
@@ -109,3 +112,25 @@ class ProjectUpdateFormView(UpdateFormView):
 
     def get_success_url(self):
         return reverse('main:project-list')
+
+
+class ProjectDeleteView(SuccessMessageMixin, DeleteView):
+    """
+    #class:US006
+    Delete Sprint
+    """
+    model = ProjectService.get_project_model()
+    template_name = 'project/delete.html'
+    fields = ('name', 'requester')
+
+    def get_success_url(self):
+        return reverse('main:project-list')
+
+    def get_context_data(self, **kwargs):
+        context = super(ProjectDeleteView, self).get_context_data()
+        breadcrumbs = (
+            {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+            {'link': reverse_lazy('main:project-list'), 'class': 'active', 'name': _('Project')},
+            {'link': '#', 'class': 'active', 'name': _('Update')},
+        )
+        return context
