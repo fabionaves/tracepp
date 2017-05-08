@@ -7,6 +7,7 @@ from .project import Project
 
 class Sprint(models.Model, MyModel):
     title = models.CharField(_('Title'), max_length=30)
+    reference = models.IntegerField(_('Bug Track Id'),null=True,blank=True)
     SPRINT_STATUS_OPTIONS = (
         (0, _('Planning')),
         (1, _('Executing')),
@@ -15,14 +16,14 @@ class Sprint(models.Model, MyModel):
     status = models.IntegerField(
         _('Status'), choices=SPRINT_STATUS_OPTIONS, blank=False
     )
-    begin = models.DateField(_('Begin'))
-    end = models.DateField(_('End'))
+    begin = models.DateField(_('Begin'),blank=True, null=True)
+    end = models.DateField(_('End'),blank=True, null=True)
     project = models.ForeignKey(
         Project,
         verbose_name=_('Project'),
         on_delete=models.PROTECT,
     )
-    changed_by = models.ForeignKey('auth.User')
+    changed_by = models.ForeignKey('auth.User',null=True)
     history = HistoricalRecords()
 
     @property

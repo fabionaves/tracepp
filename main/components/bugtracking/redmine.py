@@ -14,5 +14,11 @@ class Connection(ConnectionInterface, Redmine):
     def getIssue(self, issue_id):
         return self.connection.issue.get(issue_id)
 
+    def getSprints(self):
+        return self.connection.version.filter(project_id=self.project_id)
+
+    def getUserStories(self, tracker_id):
+        return self.connection.issue.filter(project_id=self.project_id, status_id='*',tracker_id=tracker_id)
+
 
 

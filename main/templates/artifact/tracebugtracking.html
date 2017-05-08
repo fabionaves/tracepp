@@ -4,6 +4,7 @@
 {% load myutils %}
 {% block content %}
     <h1>{% trans 'Bug Tracking Tool Traced !' %}</h1>
+    <button type="button" class="btn btn-lg btn-primary btn-block" onclick="javascript:window.history.go(-1)">Voltar</button>
     <h2>{% trans 'Imported Artifacts' %}</h2>
     <p>
     {% for log in artifactImportLogs  %}
@@ -11,8 +12,15 @@
     {% endfor %}
     </p>
      <h2>{% trans 'Imported Sprints' %}</h2>
+    <p>
+    {% for sprintlog in sprintImportLogs  %}
+        <br/>{{ sprintlog }}
+    {% empty %}
+        {% trans 'No sprints' %}
+    {% endfor %}
+    </p>
     <h2>{% trans 'Imported User Stories' %}</h2>
     <p>
-    <button type="button" class="btn btn-lg btn-primary btn-block" onclick="javascript:window.history.go(-1)">Voltar</button>
+
     </p>
 {% endblock %}

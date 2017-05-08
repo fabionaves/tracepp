@@ -39,7 +39,13 @@
     <!-- Graph components -->
     <script src="{% static 'js/Chart.js' %}"></script>
 
+    <!-- Django admin widgets -->
     <script src="{% static 'js/jquery.formset.js'%}"></script>
+    <script>django = {jQuery: $}</script>
+    <script src="/admin/jsi18n/"></script>
+    <script type="text/javascript" src="{% static "admin/js/core.js" %}"></script>
+    <link href="{% static 'admin/css/widgets.css' %}" rel="stylesheet">
+    <link href="{% static 'css/uid-manage-form.css' %}" rel="stylesheet">
 
     <!-- Find for tables -->
     <script>

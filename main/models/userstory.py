@@ -10,16 +10,18 @@ from .project import Project
 
 class UserStory(models.Model,MyModel):
     code = models.CharField(_('Code'), max_length=30)
+    reference = models.IntegerField(_('Bug Track Id'), null=True, blank=True)
     title = models.CharField(_('Title'), max_length=50)
-    description = models.TextField(_('Description'))
-    acceptanceCriteria = models.TextField(_('Acceptance Criteria'))
+    description = models.TextField(_('Description'),null=True, blank=True)
+    acceptanceCriteria = models.TextField(_('Acceptance Criteria'),null=True, blank=True)
     requeriment = models.ManyToManyField(Requeriment)
 
 
     project = models.ForeignKey(Project,
                                 on_delete=models.PROTECT, verbose_name=_('Project')
                                 )
-    changed_by = models.ForeignKey('auth.User')
+
+    changed_by = models.ForeignKey('auth.User', null=True)
     history = HistoricalRecords()
 
 

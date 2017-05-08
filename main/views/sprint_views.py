@@ -63,7 +63,7 @@ class SprintAddFormView(AddFormView):
     page_title = 'Sprint'
     model = SprintService.get_sprint_model()
     head_template = 'sprint/form_head.html'
-    fields = ('title', 'status', 'begin', 'end')
+    fields = ('title', 'status', 'begin', 'end','reference')
 
     success_message = _('Sprint was created successfully')
     breadcrumbs = (
@@ -94,7 +94,7 @@ class SprintUpdateFormView(UpdateFormView):
     page_title = 'Sprint'
     model = SprintService.get_sprint_model()
     head_template = 'sprint/form_head.html'
-    fields = ('title', 'status', 'begin', 'end')
+    fields = ('title', 'status', 'begin', 'end','reference')
     success_message = _('Sprint was saved successfully')
 
     @method_decorator(require_project())

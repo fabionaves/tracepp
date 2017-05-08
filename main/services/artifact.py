@@ -133,4 +133,64 @@ class ArtifactService:
             type__type=2).delete()  # delete the artifacts not detected in bugtracking
         return log
 
+    @staticmethod
+    def get_sprints_from_bugtracking(project):
+        bugtracking = BugTrackingFactory.getConnection(project=project)
+        bugtrackingSprints = bugtracking.getSprints()
+        log = []
+        for bugtrackingsprint in bugtrackingSprints:
+            try:
+                sprint = Sprint.objects.get(project=project, reference=bugtrackingsprint.id)
+            except Sprint.DoesNotExist:
+                sprint = None
+
+            if  sprint is None:
+                #create sprint data
+                if bugtrackingsprint.status=='Closed':
+                    status = 2
+                else:
+                    status = 1
+
+                Sprint.objects.create(
+                    title=bugtrackingsprint.name,
+                    reference=bugtrackingsprint.id,
+                    status=status,
+                    project=project,
+                )
+                log.append(_('Created Sprint: ') + bugtrackingsprint.name)
+            else:
+                #update sprint
+                # create sprint data
+                if bugtrackingsprint.status == 'Closed':
+                    status = 2
+                else:
+                    status = 1
+                sprint.title = bugtrackingsprint.name
+                sprint.status = status
+                sprint.save()
+                log.append(_('Updated Sprint: ')+bugtrackingsprint.name)
+
+        return log
+
+    @staticmethod
+    def get_userstories_from_bugtracking(project):
+        bugtracking = BugTrackingFactory.getConnection(project=project)
+        bugtrackingUserStories = bugtracking.getUserStories(project.issueTypesAsUserStory)
+
+        for bubtrackuserstory in bugtrackingUserStories:
+            try:
+                userstory = UserStory.objects.get(project=project, reference=bubtrackuserstory.id)
+            except UserStory.DoesNotExist:
+                userstory = None
+
+            if userstory is None:
+                #create user story
+                pass
+            else:
+                #update user story
+                pass
+        log = []
+
+        return log
+
 

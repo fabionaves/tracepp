@@ -16,3 +16,8 @@ class ConnectionInterface:
     def getIssue(self, issue_id):
         raise NotImplementedError("Connect to Bug Tracking must me implemented")
 
+    def getSprints(self):
+        raise NotImplementedError("Connect to Bug Tracking must me implemented")
+
+    def getUserStories(self):
+        raise NotImplementedError("Connect to Bug Tracking must me implemented")

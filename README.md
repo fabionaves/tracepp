@@ -14,7 +14,7 @@ sprint or user stories according to user's tracking codes.
 
 
 <h2>Run:</h2>
-<p>Python 3.5 and Django 1.10</p>
+<p>Python 3.5 and Django 1.9</p>
 
 <h2>Dependencies</h2>
 <ul>
