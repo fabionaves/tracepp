@@ -6,6 +6,7 @@ from main.models import Artifact
 from main.models import ArtifactType
 from main.models import Requeriment
 from main.models import Sprint
+from main.models import SprintUserStory
 from main.models import UserStory
 from main.services.sprint import SprintService
 from main.services.userstory import UserStoryService
@@ -176,21 +177,193 @@ class ArtifactService:
     def get_userstories_from_bugtracking(project):
         bugtracking = BugTrackingFactory.getConnection(project=project)
         bugtrackingUserStories = bugtracking.getUserStories(project.issueTypesAsUserStory)
+        log = []
 
-        for bubtrackuserstory in bugtrackingUserStories:
+        for bugtrackuserstory in bugtrackingUserStories:
             try:
-                userstory = UserStory.objects.get(project=project, reference=bubtrackuserstory.id)
+                userstory = UserStory.objects.get(project=project, reference=bugtrackuserstory.id)
             except UserStory.DoesNotExist:
                 userstory = None
 
             if userstory is None:
-                #create user story
-                pass
+                numUserStories = UserStory.objects.filter(project=project).count()
+                UserStory.objects.create(
+                    code = 'US'+str(numUserStories+1),
+                    reference = bugtrackuserstory.id,
+                    title = bugtrackuserstory.subject,
+                    description = bugtrackuserstory.description,
+                    project=project,
+                )
+                log.append(_('Created UserStory: ') + 'US'+str(numUserStories+1))
+
+
+                #ja adiciona como artefato do tipo atividade
+                ArtifactService._add_artifact(project, bugtrackuserstory)
             else:
                 #update user story
-                pass
-        log = []
+                userstory.title =  bugtrackuserstory.subject
+                userstory.description = bugtrackuserstory.description
+                userstory.save()
+                log.append(_('Updated UserStory: ') + 'US' + userstory.code)
 
+                # ja adiciona ou altera como artefato do tipo atividade
+                ArtifactService._add_artifact(project, bugtrackuserstory)
+
+        ArtifactService.sprint_to_userstory(project)
         return log
+
+    @staticmethod
+    def sprint_to_userstory(project):
+        bugtracking = BugTrackingFactory.getConnection(project=project)
+        userStories = UserStory.objects.filter(project=project)
+        log = []
+        for us in userStories:
+            spuss = None
+            try:
+                issue = bugtracking.getIssue(us.reference)
+            except:
+                issue = None
+
+            try:
+                version = issue.fixed_version
+            except:
+                version = None
+
+            if issue is not None:
+                spuss = SprintUserStory.objects.filter(userstory=us)
+
+                if spuss.count()>0:
+                    for spus in spuss:
+                        if spus.sprint.reference != version.id:
+                            SprintUserStory.objects.create(
+                                sprint=Sprint.objects.get(reference=version),
+                                userstory=us,
+                            )
+                else:
+                    if version is not None:
+                        SprintUserStory.objects.create(
+                            sprint=Sprint.objects.get(reference=version),
+                            userstory=us,
+                        )
+
+
+
+
+    @staticmethod
+    def _add_artifact(project, issue):
+        try:
+            artifact = Artifact.objects.get(project=project, reference=issue.id)
+        except Artifact.DoesNotExist:
+            artifact = None
+
+        sp_and_bv = ArtifactService._get_sp_and_bv(project, issue)
+        # coloca o artefato no primeiro tipo de artefato de estoria de usuario do projeto
+        artifacttype = ArtifactType.objects.filter(project=project, level=3, type=2)[:1].get()
+        time = ArtifactService._get_time(project, issue)
+
+        if artifact is None:
+            Artifact.objects.create(project=project,
+                                    reference=issue.id,
+                                    estimated_time=time['estimated_time'],
+                                    spent_time=time['spent_time'],
+                                    estimated_storypoints=sp_and_bv['sp_planned'],
+                                    realized_storypoints=sp_and_bv['sp_realized'],
+                                    estimated_businnesvalue=sp_and_bv['bv_planned'],
+                                    realized_businnesvalue=sp_and_bv['bv_realized'],
+                                    userstory=UserStory.objects.get(reference=issue.id),
+                                    type=artifacttype,
+                                    )
+        else:
+            artifact.estimated_time=time['estimated_time']
+            artifact.spent_time=time['spent_time']
+            artifact.estimated_storypoints=sp_and_bv['sp_planned']
+            artifact.realized_storypoints=sp_and_bv['sp_realized']
+            artifact.estimated_businnesvalue=sp_and_bv['bv_planned']
+            artifact.realized_businnesvalue=sp_and_bv['bv_realized']
+            artifact.save()
+
+    @staticmethod
+    def _get_time(project, issue):
+        spent_time = 0
+        for time_entry in issue.time_entries:
+            spent_time += time_entry.hours
+        try:
+            estimated_time = issue.estimated_hours
+        except:
+            try:
+                bugtracking = BugTrackingFactory.getConnection(project=project)
+                iss = bugtracking.getIssue(issue.id)
+                estimated_time = iss.total_estimated_hours  # bug in python-redmine dont take estimated_hours in getIssues
+            except:
+                estimated_time = 0
+        return {
+            'spent_time' : spent_time,
+            'estimated_time' : estimated_time,
+        }
+
+    @staticmethod
+    def _get_sp_and_bv(project, issue):
+        sp_variable_planned = project.tracking_sp_planned_variable
+        sp_variable_realized = project.tracking_sp_realized_variable
+        bv_variable_planned = project.tracking_bv_planned_variable
+        bv_variable_realized = project.tracking_bv_realized_variable
+        if sp_variable_planned == '':
+            sp_variable_planned = False
+        if sp_variable_realized == '':
+            sp_variable_realized = False
+        if bv_variable_planned == '':
+            bv_variable_planned = False
+        if bv_variable_realized == '':
+            bv_variable_realized = False
+
+        bv_realized = 0
+        bv_planned = 0
+        sp_realized = 0
+        sp_planned = 0
+
+        try:
+            if sp_variable_planned:
+                for custom_field in issue.custom_fields:
+                    try:
+                        if custom_field['name'] == sp_variable_planned and custom_field['value'] != '':
+                            sp_planned = custom_field['value']
+                    except:
+                        sp_planned = 0
+
+            if sp_variable_realized:
+                for custom_field in issue.custom_fields:
+                    try:
+                        if custom_field['name'] == sp_variable_realized and custom_field['value'] != '':
+                            sp_realized = custom_field['value']
+                    except:
+                        sp_realized = 0
+
+            if bv_variable_planned:
+                for custom_field in issue.custom_fields:
+                    try:
+                        if custom_field['name'] == bv_variable_planned and custom_field['value'] != '':
+                            bv_planned = custom_field['value']
+                    except:
+                        bv_planned = 0
+
+            if bv_variable_realized:
+                for custom_field in issue.custom_fields:
+                    try:
+                        if custom_field['name'] == bv_variable_realized and custom_field['value'] != '':
+                            bv_realized = custom_field['value']
+                    except:
+                        bv_realized = 0
+        except:
+            bv_realized = 0
+            bv_planned = 0
+            sp_realized = 0
+            sp_planned = 0
+
+        return {
+            'bv_realized' : bv_realized,
+            'bv_planned': bv_planned,
+            'sp_realized': sp_realized,
+            'sp_planned': sp_planned,
+        }
 
 

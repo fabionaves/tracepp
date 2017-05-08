@@ -21,6 +21,10 @@
     </p>
     <h2>{% trans 'Imported User Stories' %}</h2>
     <p>
-
+    {% for usLog in userStoryImportLogs %}
+        <p>{{ usLog }}</p>
+    {% empty %}
+        {% trans 'No UserStories' %}
+    {% endfor %}
     </p>
 {% endblock %}
