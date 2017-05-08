@@ -3,9 +3,16 @@
 {% load i18n %}
 {% load myutils %}
 {% block content %}
-{% trans 'Bug Tracking Tool Traced !' %}
-     {% if erros %}
-        {{ erros }}
-    {% endif %}
+    <h1>{% trans 'Bug Tracking Tool Traced !' %}</h1>
+    <h2>{% trans 'Imported Artifacts' %}</h2>
+    <p>
+    {% for log in artifactImportLogs  %}
+        <br/>{{ log }}
+    {% endfor %}
+    </p>
+     <h2>{% trans 'Imported Sprints' %}</h2>
+    <h2>{% trans 'Imported User Stories' %}</h2>
+    <p>
     <button type="button" class="btn btn-lg btn-primary btn-block" onclick="javascript:window.history.go(-1)">Voltar</button>
+    </p>
 {% endblock %}

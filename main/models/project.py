@@ -49,6 +49,8 @@ class Project(models.Model, MyModel):
     tracking_tool_user = models.CharField(_('Bug Tracking Tool User'), blank=True, null=True, max_length=30)
     tracking_tool_password = models.CharField(_('Bug Tracking Tool Password'), blank=True, null=True, max_length=30)
     tracking_tool_project_id = models.CharField(_('Bug Tracking Tool Project Id'), blank=True, null=True, max_length=30)
+    versionAsSprint = models.BooleanField(_('Import Redmine Versions as Sprints?'), default=False)
+    issueTypesAsUserStory = models.IntegerField(_('What redmine type of issue is a user story?(Insert redmine issue type ID)'),blank=True, null=True)
 
     def __str__(self):
         return self.name

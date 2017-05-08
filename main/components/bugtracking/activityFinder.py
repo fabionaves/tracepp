@@ -65,6 +65,11 @@ class activityFinder:
                         sp_realized = 0
                         sp_planned = 0
 
+                    isUserStory = False
+                    if issue.tracker:
+                            isUserStory = True
+
+
                     self.artifactList.append(
                             {'reference': issue.id,
                              'estimated_time': estimated_time,

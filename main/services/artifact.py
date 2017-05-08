@@ -1,6 +1,12 @@
 from django.shortcuts import get_object_or_404
-
+from django.utils.translation import ugettext as _
+from main.components.bugtracking.activityFinder import activityFinder
+from main.components.bugtracking.factory import BugTrackingFactory
 from main.models import Artifact
+from main.models import ArtifactType
+from main.models import Requeriment
+from main.models import Sprint
+from main.models import UserStory
 from main.services.sprint import SprintService
 from main.services.userstory import UserStoryService
 
@@ -28,4 +34,103 @@ class ArtifactService:
                     project=project_id,
                     id=pk
                 )
+
+    @staticmethod
+    def get_bugtrack_activities(project):
+        bugtracking = BugTrackingFactory.getConnection(project=project)
+        artifactsTypes = ArtifactType.objects.filter(project=project, type=2, )
+
+        tracking_sp_planned_variable = project.tracking_sp_planned_variable
+        tracking_sp_realized_variable = project.tracking_sp_realized_variable
+        tracking_bv_planned_variable = project.tracking_bv_planned_variable
+        tracking_bv_realized_variable = project.tracking_bv_realized_variable
+        if tracking_sp_planned_variable == '':
+            tracking_sp_planned_variable = False
+        if tracking_sp_realized_variable == '':
+            tracking_sp_realized_variable = False
+        if tracking_bv_planned_variable == '':
+            tracking_bv_planned_variable = False
+        if tracking_bv_realized_variable == '':
+            tracking_bv_realized_variable = False
+
+        acfinder = activityFinder(bugtracking, artifactsTypes,
+                                  tracking_sp_planned_variable, tracking_sp_realized_variable,
+                                  tracking_bv_planned_variable, tracking_bv_realized_variable,
+                                  )
+
+        references = []
+        log = []
+        for artifact in acfinder.artifactList:
+            references.append(artifact['reference'])
+            try:
+                filterArtifact = Artifact.objects.get(project=project, reference=artifact['reference'])
+            except Artifact.DoesNotExist:
+                filterArtifact = None
+
+            try:
+                if not filterArtifact is None:
+                    # upldate a exist artifact
+                    if artifact['artifactType'].level == 0:
+                        filterArtifact.type = artifact['artifactType']
+                        filterArtifact.save()
+                    elif artifact['artifactType'].level == 1:
+                        requeriment = Requeriment.objects.filter(project=project, code=artifact['code']).get()
+                        filterArtifact.type = artifact['artifactType']
+                        filterArtifact.requeriment = requeriment
+                        filterArtifact.save()
+                    elif artifact['artifactType'].level == 2:
+                        sprint = Sprint.objects.filter(project=project, code=artifact['code']).get()
+                        filterArtifact.type = artifact['artifactType']
+                        filterArtifact.sprint = sprint
+                        filterArtifact.save()
+                    elif artifact['artifactType'].level == 3:
+                        userstory = UserStory.objects.filter(project=project, code=artifact['code']).get()
+                        filterArtifact.estimated_time = artifact['estimated_time']
+                        filterArtifact.spent_time = artifact['spent_time']
+                        filterArtifact.type = artifact['artifactType']
+
+                        filterArtifact.estimated_storypoints = artifact['estimated_storypoints']
+                        filterArtifact.realized_storypoints = artifact['realized_storypoints']
+                        filterArtifact.estimated_businnesvalue = artifact['estimated_businnesvalue']
+                        filterArtifact.realized_businnesvalue = artifact['realized_businnesvalue']
+                        filterArtifact.userstory = userstory
+                        filterArtifact.save()
+                        log.append(_('Updated Artifact:')+artifact['code']+' '+_('Reference: ')+str(artifact['reference']))
+                else:
+                    # create a new artifact
+                    if artifact['artifactType'].level == 0:
+                        Artifact.objects.create(project=project,
+                                                reference=artifact['reference'],
+                                                type=artifact['artifactType'])
+                    elif artifact['artifactType'].level == 1:
+                        requeriment = Requeriment.objects.filter(project=project, code=artifact['code']).get()
+                        Artifact.objects.create(project=project,
+                                                reference=artifact['reference'],
+                                                type=artifact['artifactType'],
+                                                requeriment=requeriment)
+                    elif artifact['artifactType'].level == 2:
+                        sprint = Sprint.objects.filter(project=project, code=artifact['code']).get()
+                        Artifact.objects.create(project=project,
+                                                reference=artifact['reference'],
+                                                type=artifact['artifactType'],
+                                                sprint=sprint)
+                    elif artifact['artifactType'].level == 3:
+                        userstory = UserStory.objects.filter(project=project, code=artifact['code']).get()
+                        Artifact.objects.create(project=project,
+                                                reference=artifact['reference'],
+                                                estimated_time=artifact['estimated_time'],
+                                                spent_time=artifact['spent_time'],
+                                                estimated_storypoints=artifact['estimated_storypoints'],
+                                                realized_storypoints=artifact['realized_storypoints'],
+                                                estimated_businnesvalue=artifact['estimated_businnesvalue'],
+                                                realized_businnesvalue=artifact['realized_businnesvalue'],
+                                                type=artifact['artifactType'],
+                                                userstory=userstory)
+                    log.append(_('Created Artifact: ')+artifact['code']+' '+_('Reference: ')+str(artifact['reference']))
+            except:
+                log.append("====>ERRO: "+ str(artifact['reference'])+' '+artifact['code'])
+        Artifact.objects.exclude(reference__in=references).filter(
+            type__type=2).delete()  # delete the artifacts not detected in bugtracking
+        return log
+
 
