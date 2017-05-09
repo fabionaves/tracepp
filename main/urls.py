@@ -105,6 +105,8 @@ urlpatterns = [
     url(r'^artifacttype/(?P<pk>[0-9]+)/delete/',     login_required(artifacttype_views.ArtifactTypeDeleteView.as_view()), name='artifacttype-delete'),
     url(r'^artifacttype/',                           login_required(artifacttype_views.ArtifactTypeView.as_view()), name='artifacttype'),
 
+    url(r'^artifact/(?P<projeto>[0-9]+)/tracecode/',        artifact_views.ArtifactTraceCodeView.as_view(), name='artifact-tracecode'),
+    url(r'^artifact/(?P<projeto>[0-9]+)/tracebugtracking/',        artifact_views.ArtifactTraceBugTrackingView.as_view(), name='artifact-bugtracking'),
     url(r'^artifact/(?P<pk>[0-9]+)/download/',        login_required(artifact_views.ArtifactDownloadView), name='artifact-download'),
     url(r'^artifact/(?P<artifact>[0-9]+)/codeview/', login_required(artifact_views.ArtifactCodeView.as_view()),
         name='artifact-codeview'),

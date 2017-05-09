@@ -99,6 +99,14 @@
                     <li class="{% if request.resolver_match.url_name == "sprint" %}active{% endif %}"><a href="{% url 'main:sprint' %}">{% trans 'Sprint' %}</a></li>
                     <li class="{% if request.resolver_match.url_name == "userstory" %}active{% endif %}"><a href="{% url 'main:userstory' %}">{% trans 'User Story' %}</a></li>
                     <li class="{% if request.resolver_match.url_name == "artifacttype" %}active{% endif %}"><a href="{% url 'main:artifacttype' %}">{% trans 'Artifact Type' %}</a></li>
+                    <li class="dropdown ">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="true">Trace <i class="fa fa-caret-down"></i></a>
+                        <ul class="dropdown-menu dropdown-adm">
+                            <li class="{% if request.resolver_match.url_name == "artifacttype" %}active{% endif %}"><a href="{% url 'main:artifact-bugtracking' %}">{% trans 'Trace Bug Tracking' %}</a></li>
+                            <li class="{% if request.resolver_match.url_name == "artifacttype" %}active{% endif %}"><a href="{% url 'main:artifact-tracecode' %}">{% trans 'Trace Source Code' %}</a></li>
+                        </ul>
+                    </li>
+
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                       <li class="dropdown ">

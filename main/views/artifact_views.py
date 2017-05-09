@@ -152,8 +152,14 @@ class ArtifactTraceBugTrackingView(TemplateViewProjectFilter):
     """
     template_name = 'artifact/tracebugtracking.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        if 'projeto' in self.kwargs:
+            self.request.session['project_id'] = self.kwargs['projeto']
+        return super(TemplateViewProjectFilter, self).dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super(ArtifactTraceBugTrackingView, self).get_context_data(**kwargs)
+
         project = ProjectService.get_project(self.request.session.get('project_id', None))
 
         context['artifactImportLogs'] = ArtifactService.get_bugtrack_activities(project)
@@ -172,6 +178,11 @@ class ArtifactTraceCodeView(TemplateViewProjectFilter):
     #class:US010
     """
     template_name = 'artifact/tracecode.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if 'projeto' in self.kwargs:
+            self.request.session['project_id'] = self.kwargs['projeto']
+        return super(TemplateViewProjectFilter, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(ArtifactTraceCodeView, self).get_context_data(**kwargs)
