@@ -168,6 +168,7 @@ class ArtifactTraceBugTrackingView(TemplateViewProjectFilter):
 
         if project.issueTypesAsUserStory:
             context['userStoryImportLogs'] = ArtifactService.get_userstories_from_bugtracking(project)
+            context['sprintUsertory'] = ArtifactService.sprint_to_userstory(project)
 
         context['project'] = project
         return context

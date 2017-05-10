@@ -195,4 +195,30 @@
         </div>
     </div>
 
+      <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ sprint.title }}: {%  trans 'UserStories' %}
+                </div>
+                <div class="panel-body">
+                     <table class="table table-hover" id="myList">
+                    <thead>
+                        <th>{% trans 'Userstory' %}</th>
+                        <th>{% trans 'Status' %}</th>
+                    </thead>
+                    <tbody>
+                    {% for row in sprint.sprintuserstory_set.all %}
+                        <tr>
+                            <td>{{ row.userstory }}</td>
+                            <TD>{{ row.get_status_display }}</TD>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+      </div>
+
 {% endblock %}

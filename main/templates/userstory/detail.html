@@ -297,7 +297,7 @@
                 <div class="panel-body">
                      <div class="list-group">
                     {%  for row in userstory.sprintuserstory_set.all %}
-                            <a href="{% url 'main:sprint-details'  row.sprint.id  %}" class="list-group-item"> <i class="fa fa-list-alt fa-1x"></i> {{ row.sprint.title }}</a></a>
+                            <a href="{% url 'main:sprint-details'  row.sprint.id  %}" class="list-group-item"> <i class="fa fa-list-alt fa-1x"></i> {{ row.sprint.title }} ({{ row.get_status_display }})</a></a>
                     {% endfor %}
                     </div>
                 </div>

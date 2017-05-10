@@ -17,25 +17,25 @@
                     {% endfor %}
                     ],
                     datasets: [{
-                        label: '{% trans '% Task Effort Variation per Sprint' %}',
+                        label: '{% trans 'Total of Spent Hours per Sprint' %}',
                         data: [
                              {% for teffort in task_effort %}
-                                '{% if teffort.percentual %}{{ teffort.percentual }}{% else %}0{% endif %}',
+                                '{% if teffort.realizated_time %}{{ teffort.realizated_time }}{% else %}0{% endif %}',
                             {% endfor %}
                         ],
                         borderColor: "hsla(360, 100%, 50%, 0.9)",
                         fill: false,
-                        lineTension: 0
+                        lineTension: 0.1
                     }, {
-                        label: '{% trans '% Story Points Variation per Sprint' %}',
+                        label: '{% trans 'Total of Estimated Hours per Sprint' %}',
                         data: [
-                            {% for us in storypoints_variation  %}
-                                '{% if us.percentual %}{{ us.percentual }}{% else %}0{% endif %}',
+                            {% for teffort in task_effort %}
+                                '{% if teffort.estimated_time %}{{ teffort.estimated_time }}{% else %}0{% endif %}',
                             {% endfor %}
                         ],
                         borderColor: "hsla(251, 100%, 50%, 0.9)",
                         fill: false,
-                        lineTension: 0
+                        lineTension: 0.1
                     }],
                 },
                 options: {
@@ -51,6 +51,40 @@
                 }
             });
 
+            var ctx2 = document.getElementById('graph_sp').getContext('2d');
+            var percentual = 100*{{ total_realized_storypoints.realized }}/{{ project.total_points }};
+            var totalrestante = 100-percentual
+            if(percentual>100){
+                totalrestante=0
+            }
+            var myDoughnutChart = new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        '{% trans 'Planned Points' %}: {{ project.total_points }}',
+                        '{% trans 'Realized points'%}: {{ total_realized_storypoints.realized }}',
+                    ],
+                    datasets: [{
+                        data: [
+                           totalrestante,percentual
+                        ],
+                        backgroundColor: [
+                            "#36A2EB",
+                            "#FF6384",
+                        ],
+                        hoverBackgroundColor: [
+                            "#36A2EB",
+                            "#FF6384",
+                        ]
+
+                    }],
+                },
+                options: {
+                    legend: {
+                        display: false,
+                    },
+                },
+            });
 
         });
 
@@ -160,7 +194,7 @@
         <div class="col-lg-12 col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <i class="fa fa-bar-chart-o fa-fw"></i> {% trans 'Story Points x Tasks Effort (% of variation per Sprint)' %}
+                    <i class="fa fa-bar-chart-o fa-fw"></i> {% trans 'Estimated x Spent (time)' %}
                 </div>
                 <div class="panel-body">
                     <canvas id="graph_taks_force_per_userstory_json" width="80" height="20"
@@ -170,6 +204,22 @@
         </div>
     </div>
     <!-- div.row -->
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-bar-chart-o fa-fw"></i> {% trans 'Total of Points' %}
+                </div>
+                <div class="panel-body">
+                    <canvas id="graph_sp" width="80" height="20"
+                            style="background: white"></canvas>
+                </div>
+        </div>
+    </div>
+    <!-- div.row -->
+
+
 
 
 {% endblock %}

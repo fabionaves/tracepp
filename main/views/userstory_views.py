@@ -22,7 +22,6 @@ class UserStoryListView(ModelListProjectFilter):
     List of US
     """
     model = UserStoryService.get_userstory_model()
-    paginate_by = 30
     page_title = _('User Story')
     list_display = ('code', 'title','description')
     action_template = 'userstory/action.html'

@@ -60,6 +60,7 @@ class SprintService:
             percentual=100 * (Sum('userstory__artifact__spent_time') - Sum('userstory__artifact__estimated_time')) / Sum('userstory__artifact__estimated_time')
         ).filter(userstory__artifact__project=project_id)
 
+
     @staticmethod
     def storypoint_per_sprint(sprint_id):
         return SprintUserStory.objects.values('sprint_id').annotate(
@@ -80,3 +81,4 @@ class SprintService:
                     'userstory__artifact__estimated_storypoints')) / Sum(
                 'userstory__artifact__estimated_storypoints')
         ).filter(userstory__artifact__project=project_id)
+

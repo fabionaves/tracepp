@@ -1,3 +1,4 @@
+from django.db.models import Sum
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _
 from main.components.bugtracking.activityFinder import activityFinder
@@ -209,7 +210,6 @@ class ArtifactService:
                 # ja adiciona ou altera como artefato do tipo atividade
                 ArtifactService._add_artifact(project, bugtrackuserstory)
 
-        ArtifactService.sprint_to_userstory(project)
         return log
 
     @staticmethod
@@ -229,6 +229,25 @@ class ArtifactService:
             except:
                 version = None
 
+            try:
+                issuestatus = issue.status.id
+            except:
+                issuestatus = None
+
+            if issuestatus is not None and issuestatus == project.issueStatusClosed:
+                issuestatus = 1
+            else:
+                try:
+                    issuestatus = issue.closed_on
+                except:
+                    issuestatus = None
+                if issuestatus is not None:
+                    issuestatus = 1
+                else:
+                    issuestatus = 0
+
+
+
             if issue is not None:
                 spuss = SprintUserStory.objects.filter(userstory=us)
 
@@ -238,13 +257,23 @@ class ArtifactService:
                             SprintUserStory.objects.create(
                                 sprint=Sprint.objects.get(reference=version),
                                 userstory=us,
+                                status=issuestatus,
                             )
+                            log.append(_('Userstory added to Sprint'))
+                        else:
+                            sprintUs = SprintUserStory.objects.get(sprint__reference=version,userstory=us)
+                            sprintUs.status=issuestatus
+                            sprintUs.save()
+                            log.append(_('Userstory updated to Sprint'))
                 else:
                     if version is not None:
                         SprintUserStory.objects.create(
                             sprint=Sprint.objects.get(reference=version),
                             userstory=us,
+                            status=issuestatus,
                         )
+                        log.append(_('Userstory added to Sprint'))
+        return log
 
 
 
@@ -365,5 +394,11 @@ class ArtifactService:
             'sp_realized': sp_realized,
             'sp_planned': sp_planned,
         }
+
+    @staticmethod
+    def total_realized_storyPoints(project):
+        return Artifact.objects.values('project_id').annotate(
+            realized=Sum('realized_storypoints'),
+        ).filter(project=project)[:1].get()
 
 

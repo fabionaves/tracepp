@@ -16,7 +16,7 @@ class Project(models.Model, MyModel):
     points_type = models.IntegerField(
         _('Points Type'), choices=POINTS_TYPE_OPTIONS, blank=False
     )
-    total_points = models.IntegerField(_('Total of Points'))
+    total_points = models.IntegerField(_('Total Planned Points'))
     user = models.ManyToManyField(User)
     REPOSITORY_TYPE = (
         ('Git', 'Git'),
@@ -51,6 +51,7 @@ class Project(models.Model, MyModel):
     tracking_tool_project_id = models.CharField(_('Bug Tracking Tool Project Id'), blank=True, null=True, max_length=30)
     versionAsSprint = models.BooleanField(_('Import Redmine Versions as Sprints?'), default=False)
     issueTypesAsUserStory = models.IntegerField(_('What redmine type of issue is a user story?(Insert redmine issue type ID)'),blank=True, null=True)
+    issueStatusClosed =  models.IntegerField(_('What redmine Issue Status is a complete User Story?(Insert redmine issue status ID)'),blank=True, null=True)
 
     def __str__(self):
         return self.name

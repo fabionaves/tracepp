@@ -26,5 +26,12 @@
     {% empty %}
         {% trans 'No UserStories' %}
     {% endfor %}
+
+    <p>{% trans 'Userstory to sprint' %}</p>
+    {% for spuslog in sprintUsertory  %}
+        <p>{{ spuslog }}</p>
+    {% endfor %}
+
+
     </p>
 {% endblock %}
