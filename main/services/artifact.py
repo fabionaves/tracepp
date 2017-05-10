@@ -237,14 +237,7 @@ class ArtifactService:
             if issuestatus is not None and issuestatus == project.issueStatusClosed:
                 issuestatus = 1
             else:
-                try:
-                    issuestatus = issue.closed_on
-                except:
-                    issuestatus = None
-                if issuestatus is not None:
-                    issuestatus = 1
-                else:
-                    issuestatus = 0
+                issuestatus = 0
 
 
 
@@ -252,19 +245,24 @@ class ArtifactService:
                 spuss = SprintUserStory.objects.filter(userstory=us)
 
                 if spuss.count()>0:
+                    isNew = False
                     for spus in spuss:
                         if spus.sprint.reference != version.id:
-                            SprintUserStory.objects.create(
-                                sprint=Sprint.objects.get(reference=version),
-                                userstory=us,
-                                status=issuestatus,
-                            )
-                            log.append(_('Userstory added to Sprint'))
+                            isNew = True
                         else:
-                            sprintUs = SprintUserStory.objects.get(sprint__reference=version,userstory=us)
-                            sprintUs.status=issuestatus
-                            sprintUs.save()
-                            log.append(_('Userstory updated to Sprint'))
+                           isNew = False
+                    if isNew:
+                        SprintUserStory.objects.create(
+                            sprint=Sprint.objects.get(reference=version),
+                            userstory=us,
+                            status=issuestatus,
+                        )
+                        log.append(_('Userstory added to Sprint'))
+                    else:
+                        sprintUs = SprintUserStory.objects.get(sprint__reference=version, userstory=us)
+                        sprintUs.status = issuestatus
+                        sprintUs.save()
+                        log.append(_('Userstory updated to Sprint'))
                 else:
                     if version is not None:
                         SprintUserStory.objects.create(
