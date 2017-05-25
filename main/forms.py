@@ -38,7 +38,7 @@ class RequerimentForm(forms.ModelForm):
 
     class Meta:
         model = Requeriment
-        fields = ('code', 'title', 'description', 'type', 'depends_on')
+        fields = ('code', 'title', 'description', 'type', 'depends_on',)
 
 
 class SprintUserStoryForm(forms.ModelForm):

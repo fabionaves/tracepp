@@ -3,11 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-02 13:51-0200\n"
+"POT-Creation-Date: 2017-05-11 10:25-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,264 +16,374 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-#: .\main\models.py:10 .\main\models.py:192 .\main\models.py:213
-#: .\main\models.py:214
-msgid "Name"
-msgstr "Nome"
-
-#: .\main\models.py:11
-msgid "Requester"
-msgstr "Solicitante"
-
-#: .\main\models.py:14
-msgid "Functions Points"
-msgstr "Pontos de Função"
-
-#: .\main\models.py:15
-msgid "User Story Points"
-msgstr "Pontos de Estória de Usuário"
-
-#: .\main\models.py:16
-msgid "Use Case Points"
-msgstr "Pontos de Caso de Uso"
-
-#: .\main\models.py:19
-msgid "Points Type"
-msgstr "Tipo de Pontos"
-
-#: .\main\models.py:21
-msgid "Total of Points"
-msgstr "Total de Pontos"
-
-#: .\main\models.py:26
-msgid "Repository Type"
-msgstr "Tipo de Repositório"
-
-#: .\main\models.py:27
-msgid "Repository URL"
-msgstr "URL do Repositório"
-
-#: .\main\models.py:31
-msgid "Bug Tracking Tool Type"
-msgstr "Tipo de Ferramenta de Bug Tracking"
-
-#: .\main\models.py:32
-msgid "Bug Tracking Tool URL"
-msgstr "URL da Ferramenta de Bug Tracking"
-
-#: .\main\models.py:33
-msgid "Bug Tracking Tool User"
-msgstr "Usuário da Ferramenta de Bug Tracking"
-
-#: .\main\models.py:34
-msgid "Bug Tracking Tool Password"
-msgstr "Senha da Ferramenta de Bug Tracking"
-
-#: .\main\models.py:35
-msgid "Bug Tracking Tool Project Id"
-msgstr "ID do Projeto na Ferramenta de Bug Tracking"
-
-#: .\main\models.py:42 .\main\models.py:60 .\main\models.py:98
-#: .\main\models.py:128 .\main\models.py:194 .\main\views\project_views.py:39
-#: .\main\views\project_views.py:57 .\main\views\project_views.py:78
-msgid "Project"
-msgstr "Projeto"
-
-#: .\main\models.py:43
-msgid "Projects"
-msgstr "Projetos"
-
-#: .\main\models.py:47 .\main\models.py:87 .\main\models.py:119
-#: .\main\templates\artifact\activity.html:8
-#: .\main\templates\requeriment\history.html:13
-#: .\main\templates\sprint\delete.html:19
-#: .\main\templates\sprint\detail.html:170
-#: .\main\templates\sprint\history.html:13
-#: .\main\templates\userstory\detail.html:46
-#: .\main\templates\userstory\history.html:14
-msgid "Title"
-msgstr "Título"
-
-#: .\main\models.py:49
-msgid "Planning"
-msgstr "Planejando"
-
-#: .\main\models.py:50
-msgid "Executing"
-msgstr "Executando"
-
-#: .\main\models.py:51
-msgid "Close"
-msgstr "Fechado"
-
-#: .\main\models.py:54 .\main\models.py:160
-#: .\main\templates\sprint\detail.html:171
-#: .\main\templates\sprint\history.html:14
-msgid "Status"
-msgstr "Status"
-
-#: .\main\models.py:56 .\main\templates\sprint\delete.html:20
-#: .\main\templates\sprint\detail.html:172
-#: .\main\templates\sprint\history.html:15
-msgid "Begin"
+#: .\main\components\breadcrumbs.py:15 .\main\components\breadcrumbs.py:27
+#: .\main\components\breadcrumbs.py:37 .\main\components\breadcrumbs.py:44
+#: .\main\components\breadcrumbs.py:71 .\main\components\breadcrumbs.py:88
+#: .\main\components\breadcrumbs.py:100 .\main\components\breadcrumbs.py:113
+#: .\main\components\breadcrumbs.py:126 .\main\components\breadcrumbs.py:135
+#: .\main\components\breadcrumbs.py:144 .\main\components\breadcrumbs.py:152
+#: .\main\templates\base.html:98 .\main\templates\home\home.html:96
+#: .\main\views\artifact_views.py:67 .\main\views\artifact_views.py:78
+#: .\main\views\artifact_views.py:260 .\main\views\artifact_views.py:276
+#: .\main\views\artifact_views.py:294 .\main\views\artifact_views.py:308
+#: .\main\views\artifact_views.py:318 .\main\views\artifact_views.py:326
+#: .\main\views\artifact_views.py:365 .\main\views\artifact_views.py:381
+#: .\main\views\artifact_views.py:399 .\main\views\artifact_views.py:413
+#: .\main\views\artifact_views.py:423 .\main\views\artifact_views.py:431
+#: .\main\views\artifacttype_views.py:25 .\main\views\artifacttype_views.py:44
+#: .\main\views\artifacttype_views.py:76 .\main\views\home_views.py:14
+#: .\main\views\project_views.py:48 .\main\views\project_views.py:76
+#: .\main\views\project_views.py:108 .\main\views\project_views.py:132
+#: .\main\views\sprint_views.py:26 .\main\views\sprint_views.py:51
+#: .\main\views\sprint_views.py:70 .\main\views\sprint_views.py:115
+#: .\main\views\sprint_views.py:143 .\main\views\sprint_views.py:180
+#: .\main\views\sprint_views.py:188 .\main\views\userstory_views.py:186
+msgid "Home"
 msgstr "Início"
 
-#: .\main\models.py:57 .\main\templates\sprint\delete.html:21
-#: .\main\templates\sprint\history.html:16
-msgid "End"
-msgstr "Fim"
-
-#: .\main\models.py:81 .\main\models.py:152 .\main\models.py:196
-#: .\main\templates\base.html:65 .\main\views\artifact_views.py:48
-#: .\main\views\artifact_views.py:91 .\main\views\artifact_views.py:329
-#: .\main\views\artifact_views.py:377 .\main\views\artifact_views.py:431
-#: .\main\views\artifact_views.py:479 .\main\views\requeriment_views.py:39
-#: .\main\views\sprint_views.py:23 .\main\views\sprint_views.py:48
-#: .\main\views\sprint_views.py:63 .\main\views\sprint_views.py:101
-#: .\main\views\sprint_views.py:123 .\main\views\sprint_views.py:156
-#: .\main\views\sprint_views.py:164 .\main\views\userstory_views.py:41
-#: .\main\views\userstory_views.py:77 .\main\views\userstory_views.py:160
-#: .\main\views\userstory_views.py:241 .\main\views\userstory_views.py:280
-#: .\main\views\userstory_views.py:313
+#: .\main\components\breadcrumbs.py:16 .\main\components\breadcrumbs.py:28
+#: .\main\components\breadcrumbs.py:72 .\main\components\breadcrumbs.py:89
+#: .\main\components\breadcrumbs.py:101 .\main\components\breadcrumbs.py:136
+#: .\main\models\artifacttype.py:12 .\main\models\sprint.py:42
+#: .\main\models\sprintuserstory.py:16 .\main\templates\base.html:100
+#: .\main\views\artifact_views.py:68 .\main\views\artifact_views.py:261
+#: .\main\views\artifact_views.py:309 .\main\views\artifact_views.py:366
+#: .\main\views\artifact_views.py:414 .\main\views\sprint_views.py:27
+#: .\main\views\sprint_views.py:52 .\main\views\sprint_views.py:71
+#: .\main\views\sprint_views.py:116 .\main\views\sprint_views.py:144
+#: .\main\views\sprint_views.py:181 .\main\views\sprint_views.py:189
 msgid "Sprint"
 msgstr "Sprint"
 
-#: .\main\models.py:82 .\main\templates\home\home.html:80
-#: .\main\templates\userstory\detail.html:59
-msgid "Sprints"
-msgstr "Sprints"
+#: .\main\components\breadcrumbs.py:20 .\main\components\breadcrumbs.py:32
+#: .\main\components\breadcrumbs.py:38 .\main\components\breadcrumbs.py:45
+#: .\main\components\breadcrumbs.py:114 .\main\components\breadcrumbs.py:145
+#: .\main\forms.py:57 .\main\templates\home\home.html:131
+#: .\main\templates\sprint\detail.html:99
+#: .\main\templates\userstory\detail.html:312
+#: .\main\views\artifact_views.py:277 .\main\views\artifact_views.py:382
+#: .\main\views\requeriment_views.py:29 .\main\views\userstory_views.py:120
+#: .\main\views\userstory_views.py:183
+msgid "Requeriments"
+msgstr "Requisitos"
 
-#: .\main\models.py:86 .\main\models.py:118
-#: .\main\templates\userstory\history.html:13
-msgid "Code"
-msgstr "Código"
-
-#: .\main\models.py:90
-msgid "Functional"
-msgstr "Funcional"
-
-#: .\main\models.py:91
-msgid "Non-Functional"
-msgstr "Não Funcional"
-
-#: .\main\models.py:94 .\main\models.py:205
-#: .\main\templates\artifact\form.html:73
-#: .\main\templates\artifact\form.html:102
-#: .\main\templates\artifact\form.html:136
-#: .\main\templates\requeriment\history.html:16
-#: .\main\templates\sprint\history.html:18
-msgid "Type"
-msgstr "Tipo"
-
-#: .\main\models.py:120 .\main\templates\artifact\activity.html:9
-#: .\main\templates\requeriment\detail.html:73
-#: .\main\templates\userstory\detail.html:47
-msgid "Description"
-msgstr "Descrição"
-
-#: .\main\models.py:121 .\main\templates\userstory\detail.html:48
-msgid "Acceptance Criteria"
-msgstr "Critérios de Aceitação"
-
-#: .\main\models.py:123 .\main\templates\userstory\history.html:16
-msgid "Story Points (Planned)"
-msgstr "Story Points (Planejado)"
-
-#: .\main\models.py:124 .\main\templates\userstory\history.html:17
-msgid "Story Points (Realized)"
-msgstr "Story Points (Realizado)"
-
-#: .\main\models.py:125 .\main\templates\userstory\history.html:18
-msgid "Businnes Value (Planned)"
-msgstr "Businnes Value (Planejado)"
-
-#: .\main\models.py:126 .\main\templates\userstory\history.html:19
-msgid "Businnes Value (Realized)"
-msgstr "Businnes Value (Realizado)"
-
-#: .\main\models.py:148 .\main\models.py:197 .\main\templates\base.html:66
-#: .\main\templates\userstory\delete.html:6
-msgid "User Story"
-msgstr "Estória de Usuário"
-
-#: .\main\models.py:156
-msgid "Story not Completed"
-msgstr "Estória de Não Completa"
-
-#: .\main\models.py:157
-msgid "Complete story"
-msgstr "Estória Completa"
-
-#: .\main\models.py:176
-msgid "UserStory"
-msgstr "Estória de Usuário"
-
-#: .\main\models.py:185
-msgid "Taks"
-msgstr "Tarefas"
-
-#: .\main\models.py:186
-msgid "Estimated Time (Hours)"
-msgstr "Tempo Estimado (Horas)"
-
-#: .\main\models.py:187
-msgid "Realizated Time (Hours)"
-msgstr "Tempo Gasto (Horas)"
-
-#: .\main\models.py:188
-msgid "Criated at"
-msgstr "Criado em"
-
-#: .\main\models.py:195 .\main\views\artifact_views.py:105
-#: .\main\views\artifact_views.py:387 .\main\views\artifact_views.py:489
-#: .\main\views\requeriment_views.py:23 .\main\views\requeriment_views.py:41
-#: .\main\views\requeriment_views.py:47 .\main\views\requeriment_views.py:59
-#: .\main\views\requeriment_views.py:109 .\main\views\requeriment_views.py:128
-#: .\main\views\requeriment_views.py:165 .\main\views\requeriment_views.py:181
-#: .\main\views\requeriment_views.py:195 .\main\views\userstory_views.py:193
+#: .\main\components\breadcrumbs.py:75 .\main\components\breadcrumbs.py:92
+#: .\main\models\artifacttype.py:11 .\main\templates\requeriment\delete.html:9
+#: .\main\views\artifact_views.py:79 .\main\views\artifact_views.py:319
+#: .\main\views\artifact_views.py:424 .\main\views\requeriment_views.py:54
+#: .\main\views\requeriment_views.py:97 .\main\views\userstory_views.py:187
 msgid "Requeriment"
-msgstr "Requisito"
+msgstr "Requisitos"
 
-#: .\main\models.py:199 .\main\templates\artifact\form.html:135
-msgid "Level"
-msgstr "Nível"
+#: .\main\components\breadcrumbs.py:79 .\main\components\breadcrumbs.py:105
+#: .\main\components\breadcrumbs.py:119 .\main\components\breadcrumbs.py:128
+#: .\main\components\breadcrumbs.py:139 .\main\components\breadcrumbs.py:148
+#: .\main\components\breadcrumbs.py:153 .\main\templates\home\home.html:154
+#: .\main\templates\sprint\detail.html:122 .\main\views\artifact_views.py:266
+#: .\main\views\artifact_views.py:282 .\main\views\artifact_views.py:296
+#: .\main\views\artifact_views.py:371 .\main\views\artifact_views.py:387
+#: .\main\views\artifact_views.py:401
+msgid "User Stories"
+msgstr "Estórias de Usuário"
 
-#: .\main\models.py:201 .\main\models.py:244
-#: .\main\templates\artifact\form.html:137
-msgid "File"
-msgstr "Arquivo"
+#: .\main\forms.py:36 .\main\templates\requeriment\detail.html:109
+#: .\main\views\requeriment_views.py:61 .\main\views\requeriment_views.py:104
+msgid "Depends on"
+msgstr "Depende de"
 
-#: .\main\models.py:202
-msgid "Source"
-msgstr "Fonte"
+#: .\main\models\artifact.py:27 .\main\models\artifact.py:28
+#: .\main\models\artifacttype.py:8 .\main\models\project.py:8
+#: .\main\templates\project\delete.html:14
+msgid "Name"
+msgstr "Nome"
 
-#: .\main\models.py:203 .\main\templates\artifact\activity.html:7
-msgid "Activity"
-msgstr "Atividade"
-
-#: .\main\models.py:206
-msgid "Trace Code"
-msgstr "Código de Rastreio"
-
-#: .\main\models.py:218
+#: .\main\models\artifact.py:32 .\main\templates\artifacttype\delete.html:9
+#: .\main\views\artifacttype_views.py:23 .\main\views\artifacttype_views.py:26
+#: .\main\views\artifacttype_views.py:34 .\main\views\artifacttype_views.py:40
+#: .\main\views\artifacttype_views.py:45 .\main\views\artifacttype_views.py:66
+#: .\main\views\artifacttype_views.py:72
 msgid "Artifact type"
 msgstr "Tipo de Artefato"
 
-#: .\main\models.py:241 .\main\templates\artifact\form.html:151
+#: .\main\models\artifact.py:55 .\main\templates\artifact\form.html:163
 msgid "Estimated Time"
 msgstr "Tempo Estimado"
 
-#: .\main\models.py:242 .\main\templates\artifact\form.html:152
+#: .\main\models\artifact.py:56 .\main\templates\artifact\form.html:164
 msgid "Spent Time"
 msgstr "Tempo Gasto"
 
+#: .\main\models\artifact.py:57
+msgid "Estimated Story Points"
+msgstr "Pontos de Estória de Usuário Estimados"
+
+#: .\main\models\artifact.py:58
+msgid "Realized Time"
+msgstr "Tempo Gasto"
+
+#: .\main\models\artifact.py:59
+msgid "Estimated Businnes Value"
+msgstr "Valor de Negócio Estimado"
+
+#: .\main\models\artifact.py:60
+msgid "Realized Businnes Value"
+msgstr "Valor de Negócio Gasto"
+
+#: .\main\models\artifact.py:61 .\main\models\artifacttype.py:17
+#: .\main\templates\artifact\form.html:149
+msgid "File"
+msgstr "Arquivo"
+
+#: .\main\models\artifacttype.py:10 .\main\models\project.py:61
+#: .\main\models\requeriment.py:21 .\main\models\sprint.py:23
+#: .\main\models\userstory.py:21 .\main\templates\project\delete.html:8
+#: .\main\views\project_views.py:49 .\main\views\project_views.py:77
+#: .\main\views\project_views.py:109 .\main\views\project_views.py:133
+msgid "Project"
+msgstr "Projeto"
+
+#: .\main\models\artifacttype.py:13 .\main\models\sprintuserstory.py:12
+#: .\main\templates\base.html:101 .\main\templates\userstory\delete.html:9
+#: .\main\views\userstory_views.py:25
+msgid "User Story"
+msgstr "Estória de Usuário"
+
+#: .\main\models\artifacttype.py:15 .\main\templates\artifact\form.html:147
+msgid "Level"
+msgstr "Nível"
+
+#: .\main\models\artifacttype.py:18
+msgid "Source"
+msgstr "Código-fonte"
+
+#: .\main\models\artifacttype.py:19 .\main\templates\artifact\activity.html:7
+msgid "Activity"
+msgstr "Atividade"
+
+#: .\main\models\artifacttype.py:21 .\main\models\requeriment.py:17
+#: .\main\templates\artifact\form.html:76
+#: .\main\templates\artifact\form.html:105
+#: .\main\templates\artifact\form.html:148
+#: .\main\templates\requeriment\history.html:19
+#: .\main\templates\sprint\history.html:21
+msgid "Type"
+msgstr "Tipo"
+
+#: .\main\models\artifacttype.py:22
+msgid "Trace Code"
+msgstr "Código de Rastreio"
+
+#: .\main\models\project.py:9 .\main\templates\project\delete.html:15
+msgid "Requester"
+msgstr "Solicitante"
+
+#: .\main\models\project.py:12
+msgid "Functions Points"
+msgstr "Pontos de Função"
+
+#: .\main\models\project.py:13
+msgid "User Story Points"
+msgstr "Pontos de Estória de Usuário"
+
+#: .\main\models\project.py:14
+msgid "Use Case Points"
+msgstr "Pontos de Caso de Uso"
+
+#: .\main\models\project.py:17
+msgid "Points Type"
+msgstr "Tipos de Pontos"
+
+#: .\main\models\project.py:19
+msgid "Total Planned Points"
+msgstr "Total de pontos planejados"
+
+#: .\main\models\project.py:24
+msgid "Repository Type"
+msgstr "Tipo de Repositório"
+
+#: .\main\models\project.py:26
+msgid "Repository URL"
+msgstr "URL do Repositório"
+
+#: .\main\models\project.py:30
+msgid "Bug Tracking Tool Type"
+msgstr "Tipo de Ferramenta de Gerenciamento"
+
+#: .\main\models\project.py:32
+msgid "Story Points Planned Custom Field Name"
+msgstr "Nome do campo personalizado dos pontos de estória de usuário planejados"
+
+#: .\main\models\project.py:36
+msgid "Story Points Realized Custom Field Name"
+msgstr "Nome do campo personalizado dos pontos de estória de usuário gastos"
+
+#: .\main\models\project.py:40
+msgid "Businnes Value Planned Custom Field Name"
+msgstr "Nome do campo personalizado dos pontos de valor de negócio planejados"
+
+#: .\main\models\project.py:44
+msgid "Businnes Value Realized Custom Field Name"
+msgstr "Nome do campo personalizado dos valor de negócio de usuário gastos"
+
+#: .\main\models\project.py:48
+msgid "Bug Tracking Tool URL"
+msgstr "URL da ferramenta de gerencimento de projetos"
+
+#: .\main\models\project.py:49
+msgid "Bug Tracking Tool User"
+msgstr "Usuário da ferramenta de gerenciamento de projetos"
+
+#: .\main\models\project.py:50
+msgid "Bug Tracking Tool Password"
+msgstr "Senha da ferramenta de gerenciamento de projetos"
+
+#: .\main\models\project.py:51
+msgid "Bug Tracking Tool Project Id"
+msgstr "Id do projeto na ferramenta de gerenciamento de projetos"
+
+#: .\main\models\project.py:52
+msgid "Import Redmine Versions as Sprints?"
+msgstr "Importar versões do Redmine como Sprints?"
+
+#: .\main\models\project.py:53
+msgid ""
+"What redmine type of issue is a user story?(Insert redmine issue type ID)"
+msgstr "O tipo de problema do redmine é uma história do usuário (Insira o ID do tipo de problema do redmine)"
+
+#: .\main\models\project.py:54
+msgid ""
+"What redmine Issue Status is a complete User Story?(Insert redmine issue "
+"status ID)"
+msgstr "Qual é o status do problema do redmine é uma história de usuário completa? (Insira o ID do status de problema do redmine)"
+
+#: .\main\models\project.py:62
+msgid "Projects"
+msgstr "Projetos"
+
+#: .\main\models\requeriment.py:9 .\main\models\userstory.py:12
+#: .\main\templates\userstory\history.html:16
+msgid "Code"
+msgstr "Código"
+
+#: .\main\models\requeriment.py:10 .\main\models\sprint.py:9
+#: .\main\models\userstory.py:14 .\main\templates\artifact\activity.html:8
+#: .\main\templates\requeriment\history.html:16
+#: .\main\templates\sprint\delete.html:22
+#: .\main\templates\sprint\detail.html:187
+#: .\main\templates\sprint\history.html:16
+#: .\main\templates\userstory\detail.html:247
+#: .\main\templates\userstory\history.html:17
+msgid "Title"
+msgstr "Título"
+
+#: .\main\models\requeriment.py:13
+msgid "Functional"
+msgstr "Funcional"
+
+#: .\main\models\requeriment.py:14
+msgid "Non-Functional"
+msgstr "Não funcional"
+
+#: .\main\models\sprint.py:10 .\main\models\userstory.py:13
+msgid "Bug Track Id"
+msgstr "ID da ferramenta de gerenciamento de projetos"
+
+#: .\main\models\sprint.py:12
+msgid "Planning"
+msgstr "Planejando"
+
+#: .\main\models\sprint.py:13
+msgid "Executing"
+msgstr "Executando"
+
+#: .\main\models\sprint.py:14
+msgid "Close"
+msgstr "Fechado"
+
+#: .\main\models\sprint.py:17 .\main\models\sprintuserstory.py:24
+#: .\main\templates\sprint\detail.html:188
+#: .\main\templates\sprint\detail.html:208
+#: .\main\templates\sprint\history.html:17
+msgid "Status"
+msgstr "Status"
+
+#: .\main\models\sprint.py:19 .\main\templates\sprint\delete.html:23
+#: .\main\templates\sprint\detail.html:189
+#: .\main\templates\sprint\history.html:18
+msgid "Begin"
+msgstr "Início"
+
+#: .\main\models\sprint.py:20 .\main\templates\sprint\delete.html:24
+#: .\main\templates\sprint\history.html:19
+msgid "End"
+msgstr "Fim"
+
+#: .\main\models\sprint.py:43 .\main\templates\home\home.html:108
+#: .\main\templates\userstory\detail.html:295
+msgid "Sprints"
+msgstr "Sprints"
+
+#: .\main\models\sprintuserstory.py:20
+msgid "Story not Completed"
+msgstr "Estória não completa"
+
+#: .\main\models\sprintuserstory.py:21
+msgid "Complete story"
+msgstr "Estória completa"
+
+#: .\main\models\userstory.py:15 .\main\templates\artifact\activity.html:9
+#: .\main\templates\requeriment\detail.html:76
+#: .\main\templates\userstory\detail.html:248
+msgid "Description"
+msgstr "Descrição"
+
+#: .\main\models\userstory.py:16 .\main\templates\userstory\detail.html:249
+msgid "Acceptance Criteria"
+msgstr "Critérios de Aceitação"
+
+#: .\main\services\artifact.py:100
+msgid "Updated Artifact:"
+msgstr "Artefato Atualizado"
+
+#: .\main\services\artifact.py:100 .\main\services\artifact.py:131
+msgid "Reference: "
+msgstr "Referencia: "
+
+#: .\main\services\artifact.py:131
+msgid "Created Artifact: "
+msgstr "Artefato Criado: "
+
+#: .\main\services\artifact.py:162
+msgid "Created Sprint: "
+msgstr "Sprint Criada: "
+
+#: .\main\services\artifact.py:173
+msgid "Updated Sprint: "
+msgstr "Sprint Atualizada: "
+
+#: .\main\services\artifact.py:198
+msgid "Created UserStory: "
+msgstr "Estória de Usuário Criada: "
+
+#: .\main\services\artifact.py:208
+msgid "Updated UserStory: "
+msgstr "Estória de Usuário Atualizada: "
+
+#: .\main\services\artifact.py:260 .\main\services\artifact.py:273
+msgid "Userstory added to Sprint"
+msgstr "Estória de Usuário adicionada na Sprint"
+
+#: .\main\services\artifact.py:265
+msgid "Userstory updated to Sprint"
+msgstr "Estória de Usuário atualizada na Sprint"
+
 #: .\main\templates\artifact\activity.html:10
 msgid "Created On:"
-msgstr "Criado em:"
+msgstr "Criado Em:"
 
 #: .\main\templates\artifact\activity.html:11
 msgid "Closed On:"
-msgstr "Fechado em:"
+msgstr "Fechado Em:"
 
 #: .\main\templates\artifact\activity.html:12
 msgid "Estimated Hours:"
@@ -287,174 +398,183 @@ msgid "Status:"
 msgstr "Status:"
 
 #: .\main\templates\artifact\delete.html:11
-#: .\main\templates\artifacttype\delete.html:11
-#: .\main\templates\sprint\delete.html:18
-#: .\main\templates\userstory\delete.html:11
+#: .\main\templates\artifacttype\delete.html:14
+#: .\main\templates\project\delete.html:13
+#: .\main\templates\requeriment\delete.html:14
+#: .\main\templates\sprint\delete.html:21
+#: .\main\templates\userstory\delete.html:14
 msgid "Are you sure you want to delete "
 msgstr "Tem certeza que deseja excluir"
 
 #: .\main\templates\artifact\delete.html:19
-#: .\main\templates\artifacttype\delete.html:15
-#: .\main\templates\sprint\delete.html:23
-#: .\main\templates\userstory\delete.html:15
+#: .\main\templates\artifacttype\delete.html:18
+#: .\main\templates\project\delete.html:17
+#: .\main\templates\requeriment\delete.html:20
+#: .\main\templates\sprint\delete.html:26
+#: .\main\templates\userstory\delete.html:18
 msgid "DELETE"
 msgstr "EXCLUIR"
 
 #: .\main\templates\artifact\delete.html:20
-#: .\main\templates\artifacttype\delete.html:16
+#: .\main\templates\artifacttype\delete.html:19
 #: .\main\templates\components\forms\form.html:24
 #: .\main\templates\components\forms\form_tabs.html:81
-#: .\main\templates\project\form.html:68
-#: .\main\templates\sprint\delete.html:24 .\main\templates\sprint\form.html:29
-#: .\main\templates\userstory\delete.html:16
+#: .\main\templates\project\delete.html:18
+#: .\main\templates\project\form.html:71
+#: .\main\templates\requeriment\delete.html:21
+#: .\main\templates\sprint\delete.html:27 .\main\templates\sprint\form.html:32
+#: .\main\templates\userstory\delete.html:19
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: .\main\templates\artifact\form.html:21
+#: .\main\templates\artifact\form.html:24
 msgid "Documents Artifacts"
-msgstr "Artefatos de Documentos"
+msgstr "Artefatos do tipo documento"
 
-#: .\main\templates\artifact\form.html:38
+#: .\main\templates\artifact\form.html:41
 msgid "Bug Tracking Tool Artifacts"
-msgstr "Artefatos da Ferramenta de Bug Tracking"
+msgstr "Artefatos da Ferramenta de Gerenciamento de Projetos"
 
-#: .\main\templates\artifact\form.html:40
-#: .\main\templates\artifact\form.html:51
+#: .\main\templates\artifact\form.html:43
+#: .\main\templates\artifact\form.html:54
 msgid "Type:"
 msgstr "Tipo:"
 
-#: .\main\templates\artifact\form.html:41
+#: .\main\templates\artifact\form.html:44
 msgid "URL:"
 msgstr "URL:"
 
-#: .\main\templates\artifact\form.html:42
+#: .\main\templates\artifact\form.html:45
 msgid "Project ID:"
 msgstr "ID do Projeto:"
 
-#: .\main\templates\artifact\form.html:43
+#: .\main\templates\artifact\form.html:46 .\main\templates\base.html:106
 msgid "Trace Bug Tracking"
-msgstr "Rastrear Bug Tracking"
-
-#: .\main\templates\artifact\form.html:49
-msgid "Source Code Artifacts"
-msgstr "Artefatos de Código Fonte"
+msgstr "Rastrear ferramenta de Gerenciamento de Projetos"
 
 #: .\main\templates\artifact\form.html:52
+msgid "Source Code Artifacts"
+msgstr "Artefatos do Tipo Código-fonte"
+
+#: .\main\templates\artifact\form.html:55
 msgid "Remote Repository:"
 msgstr "Repositório Remoto:"
 
-#: .\main\templates\artifact\form.html:53
+#: .\main\templates\artifact\form.html:56
 msgid "Local Repository:"
 msgstr "Repositório Local:"
 
-#: .\main\templates\artifact\form.html:54
+#: .\main\templates\artifact\form.html:57 .\main\templates\base.html:107
 msgid "Trace Source Code"
-msgstr "Rastrear Código Fonte"
+msgstr "Rastrear codigo-fonte"
 
-#: .\main\templates\artifact\form.html:129 .\main\templates\home\home.html:149
-#: .\main\templates\requeriment\detail.html:45
-#: .\main\templates\sprint\detail.html:128
-#: .\main\templates\userstory\detail.html:17 .\main\views\artifact_views.py:56
-#: .\main\views\artifact_views.py:70 .\main\views\artifact_views.py:79
-#: .\main\views\artifact_views.py:93 .\main\views\artifact_views.py:108
-#: .\main\views\artifact_views.py:338 .\main\views\artifact_views.py:357
-#: .\main\views\artifact_views.py:369 .\main\views\artifact_views.py:390
-#: .\main\views\artifact_views.py:440 .\main\views\artifact_views.py:459
-#: .\main\views\artifact_views.py:471 .\main\views\artifact_views.py:492
+#: .\main\templates\artifact\form.html:132 .\main\templates\home\home.html:177
+#: .\main\templates\requeriment\detail.html:48
+#: .\main\templates\sprint\detail.html:145
+#: .\main\templates\userstory\detail.html:212
+#: .\main\views\artifact_views.py:70 .\main\views\artifact_views.py:82
+#: .\main\views\artifact_views.py:270 .\main\views\artifact_views.py:289
+#: .\main\views\artifact_views.py:301 .\main\views\artifact_views.py:322
+#: .\main\views\artifact_views.py:375 .\main\views\artifact_views.py:394
+#: .\main\views\artifact_views.py:406 .\main\views\artifact_views.py:427
 msgid "Artifacts"
 msgstr "Artefatos"
 
-#: .\main\templates\artifact\form.html:138
+#: .\main\templates\artifact\form.html:150
 #: .\main\templates\components\lists\list.html:19
 #: .\main\templates\model\list.html:19
 msgid "Action"
 msgstr "Ação"
 
-#: .\main\templates\artifact\form.html:162
+#: .\main\templates\artifact\form.html:165
+msgid "Estimated SP"
+msgstr "SP Estimado"
+
+#: .\main\templates\artifact\form.html:166
+msgid "Spent SP"
+msgstr "SP Gasto"
+
+#: .\main\templates\artifact\form.html:167
+msgid "Estimated BV"
+msgstr "BV Estimado"
+
+#: .\main\templates\artifact\form.html:168
+msgid "Spent BV"
+msgstr "BV Gasto"
+
+#: .\main\templates\artifact\form.html:183
 #: .\main\templates\components\lists\list.html:36
 msgid "No data"
-msgstr "Sem Dados"
+msgstr "Sem dados"
 
 #: .\main\templates\artifact\tracebugtracking.html:6
 msgid "Bug Tracking Tool Traced !"
-msgstr "Ferramenta de Bug Tracking Rastreada !"
+msgstr "Ferramenta de gestao de projetos rastreada!"
 
-#: .\main\templates\artifact\tracecode.html:6
+#: .\main\templates\artifact\tracebugtracking.html:8
+msgid "Imported Artifacts"
+msgstr "Artefatos Importados"
+
+#: .\main\templates\artifact\tracebugtracking.html:14
+msgid "Imported Sprints"
+msgstr "Sprints Importadas"
+
+#: .\main\templates\artifact\tracebugtracking.html:19
+msgid "No sprints"
+msgstr "Sem sprints"
+
+#: .\main\templates\artifact\tracebugtracking.html:22
+msgid "Imported User Stories"
+msgstr "Estórias de usuário importadas"
+
+#: .\main\templates\artifact\tracebugtracking.html:27
+msgid "No UserStories"
+msgstr "Sem estórias de  usuário"
+
+#: .\main\templates\artifact\tracebugtracking.html:30
+msgid "Userstory to sprint"
+msgstr "Estória de usuário para sprint"
+
+#: .\main\templates\artifact\tracecode.html:9
 msgid "Source Code Traced !"
-msgstr "Código Fonte Rastreado !"
+msgstr "Código-fonte rastreado !"
 
-#: .\main\templates\artifacttype\delete.html:6 .\main\templates\base.html:67
-#: .\main\views\artifacttype_views.py:23 .\main\views\artifacttype_views.py:39
-#: .\main\views\artifacttype_views.py:65
-msgid "Artifact Type"
-msgstr "Tipo de Artefato"
-
-#: .\main\templates\artifacttype\top_bar.html:2
-#: .\main\templates\components\lists\top_bar.html:2
-#: .\main\templates\requeriment\top_bar.html:2
-#: .\main\templates\sprint\top_bar.html:2
-#: .\main\templates\userstory\top_bar.html:2 .\main\views\project_views.py:58
-#: .\main\views\requeriment_views.py:60 .\main\views\requeriment_views.py:111
-#: .\main\views\sprint_views.py:64 .\main\views\userstory_views.py:194
+#: .\main\templates\artifacttype\top_bar.html:3
+#: .\main\templates\components\lists\top_bar.html:3
+#: .\main\templates\project\top_bar.html:3
+#: .\main\templates\requeriment\top_bar.html:6
+#: .\main\templates\sprint\top_bar.html:5
+#: .\main\templates\userstory\top_bar.html:3 .\main\views\project_views.py:78
+#: .\main\views\requeriment_views.py:87 .\main\views\sprint_views.py:72
+#: .\main\views\userstory_views.py:165 .\main\views\userstory_views.py:188
+#: .\main\views\userstory_views.py:236
 msgid "Add"
 msgstr "Add"
 
-#: .\main\templates\base.html:63 .\main\templates\home\home.html:68
-#: .\main\views\artifact_views.py:47 .\main\views\artifact_views.py:61
-#: .\main\views\artifact_views.py:74 .\main\views\artifact_views.py:90
-#: .\main\views\artifact_views.py:104 .\main\views\artifact_views.py:328
-#: .\main\views\artifact_views.py:344 .\main\views\artifact_views.py:362
-#: .\main\views\artifact_views.py:376 .\main\views\artifact_views.py:386
-#: .\main\views\artifact_views.py:394 .\main\views\artifact_views.py:430
-#: .\main\views\artifact_views.py:446 .\main\views\artifact_views.py:464
-#: .\main\views\artifact_views.py:478 .\main\views\artifact_views.py:488
-#: .\main\views\artifact_views.py:496 .\main\views\artifacttype_views.py:22
-#: .\main\views\artifacttype_views.py:38 .\main\views\artifacttype_views.py:64
-#: .\main\views\home_views.py:10 .\main\views\project_views.py:38
-#: .\main\views\project_views.py:56 .\main\views\project_views.py:77
-#: .\main\views\requeriment_views.py:22 .\main\views\requeriment_views.py:38
-#: .\main\views\requeriment_views.py:58 .\main\views\requeriment_views.py:108
-#: .\main\views\requeriment_views.py:127 .\main\views\requeriment_views.py:164
-#: .\main\views\requeriment_views.py:180 .\main\views\requeriment_views.py:194
-#: .\main\views\sprint_views.py:22 .\main\views\sprint_views.py:47
-#: .\main\views\sprint_views.py:62 .\main\views\sprint_views.py:100
-#: .\main\views\sprint_views.py:122 .\main\views\sprint_views.py:155
-#: .\main\views\sprint_views.py:163 .\main\views\userstory_views.py:40
-#: .\main\views\userstory_views.py:50 .\main\views\userstory_views.py:58
-#: .\main\views\userstory_views.py:76 .\main\views\userstory_views.py:88
-#: .\main\views\userstory_views.py:98 .\main\views\userstory_views.py:159
-#: .\main\views\userstory_views.py:167 .\main\views\userstory_views.py:174
-#: .\main\views\userstory_views.py:192 .\main\views\userstory_views.py:240
-#: .\main\views\userstory_views.py:248 .\main\views\userstory_views.py:256
-#: .\main\views\userstory_views.py:279 .\main\views\userstory_views.py:287
-#: .\main\views\userstory_views.py:295 .\main\views\userstory_views.py:312
-#: .\main\views\userstory_views.py:325 .\main\views\userstory_views.py:337
-msgid "Home"
-msgstr "Início"
-
-#: .\main\templates\base.html:64
+#: .\main\templates\base.html:99 .\main\views\requeriment_views.py:59
+#: .\main\views\requeriment_views.py:102
 msgid "Requirement"
 msgstr "Requisito"
 
-#: .\main\templates\base.html:75
+#: .\main\templates\base.html:102 .\main\views\artifacttype_views.py:77
+msgid "Artifact Type"
+msgstr "Tipo de Artefato"
+
+#: .\main\templates\base.html:118
 msgid "Administration"
 msgstr "Administração"
 
-#: .\main\templates\base.html:77
+#: .\main\templates\base.html:120
 msgid "Project(s)"
 msgstr "Projeto(s)"
 
-#: .\main\templates\base.html:87
-msgid "User Profile"
-msgstr "Perfil de Usuário"
-
-#: .\main\templates\base.html:91
+#: .\main\templates\base.html:130
 msgid "Logout"
 msgstr "Sair"
 
 #: .\main\templates\components\forms\form.html:23
 #: .\main\templates\components\forms\form_tabs.html:79
-#: .\main\templates\project\form.html:66 .\main\templates\sprint\form.html:28
+#: .\main\templates\project\form.html:69 .\main\templates\sprint\form.html:31
 msgid "Save"
 msgstr "Salvar"
 
@@ -468,81 +588,47 @@ msgstr "Página"
 msgid "of"
 msgstr "de"
 
-#: .\main\templates\components\lists\top_bar.html:3
-#: .\main\templates\requeriment\detail.html:68
-#: .\main\templates\requeriment\top_bar.html:3
-#: .\main\templates\sprint\top_bar.html:3
-#: .\main\templates\userstory\detail.html:41
-#: .\main\views\requeriment_views.py:166
+#: .\main\templates\components\lists\top_bar.html:4
+#: .\main\templates\requeriment\detail.html:71
+#: .\main\templates\requeriment\top_bar.html:7
+#: .\main\templates\sprint\top_bar.html:6
+#: .\main\templates\userstory\detail.html:242
 msgid "History"
 msgstr "Histórico"
 
-#: .\main\templates\home\home.html:13
-#, python-format
-msgid "%% Task Effort Variation per Sprint"
-msgstr "%% Variação de esforço por sprint"
-
 #: .\main\templates\home\home.html:20
-#, python-format
-msgid "%% Story Points Variation per Sprint"
-msgstr "%% Variação de Story Points por Sprint"
+msgid "Total of Spent Hours per Sprint"
+msgstr "Total de horas gastas por sprint"
 
-#: .\main\templates\home\home.html:43
-msgid "Contrated"
-msgstr "Contratado"
+#: .\main\templates\home\home.html:30
+msgid "Total of Estimated Hours per Sprint"
+msgstr "Total de horas estimadas por sprint"
 
-#: .\main\templates\home\home.html:44
-msgid "Executed"
-msgstr "Executado"
+#: .\main\templates\home\home.html:64
+msgid "Planned Points"
+msgstr "Pontos planejados"
 
-#: .\main\templates\home\home.html:86 .\main\templates\home\home.html:109
-#: .\main\templates\home\home.html:132
-#: .\main\templates\requeriment\detail.html:28
-#: .\main\templates\requeriment\detail.html:51
-#: .\main\templates\sprint\detail.html:88
-#: .\main\templates\sprint\detail.html:111
-#: .\main\templates\sprint\detail.html:134
-#: .\main\templates\userstory\detail.html:23
+#: .\main\templates\home\home.html:65
+msgid "Realized points"
+msgstr "Pontos gastos"
+
+#: .\main\templates\home\home.html:114 .\main\templates\home\home.html:137
+#: .\main\templates\home\home.html:160 .\main\templates\home\home.html:183
+#: .\main\templates\requeriment\detail.html:31
+#: .\main\templates\requeriment\detail.html:54
+#: .\main\templates\sprint\detail.html:105
+#: .\main\templates\sprint\detail.html:128
+#: .\main\templates\sprint\detail.html:151
 msgid "View Details"
-msgstr "Ver Detalhes"
+msgstr "Ver detalhes"
 
-#: .\main\templates\home\home.html:103 .\main\templates\sprint\detail.html:82
-#: .\main\templates\userstory\detail.html:76 .\main\views\artifact_views.py:62
-#: .\main\views\artifact_views.py:345 .\main\views\artifact_views.py:447
-#: .\main\views\requeriment_views.py:20 .\main\views\userstory_views.py:51
-#: .\main\views\userstory_views.py:89 .\main\views\userstory_views.py:168
-#: .\main\views\userstory_views.py:249 .\main\views\userstory_views.py:288
-#: .\main\views\userstory_views.py:326
-msgid "Requeriments"
-msgstr "Requisitos"
+#: .\main\templates\home\home.html:197
+msgid "Estimated x Spent (time)"
+msgstr "Estimado x Gasto (tempo)"
 
-#: .\main\templates\home\home.html:126 .\main\templates\sprint\detail.html:105
-#: .\main\views\artifact_views.py:53 .\main\views\artifact_views.py:67
-#: .\main\views\artifact_views.py:76 .\main\views\artifact_views.py:334
-#: .\main\views\artifact_views.py:350 .\main\views\artifact_views.py:364
-#: .\main\views\artifact_views.py:436 .\main\views\artifact_views.py:452
-#: .\main\views\artifact_views.py:466 .\main\views\userstory_views.py:44
-#: .\main\views\userstory_views.py:54 .\main\views\userstory_views.py:59
-#: .\main\views\userstory_views.py:81 .\main\views\userstory_views.py:92
-#: .\main\views\userstory_views.py:100 .\main\views\userstory_views.py:162
-#: .\main\views\userstory_views.py:170 .\main\views\userstory_views.py:175
-#: .\main\views\userstory_views.py:243 .\main\views\userstory_views.py:252
-#: .\main\views\userstory_views.py:257 .\main\views\userstory_views.py:282
-#: .\main\views\userstory_views.py:291 .\main\views\userstory_views.py:296
-#: .\main\views\userstory_views.py:318 .\main\views\userstory_views.py:331
-#: .\main\views\userstory_views.py:339
-msgid "User Stories"
-msgstr "Estórias de Usuário"
-
-#: .\main\templates\home\home.html:169
-#, python-format
-msgid ""
-"Story Points x Tasks Effort x Businnes Value (%% of variation per Sprint)"
-msgstr "Story Points x Tasks Effort x Businnes Value (%% de variação por Sprint)"
-
-#: .\main\templates\home\home.html:184
-msgid "Contract x Implemented Points"
-msgstr "Pontos Contratados x Pontos Implementados"
+#: .\main\templates\home\home.html:212
+msgid "Total of Points"
+msgstr "Total de Pontos"
 
 #: .\main\templates\login\form.html:12
 msgid "Please Sign In"
@@ -552,166 +638,256 @@ msgstr "Favor autenticar-se"
 msgid "Login"
 msgstr "Login"
 
-#: .\main\templates\requeriment\detail.html:66
-#: .\main\templates\userstory\detail.html:39
+#: .\main\templates\login\logout.html:7
+msgid "Successful logout"
+msgstr ""
+
+#: .\main\templates\login\logout.html:8
+msgid "Back"
+msgstr "Voltar"
+
+#: .\main\templates\requeriment\detail.html:69
+#: .\main\templates\userstory\detail.html:240
 msgid "Edit"
 msgstr "Editar"
 
-#: .\main\templates\requeriment\detail.html:67
-#: .\main\templates\userstory\detail.html:40 .\main\views\sprint_views.py:126
-#: .\main\views\sprint_views.py:159 .\main\views\sprint_views.py:165
+#: .\main\templates\requeriment\detail.html:70
+#: .\main\templates\userstory\detail.html:241
+#: .\main\views\requeriment_views.py:216 .\main\views\sprint_views.py:147
+#: .\main\views\sprint_views.py:184 .\main\views\sprint_views.py:190
+#: .\main\views\userstory_views.py:266 .\main\views\userstory_views.py:285
 msgid "Delete"
-msgstr "Excluir"
+msgstr "Apagar"
 
-#: .\main\templates\requeriment\detail.html:69
-#: .\main\templates\requeriment\top_bar.html:4
-#: .\main\templates\userstory\detail.html:42
-#: .\main\views\requeriment_views.py:182 .\main\views\requeriment_views.py:198
+#: .\main\templates\requeriment\detail.html:72
+#: .\main\templates\requeriment\top_bar.html:8
+#: .\main\templates\userstory\detail.html:243
+#: .\main\views\requeriment_views.py:234 .\main\views\requeriment_views.py:253
 msgid "Graph"
-msgstr "Grafo"
+msgstr ""
 
-#: .\main\templates\requeriment\detail.html:74
+#: .\main\templates\requeriment\detail.html:77
 msgid "Tipo"
-msgstr "Tipo"
+msgstr ""
 
-#: .\main\templates\requeriment\detail.html:86
+#: .\main\templates\requeriment\detail.html:89
 msgid "Dependents Requeriments"
-msgstr "Requisitos Dependentes"
+msgstr "Requisitos dependentes"
 
-#: .\main\templates\requeriment\detail.html:93
+#: .\main\templates\requeriment\detail.html:96
 msgid "No dependent requirements"
 msgstr "Sem requisitos dependentes"
 
-#: .\main\templates\requeriment\detail.html:106
-msgid "Depends on"
-msgstr "Depende de"
-
-#: .\main\templates\requeriment\detail.html:113
+#: .\main\templates\requeriment\detail.html:116
 msgid "This requirement does not depend on any other"
-msgstr "Este requisito não dependente de nenhum outro"
+msgstr "Este requisito não depende de nenhum outro"
 
-#: .\main\templates\requeriment\history.html:14
-#: .\main\templates\userstory\history.html:15
+#: .\main\templates\requeriment\history.html:17
+#: .\main\templates\userstory\history.html:18
 msgid "description"
 msgstr "descrição"
 
-#: .\main\templates\requeriment\history.html:15
+#: .\main\templates\requeriment\history.html:18
 msgid "Req. type"
 msgstr "Tipo de Req."
 
-#: .\main\templates\requeriment\history.html:17
-#: .\main\templates\sprint\history.html:19
+#: .\main\templates\requeriment\history.html:20
+#: .\main\templates\sprint\history.html:22
 msgid "User"
 msgstr "Usuário"
 
-#: .\main\templates\requeriment\history.html:30
-#: .\main\templates\sprint\history.html:34
-#: .\main\templates\userstory\history.html:34
+#: .\main\templates\requeriment\history.html:33
+#: .\main\templates\sprint\history.html:37
+#: .\main\templates\userstory\history.html:37
 msgid "No changes"
-msgstr "Sem mudanças"
+msgstr "Sem alterações"
 
-#: .\main\templates\sprint\detail.html:13
+#: .\main\templates\sprint\detail.html:26
 #, python-format
-msgid "%% Task Effort Variation (Sprint 11)"
+msgid "%% Task Effort Variation"
 msgstr "%% Variação de Esforço"
 
-#: .\main\templates\sprint\detail.html:20
-msgid "Story Points Variation (Sprint 11)"
-msgstr ""
+#: .\main\templates\sprint\detail.html:26
+#, python-format
+msgid "%% SP Variation"
+msgstr "%% Variação de SP"
 
-#: .\main\templates\sprint\detail.html:149
+#: .\main\templates\sprint\detail.html:166
 #, python-format
 msgid "Story Points x Tasks Effort (%% of variation)"
-msgstr ""
+msgstr "Pontos de Estória de Usuário x  Esforço (%% de variação)"
 
-#: .\main\templates\sprint\detail.html:161
-#: .\main\templates\userstory\detail.html:37
+#: .\main\templates\sprint\detail.html:178
+#: .\main\templates\userstory\detail.html:238
 msgid "Details"
 msgstr "Detalhes"
 
-#: .\main\templates\sprint\history.html:17
-msgid "Change Date"
-msgstr "Data de Modificação"
+#: .\main\templates\sprint\detail.html:202
+msgid "UserStories"
+msgstr "Estórias de Usuário"
 
-#: .\main\views\artifact_views.py:43
+#: .\main\templates\sprint\detail.html:207
+msgid "Userstory"
+msgstr "Estória de Usuário"
+
+#: .\main\templates\sprint\form_head.html:9
+msgid "The title and status fields are changed by redmine"
+msgstr "O titulo e o status são modificados pelo redmine"
+
+#: .\main\templates\sprint\history.html:20
+msgid "Change Date"
+msgstr ""
+
+#: .\main\templates\userstory\detail.html:20
+msgid "Estimated"
+msgstr "Estimado"
+
+#: .\main\templates\userstory\detail.html:20
+msgid "Spent"
+msgstr "Gasto"
+
+#: .\main\templates\userstory\detail.html:83
+#: .\main\templates\userstory\detail.html:145
+msgid "Planned"
+msgstr "Planejado"
+
+#: .\main\templates\userstory\detail.html:83
+#: .\main\templates\userstory\detail.html:145
+msgid "Realized"
+msgstr "Gasto"
+
+#: .\main\templates\userstory\detail.html:220
+msgid "Documents"
+msgstr "Documentos"
+
+#: .\main\templates\userstory\detail.html:221
+msgid "Source Code"
+msgstr "Código-fonte"
+
+#: .\main\templates\userstory\detail.html:222
+msgid "Activities"
+msgstr "Atividades"
+
+#: .\main\templates\userstory\detail.html:261
+msgid "Tasks Effort (Hours)"
+msgstr "Variação de Esforço (Horas)"
+
+#: .\main\templates\userstory\detail.html:271
+msgid "Story Points"
+msgstr "Pontos de Estória de Usuário"
+
+#: .\main\templates\userstory\detail.html:281
+msgid "Bussiness Value"
+msgstr "Valor de Negócio"
+
+#: .\main\templates\userstory\history.html:19
+msgid "Story Points (Planned)"
+msgstr "Pontos de Estória de Usuário (Planejados)"
+
+#: .\main\templates\userstory\history.html:20
+msgid "Story Points (Realized)"
+msgstr "Pontos de Estória de Usuário  (Gastos)"
+
+#: .\main\templates\userstory\history.html:21
+msgid "Businnes Value (Planned)"
+msgstr "Valor de Negócio (Planejado)"
+
+#: .\main\templates\userstory\history.html:22
+msgid "Businnes Value (Realized)"
+msgstr "Valor de Negócio (Realizado)"
+
+#: .\main\views\artifact_views.py:53
 msgid "UserStory Artifacts"
 msgstr "Artefatos de Estória de Usuário"
 
-#: .\main\views\artifact_views.py:88 .\main\views\artifact_views.py:374
-#: .\main\views\artifact_views.py:476
+#: .\main\views\artifact_views.py:65 .\main\views\artifact_views.py:306
+#: .\main\views\artifact_views.py:411
 msgid "Sprint Artifacts"
-msgstr "Artefatos de Sprint"
+msgstr "Artefatos de Sprints"
 
-#: .\main\views\artifact_views.py:102 .\main\views\artifact_views.py:384
-#: .\main\views\artifact_views.py:486
+#: .\main\views\artifact_views.py:76 .\main\views\artifact_views.py:316
+#: .\main\views\artifact_views.py:421
 msgid "Requeriment Artifacts"
 msgstr "Artefatos de Requisitos"
 
-#: .\main\views\artifact_views.py:118 .\main\views\artifact_views.py:395
-#: .\main\views\artifact_views.py:497
+#: .\main\views\artifact_views.py:87 .\main\views\artifact_views.py:327
+#: .\main\views\artifact_views.py:432
 msgid "Project Artifacts"
 msgstr "Artefatos de Projeto"
 
-#: .\main\views\artifact_views.py:324 .\main\views\artifact_views.py:426
+#: .\main\views\artifact_views.py:256 .\main\views\artifact_views.py:361
 msgid "Userstory Artifact"
 msgstr "Artefatos de Estória de Usuário"
 
-#: .\main\views\artifact_views.py:339 .\main\views\artifact_views.py:358
-#: .\main\views\artifact_views.py:370 .\main\views\artifact_views.py:380
-#: .\main\views\artifact_views.py:396 .\main\views\artifact_views.py:441
-#: .\main\views\artifact_views.py:460 .\main\views\artifact_views.py:472
-#: .\main\views\artifact_views.py:482 .\main\views\artifact_views.py:498
+#: .\main\views\artifact_views.py:271 .\main\views\artifact_views.py:290
+#: .\main\views\artifact_views.py:302 .\main\views\artifact_views.py:312
+#: .\main\views\artifact_views.py:328 .\main\views\artifact_views.py:376
+#: .\main\views\artifact_views.py:395 .\main\views\artifact_views.py:407
+#: .\main\views\artifact_views.py:417 .\main\views\artifact_views.py:433
 msgid "Artifact"
-msgstr "Artefatos"
+msgstr "Artefato"
 
-#: .\main\views\artifact_views.py:398 .\main\views\artifact_views.py:500
+#: .\main\views\artifact_views.py:330 .\main\views\artifact_views.py:435
 msgid "Project Artifact"
-msgstr "Artefatos de Projeto"
+msgstr "Artefato de Projeto"
 
-#: .\main\views\artifacttype_views.py:32
+#: .\main\views\artifacttype_views.py:38
 msgid "Artifacty Type was created successfully"
-msgstr "Tipo Artefato criado com sucesso "
+msgstr "Tipo de artefato criado com sucesso"
 
-#: .\main\views\artifacttype_views.py:58
+#: .\main\views\artifacttype_views.py:70
 msgid "Artifacty Type was updated successfully"
-msgstr "Tipo de Artefato salvo co sucesso"
+msgstr "Tipo de artefato atualizado com sucesso"
 
-#: .\main\views\project_views.py:13
+#: .\main\views\project_views.py:22
 msgid "Choose a project:"
 msgstr "Escolha um projeto:"
 
-#: .\main\views\project_views.py:48
+#: .\main\views\project_views.py:61
 msgid "Project was created successfully"
 msgstr "Projeto criado com sucesso"
 
-#: .\main\views\project_views.py:67
+#: .\main\views\project_views.py:93
 msgid "Project was saved successfully"
 msgstr "Projeto salvo com sucesso"
 
-#: .\main\views\project_views.py:79 .\main\views\sprint_views.py:104
+#: .\main\views\project_views.py:110 .\main\views\project_views.py:134
+#: .\main\views\requeriment_views.py:129 .\main\views\sprint_views.py:119
 msgid "Update"
 msgstr "Atualizar"
 
-#: .\main\views\requeriment_views.py:51 .\main\views\requeriment_views.py:82
+#: .\main\views\requeriment_views.py:57
 msgid "Requeriment was created successfully"
 msgstr "Requisito criado com sucesso"
 
-#: .\main\views\requeriment_views.py:145
+#: .\main\views\requeriment_views.py:100
+msgid "Requeriment was updated successfully"
+msgstr "Requisito atualizado com sucesso"
+
+#: .\main\views\requeriment_views.py:167
 msgid "Requeriment Change History:"
-msgstr "Histórico de Mudanças no Requisito"
+msgstr "Histórico de mudancas do requisito:"
 
-#: .\main\views\sprint_views.py:60
+#: .\main\views\requeriment_views.py:189
+msgid "Change History"
+msgstr "Histórico de Mudanças"
+
+#: .\main\views\sprint_views.py:68
 msgid "Sprint was created successfully"
-msgstr "Sprint criado com sucesso"
+msgstr "Sprint criada com sucesso"
 
-#: .\main\views\sprint_views.py:83
+#: .\main\views\sprint_views.py:98
 msgid "Sprint was saved successfully"
-msgstr "Sprint salvo com sucesso"
+msgstr "Sprint salva com sucesso"
 
-#: .\main\views\sprint_views.py:135
+#: .\main\views\sprint_views.py:160
 msgid "Sprint Change History:"
-msgstr "Histórico de Mudanças na Sprint:"
+msgstr "Historio de Mudanças da Sprint"
 
-#: .\main\views\userstory_views.py:111 .\main\views\userstory_views.py:184
+#: .\main\views\userstory_views.py:115 .\main\views\userstory_views.py:178
 msgid "UserStory was created successfully"
-msgstr "Estória de Usuário criado com sucesso"
+msgstr "Estória de Usuário criada com sucesso"
+
+#: .\main\views\userstory_views.py:117 .\main\views\userstory_views.py:180
+msgid "UserStory"
+msgstr "Estória de Usuário"

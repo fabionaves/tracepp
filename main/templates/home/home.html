@@ -7,6 +7,7 @@
     {% localize off %}
 
         $(document).ready(function () {
+
             var ctx = document.getElementById('graph_taks_force_per_userstory_json').getContext('2d');
             var graph_taks_force_per_userstory_json = new Chart(ctx, {
                 type: 'line',
@@ -17,25 +18,25 @@
                     {% endfor %}
                     ],
                     datasets: [{
-                        label: '{% trans 'Total of Spent Hours per Sprint' %}',
+                        label: '{% trans '% Task Effort Variation per Sprint' %}',
                         data: [
                              {% for teffort in task_effort %}
-                                '{% if teffort.realizated_time %}{{ teffort.realizated_time }}{% else %}0{% endif %}',
+                                '{% if teffort.percentual %}{{ teffort.percentual }}{% else %}0{% endif %}',
                             {% endfor %}
                         ],
                         borderColor: "hsla(360, 100%, 50%, 0.9)",
                         fill: false,
-                        lineTension: 0.1
+                        lineTension: 0
                     }, {
-                        label: '{% trans 'Total of Estimated Hours per Sprint' %}',
+                        label: '{% trans '% Story Points Variation per Sprint' %}',
                         data: [
-                            {% for teffort in task_effort %}
-                                '{% if teffort.estimated_time %}{{ teffort.estimated_time }}{% else %}0{% endif %}',
+                            {% for us in storypoints_variation  %}
+                                '{% if us.percentual %}{{ us.percentual }}{% else %}0{% endif %}',
                             {% endfor %}
                         ],
                         borderColor: "hsla(251, 100%, 50%, 0.9)",
                         fill: false,
-                        lineTension: 0.1
+                        lineTension: 0
                     }],
                 },
                 options: {
@@ -47,7 +48,6 @@
                             id: "1"
                         }]
                     },
-
                 }
             });
 
@@ -190,11 +190,11 @@
     </div>
     <!-- div.row -->
 
-    <div class="row">
+  <div class="row">
         <div class="col-lg-12 col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <i class="fa fa-bar-chart-o fa-fw"></i> {% trans 'Estimated x Spent (time)' %}
+                    <i class="fa fa-bar-chart-o fa-fw"></i> {% trans 'Story Points x Tasks Effort (% of variation per Sprint)' %}
                 </div>
                 <div class="panel-body">
                     <canvas id="graph_taks_force_per_userstory_json" width="80" height="20"
@@ -203,7 +203,6 @@
             </div>
         </div>
     </div>
-    <!-- div.row -->
 
     <div class="row">
         <div class="col-lg-12 col-md-12">

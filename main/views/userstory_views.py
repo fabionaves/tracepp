@@ -5,6 +5,8 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import DeleteView
+from django.views.generic import ListView
+
 from main.components.breadcrumbs import userstories_breadcrumbs
 from main.components.lists import ModelListProjectFilter, TemplateViewProjectFilter
 from main.decorators import require_project
@@ -95,6 +97,27 @@ class UserStoryDetailView(TemplateViewProjectFilter):
             self.request.session.get('project_id', None),
             userstory
         )
+        context['breadcrumbs'] = userstories_breadcrumbs(
+            self.request.session.get('project_id'),
+            self.kwargs.get('requeriment_id'),
+            self.kwargs.get('sprint_id'),
+            self.kwargs.get('pk')
+        )
+        return context
+
+class UserStoryHistoryView(ListView):
+    """
+    Alter History of userstory
+    """
+    model = UserStoryService.get_userstory_model()
+    template_name = 'userstory/history.html'
+    list_display = ('history_user',)
+    page_title = _('Sprint Change History:')
+    sprint_id = False
+
+    def get_context_data(self, **kwargs):
+        context = super(UserStoryDetailView, self).get_context_data()
+        userstory = UserStoryService.get_userstory(self.request.session.get('project_id', None), self.kwargs['pk'])
         context['breadcrumbs'] = userstories_breadcrumbs(
             self.request.session.get('project_id'),
             self.kwargs.get('requeriment_id'),

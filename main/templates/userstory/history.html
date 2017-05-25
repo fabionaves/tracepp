@@ -5,7 +5,7 @@
 {% load i18n %}
 
 {% block content %}
-  <h1 class="page-header"><i class="fa fa-list-alt fa-1x"></i> Requeriment Change History</h1>
+  <h1 class="page-header"><i class="fa fa-list-alt fa-1x"></i> UserStory Change History</h1>
 
     <div class="row">
 
@@ -16,10 +16,7 @@
                         <th>{%   trans 'Code' %}</th>
                         <th>{%   trans 'Title' %}</th>
                         <th>{%   trans 'description' %}</th>
-                        <th>{%   trans 'Story Points (Planned)' %}</th>
-                        <th>{%   trans 'Story Points (Realized)' %}</th>
-                        <th>{%   trans 'Businnes Value (Planned)' %}</th>
-                        <th>{%   trans 'Businnes Value (Realized)' %}</th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -28,10 +25,7 @@
                         <td>{{ row.code }}</td>
                         <td>{{ row.title }}</td>
                         <td>{{ row.description }}</td>
-                        <td>{{ row.storypoints_planned }}</td>
-                        <td>{{ row.storypoints_realized}}</td>
-                        <td>{{ row.bussinessvalue_planned }}</td>
-                        <td>{{ row.bussinessvalue_realized}}</td>
+
                         </tr>
                         {% empty %}
                         <tr><td colspan="7">{% trans 'No changes' %}</td></tr>
