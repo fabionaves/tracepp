@@ -131,7 +131,7 @@ class ArtifactService:
                     log.append(_('Created Artifact: ')+artifact['code']+' '+_('Reference: ')+str(artifact['reference']))
             except:
                 log.append("====>ERRO: "+ str(artifact['reference'])+' '+artifact['code'])
-        Artifact.objects.exclude(reference__in=references).filter(
+        Artifact.objects.exclude(reference__in=references).filter(project=project,
             type__type=2).delete()  # delete the artifacts not detected in bugtracking
         return log
 
@@ -253,20 +253,20 @@ class ArtifactService:
                            isNew = False
                     if isNew:
                         SprintUserStory.objects.create(
-                            sprint=Sprint.objects.get(reference=version),
+                            sprint=Sprint.objects.get(project=project, reference=version),
                             userstory=us,
                             status=issuestatus,
                         )
                         log.append(_('Userstory added to Sprint'))
                     else:
-                        sprintUs = SprintUserStory.objects.get(sprint__reference=version, userstory=us)
+                        sprintUs = SprintUserStory.objects.get(sprint__project=project, sprint__reference=version, userstory=us)
                         sprintUs.status = issuestatus
                         sprintUs.save()
                         log.append(_('Userstory updated to Sprint'))
                 else:
                     if version is not None:
                         SprintUserStory.objects.create(
-                            sprint=Sprint.objects.get(reference=version),
+                            sprint=Sprint.objects.get(project=project, reference=version),
                             userstory=us,
                             status=issuestatus,
                         )
@@ -395,8 +395,10 @@ class ArtifactService:
 
     @staticmethod
     def total_realized_storyPoints(project):
-        return Artifact.objects.values('project_id').annotate(
-            realized=Sum('realized_storypoints'),
-        ).filter(project=project)[:1].get()
-
+        try:
+            return Artifact.objects.values('project_id').annotate(
+                realized=Sum('realized_storypoints'),
+            ).filter(project=project)[:1].get()
+        except:
+            return False
 

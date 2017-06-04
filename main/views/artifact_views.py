@@ -200,15 +200,15 @@ class ArtifactTraceCodeView(TemplateViewProjectFilter):
                 if artifact['artifactType'].level == 0:
                     Artifact.objects.create(project=project, source=artifact['source'], line=artifact['line'], type=artifact['artifactType'])
                 elif artifact['artifactType'].level == 1:
-                    requeriment = Requeriment.objects.filter(code=artifact['code']).get()
+                    requeriment = Requeriment.objects.filter(project=project, code=artifact['code']).get()
                     Artifact.objects.create(project=project, source=artifact['source'], line=artifact['line'],
                                             type=artifact['artifactType'], requeriment=requeriment)
                 elif artifact['artifactType'].level == 2:
-                    sprint = Sprint.objects.filter(code=artifact['code']).get()
+                    sprint = Sprint.objects.filter(project=project, code=artifact['code']).get()
                     Artifact.objects.create(project=project, source=artifact['source'], line=artifact['line'],
                                             type=artifact['artifactType'], sprint=sprint)
                 elif artifact['artifactType'].level == 3:
-                    userstory = UserStory.objects.filter(code=artifact['code']).get()
+                    userstory = UserStory.objects.filter(project=project, code=artifact['code']).get()
                     Artifact.objects.create(project=project, source=artifact['source'], line=artifact['line'],
                                             type=artifact['artifactType'], userstory=userstory)
             except:
