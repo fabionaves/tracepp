@@ -46,11 +46,14 @@ class SprintService:
 
     @staticmethod
     def task_effort_per_sprint(sprint_id):
-        return SprintUserStory.objects.values('sprint_id').annotate(
-            estimated_time=Sum('userstory__artifact__estimated_time'),
-            realizated_time=Sum('userstory__artifact__spent_time'),
-            percentual=100 * (Sum('userstory__artifact__spent_time') - Sum('userstory__artifact__estimated_time')) / Sum('userstory__artifact__estimated_time')
-        ).filter(sprint=sprint_id)
+        try:
+            return SprintUserStory.objects.values('sprint_id').annotate(
+                estimated_time=Sum('userstory__artifact__estimated_time'),
+                realizated_time=Sum('userstory__artifact__spent_time'),
+                percentual=100 * (Sum('userstory__artifact__spent_time') - Sum('userstory__artifact__estimated_time')) / Sum('userstory__artifact__estimated_time')
+            ).filter(sprint=sprint_id)
+        except:
+            return False
 
     @staticmethod
     def task_effort(project_id):
