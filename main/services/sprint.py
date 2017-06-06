@@ -57,31 +57,40 @@ class SprintService:
 
     @staticmethod
     def task_effort(project_id):
-        return SprintUserStory.objects.values('sprint_id','sprint__title').annotate(
-            estimated_time=Sum('userstory__artifact__estimated_time'),
-            realizated_time=Sum('userstory__artifact__spent_time'),
-            percentual=100 * (Sum('userstory__artifact__spent_time') - Sum('userstory__artifact__estimated_time')) / Sum('userstory__artifact__estimated_time')
-        ).filter(userstory__artifact__project=project_id)
+        try:
+            return SprintUserStory.objects.values('sprint_id','sprint__title').annotate(
+                estimated_time=Sum('userstory__artifact__estimated_time'),
+                realizated_time=Sum('userstory__artifact__spent_time'),
+                percentual=100 * (Sum('userstory__artifact__spent_time') - Sum('userstory__artifact__estimated_time')) / Sum('userstory__artifact__estimated_time')
+            ).filter(userstory__artifact__project=project_id)
+        except:
+            return False
 
 
     @staticmethod
     def storypoint_per_sprint(sprint_id):
-        return SprintUserStory.objects.values('sprint_id').annotate(
-            estimated = Sum('userstory__artifact__estimated_storypoints'),
-            realized = Sum('userstory__artifact__realized_storypoints'),
-            percentual=100 * (
-                                Sum('userstory__artifact__realized_storypoints') - Sum('userstory__artifact__estimated_storypoints')) / Sum(
-                                    'userstory__artifact__estimated_storypoints')
-                            ).filter(sprint=sprint_id)
+        try:
+            return SprintUserStory.objects.values('sprint_id').annotate(
+                estimated = Sum('userstory__artifact__estimated_storypoints'),
+                realized = Sum('userstory__artifact__realized_storypoints'),
+                percentual=100 * (
+                                    Sum('userstory__artifact__realized_storypoints') - Sum('userstory__artifact__estimated_storypoints')) / Sum(
+                                        'userstory__artifact__estimated_storypoints')
+                                ).filter(sprint=sprint_id)
+        except:
+            return False
 
     @staticmethod
     def storypoint(project_id):
-        return SprintUserStory.objects.values('sprint_id','sprint__title').annotate(
-            estimated=Sum('userstory__artifact__estimated_storypoints'),
-            realized=Sum('userstory__artifact__realized_storypoints'),
-            percentual=100 * (
-                Sum('userstory__artifact__realized_storypoints') - Sum(
-                    'userstory__artifact__estimated_storypoints')) / Sum(
-                'userstory__artifact__estimated_storypoints')
-        ).filter(userstory__artifact__project=project_id)
+        try:
+            return SprintUserStory.objects.values('sprint_id','sprint__title').annotate(
+                estimated=Sum('userstory__artifact__estimated_storypoints'),
+                realized=Sum('userstory__artifact__realized_storypoints'),
+                percentual=100 * (
+                    Sum('userstory__artifact__realized_storypoints') - Sum(
+                        'userstory__artifact__estimated_storypoints')) / Sum(
+                    'userstory__artifact__estimated_storypoints')
+            ).filter(userstory__artifact__project=project_id)
+        except:
+            return False
 
