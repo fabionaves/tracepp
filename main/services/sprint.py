@@ -1,3 +1,5 @@
+from django.db.models import Case, Value, When
+
 from main.models import Sprint, SprintUserStory, Requeriment, Artifact
 from django.shortcuts import  get_object_or_404
 from django.db.models import Count, Sum
@@ -46,51 +48,31 @@ class SprintService:
 
     @staticmethod
     def task_effort_per_sprint(sprint_id):
-        try:
-            return SprintUserStory.objects.values('sprint_id').annotate(
-                estimated_time=Sum('userstory__artifact__estimated_time'),
-                realizated_time=Sum('userstory__artifact__spent_time'),
-                percentual=100 * (Sum('userstory__artifact__spent_time') - Sum('userstory__artifact__estimated_time')) / Sum('userstory__artifact__estimated_time')
-            ).filter(sprint=sprint_id)
-        except:
-            return False
+        return SprintUserStory.objects.values('sprint_id').annotate(
+                    estimated_time=Sum('userstory__artifact__estimated_time'),
+                    realizated_time=Sum('userstory__artifact__spent_time'),
+                ).filter(sprint=sprint_id)
 
     @staticmethod
     def task_effort(project_id):
-        try:
-            return SprintUserStory.objects.values('sprint_id','sprint__title').annotate(
+        return SprintUserStory.objects.values('sprint_id','sprint__title').annotate(
                 estimated_time=Sum('userstory__artifact__estimated_time'),
                 realizated_time=Sum('userstory__artifact__spent_time'),
-                percentual=100 * (Sum('userstory__artifact__spent_time') - Sum('userstory__artifact__estimated_time')) / Sum('userstory__artifact__estimated_time')
             ).filter(userstory__artifact__project=project_id)
-        except:
-            return False
 
 
     @staticmethod
     def storypoint_per_sprint(sprint_id):
-        try:
-            return SprintUserStory.objects.values('sprint_id').annotate(
-                estimated = Sum('userstory__artifact__estimated_storypoints'),
-                realized = Sum('userstory__artifact__realized_storypoints'),
-                percentual=100 * (
-                                    Sum('userstory__artifact__realized_storypoints') - Sum('userstory__artifact__estimated_storypoints')) / Sum(
-                                        'userstory__artifact__estimated_storypoints')
-                                ).filter(sprint=sprint_id)
-        except:
-            return False
+        return SprintUserStory.objects.values('sprint_id').annotate(
+                    estimated = Sum('userstory__artifact__estimated_storypoints'),
+                    realized = Sum('userstory__artifact__realized_storypoints'),
+                ).filter(sprint=sprint_id)
 
     @staticmethod
     def storypoint(project_id):
-        try:
-            return SprintUserStory.objects.values('sprint_id','sprint__title').annotate(
+        return SprintUserStory.objects.values('sprint_id','sprint__title').annotate(
                 estimated=Sum('userstory__artifact__estimated_storypoints'),
                 realized=Sum('userstory__artifact__realized_storypoints'),
-                percentual=100 * (
-                    Sum('userstory__artifact__realized_storypoints') - Sum(
-                        'userstory__artifact__estimated_storypoints')) / Sum(
-                    'userstory__artifact__estimated_storypoints')
             ).filter(userstory__artifact__project=project_id)
-        except:
-            return False
+
 

@@ -9,10 +9,10 @@
         $(document).ready(function () {
             var ctx = document.getElementById('graph_taks_force_per_userstory_json').getContext('2d');
                {%  for task in task_force_per_userstory %}
-                        task_percentual = {% if  task.percentual %}{{ task.percentual }}{% else %}{{ task.percentual }}{% endif %}
+                        task_percentual = {% if  task.estimated_time %}100*({{ task.realizated_time }}-{{ task.estimated_time }})/{{ task.estimated_time }} {% else %}0{% endif %}
                {% endfor %}
                {%  for sp in storypoint_per_sprint %}
-                        sp_percentual = {% if  sp.percentual %} {{ sp.percentual }}{% else %}0{% endif %}
+                        sp_percentual = {% if  task.estimated %}100*({{ task.realizated }}-{{ task.estimated }})/{{ task.estimated }} {% else %}0{% endif %}
                {% endfor %}
 
             if(task_percentual > sp_percentual){
