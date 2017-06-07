@@ -13,15 +13,7 @@
         margin-bottom: 20px;
     }
 </style>
-<script type="text/javascript">
-    django.jQuery(function () {
-        django.jQuery(".inline.{{ SprintUserStoryInline.prefix }}").formset({
-            prefix: "{{ SprintUserStoryInline.prefix }}",
-            deleteText: "<i class='fa fa-minus-circle'></i>",
-            addText: "<i class='fa fa-plus-circle'>Add</i>"
-        })
-    })
-</script>
+
 
 
 <fieldset>
@@ -32,9 +24,20 @@
             {{ form.id }}
             Sprint: {{ form.sprint }}
             Status: {{ form.status }}
+            {% if form.instance.pk %} Apagar? {{ form.DELETE }}{% endif %}
         </div>
     {% endfor %}
 </fieldset>
+
+<script type="text/javascript">
+    django.jQuery(function () {
+        django.jQuery(".inline.{{ SprintUserStoryInline.prefix }}").formset({
+            prefix: "{{ SprintUserStoryInline.prefix }}",
+            deleteText: "",
+            addText: "<i class='fa fa-plus-circle'>Add</i>"
+        })
+    })
+</script>
 
 
 

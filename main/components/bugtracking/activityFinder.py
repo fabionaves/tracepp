@@ -69,6 +69,10 @@ class activityFinder:
                     if issue.tracker:
                             isUserStory = True
 
+                    try:
+                        version = issue.fixed_version
+                    except:
+                        version = None
 
                     self.artifactList.append(
                             {'reference': issue.id,
@@ -79,6 +83,7 @@ class activityFinder:
                              'realized_storypoints': sp_realized,
                              'estimated_businnesvalue': bv_planned,
                              'realized_businnesvalue': bv_realized,
-                             'code': str(issue)[str(issue).find(trace_code):][len(artifactType.trace_code):]
+                             'code': str(issue)[str(issue).find(trace_code):][len(artifactType.trace_code):],
+                             'version': version,
                              }
                         )

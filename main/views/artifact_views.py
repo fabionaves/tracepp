@@ -162,9 +162,12 @@ class ArtifactTraceBugTrackingView(TemplateViewProjectFilter):
 
         project = ProjectService.get_project(self.request.session.get('project_id', None))
 
-        context['artifactImportLogs'] = ArtifactService.get_bugtrack_activities(project)
+
         if project.versionAsSprint:
             context['sprintImportLogs'] = ArtifactService.get_sprints_from_bugtracking(project)
+            context['artifactImportLogs'] = ArtifactService.get_bugtrack_activities(project, True)
+        else:
+            context['artifactImportLogs'] = ArtifactService.get_bugtrack_activities(project)
 
         if project.issueTypesAsUserStory:
             context['userStoryImportLogs'] = ArtifactService.get_userstories_from_bugtracking(project)

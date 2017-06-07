@@ -62,7 +62,8 @@ class UserStoryForm(forms.ModelForm):
 SprintUserStoryInlineFormSet = inlineformset_factory(UserStory,
                                                      SprintUserStory,
                                                      form=SprintUserStoryForm,
-                                                     extra=2,
+                                                     extra=0,
+                                                     can_delete=True,
                                                      )
 
 

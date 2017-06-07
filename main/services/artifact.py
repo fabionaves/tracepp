@@ -38,7 +38,7 @@ class ArtifactService:
                 )
 
     @staticmethod
-    def get_bugtrack_activities(project):
+    def get_bugtrack_activities(project, get_sprintuserstory=False):
         bugtracking = BugTrackingFactory.getConnection(project=project)
         artifactsTypes = ArtifactType.objects.filter(project=project, type=2, )
 
@@ -98,6 +98,12 @@ class ArtifactService:
                         filterArtifact.userstory = userstory
                         filterArtifact.save()
                         log.append(_('Updated Artifact:')+artifact['code']+' '+_('Reference: ')+str(artifact['reference']))
+                        if not SprintUserStory.objects.filter(sprint__project=project, userstory=userstory, sprint__reference=artifact['version'].id).count():
+                            SprintUserStory.objects.create(
+                                sprint=Sprint.objects.get(project=project, reference=artifact['version'].id),
+                                userstory=userstory,
+                            )
+                            log.append(_('Userstory added to Sprint'))
                 else:
                     # create a new artifact
                     if artifact['artifactType'].level == 0:
@@ -128,12 +134,22 @@ class ArtifactService:
                                                 realized_businnesvalue=artifact['realized_businnesvalue'],
                                                 type=artifact['artifactType'],
                                                 userstory=userstory)
+                    if get_sprintuserstory:
+                        if not SprintUserStory.objects.filter(sprint__project=project, userstory=userstory, sprint__reference=artifact['version'].id).count():
+                            SprintUserStory.objects.create(
+                                sprint=Sprint.objects.get(project=project, reference=artifact['version'].id),
+                                userstory=userstory,
+                            )
+                            log.append(_('Userstory added to Sprint'))
+
+
                     log.append(_('Created Artifact: ')+artifact['code']+' '+_('Reference: ')+str(artifact['reference']))
             except:
                 log.append("====>ERRO: "+ str(artifact['reference'])+' '+artifact['code'])
         Artifact.objects.exclude(reference__in=references).filter(project=project,
             type__type=2).delete()  # delete the artifacts not detected in bugtracking
         return log
+
 
     @staticmethod
     def get_sprints_from_bugtracking(project):
@@ -273,8 +289,65 @@ class ArtifactService:
                         log.append(_('Userstory added to Sprint'))
         return log
 
+    @staticmethod
+    def sprint_to_userstory(project):
+        bugtracking = BugTrackingFactory.getConnection(project=project)
+        userStories = UserStory.objects.filter(project=project)
+        log = []
+        for us in userStories:
+            spuss = None
+            try:
+                issue = bugtracking.getIssue(us.reference)
+            except:
+                issue = None
 
+            try:
+                version = issue.fixed_version
+            except:
+                version = None
 
+            try:
+                issuestatus = issue.status.id
+            except:
+                issuestatus = None
+
+            if issuestatus is not None and issuestatus == project.issueStatusClosed:
+                issuestatus = 1
+            else:
+                issuestatus = 0
+
+            if issue is not None:
+                spuss = SprintUserStory.objects.filter(userstory=us)
+
+                if spuss.count() > 0:
+                    isNew = False
+                    for spus in spuss:
+                        if spus.sprint.reference != version.id:
+                            isNew = True
+                        else:
+                            isNew = False
+                    if isNew:
+                        SprintUserStory.objects.create(
+                            sprint=Sprint.objects.get(project=project, reference=version),
+                            userstory=us,
+                            status=issuestatus,
+                        )
+                        log.append(_('Userstory added to Sprint'))
+                    else:
+                        sprintUs = SprintUserStory.objects.get(sprint__project=project, sprint__reference=version,
+                                                               userstory=us)
+                        sprintUs.status = issuestatus
+                        sprintUs.save()
+                        log.append(_('Userstory updated to Sprint'))
+                else:
+                    if version is not None:
+                        SprintUserStory.objects.create(
+                            sprint=Sprint.objects.get(project=project, reference=version),
+                            userstory=us,
+                            status=issuestatus,
+                        )
+                        log.append(_('Userstory added to Sprint'))
+        return log
 
     @staticmethod
     def _add_artifact(project, issue):
