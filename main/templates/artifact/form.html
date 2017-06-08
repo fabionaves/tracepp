@@ -167,7 +167,7 @@
                                          {%  trans 'Estimated BV' %}: {{ row.estimated_businnesvalue }} -
                                         {%  trans 'Spent BV' %}: {{ row.realized_businnesvalue }}
                                         <br/>
-                                        <a  <a href="{{ row.id }}/activity/">View Activity</a>
+                                        <a href="{{ row.id }}/activity/">View Activity</a>  - <a href="{{ project.tracking_tool_url }}issues/{{ row.reference }}" target="_blank">Redmine</a>
                                     {% else %}
                                         <a href="{{ row.id }}/codeview/">{{ row.source }}</a>
                                     {% endif %}
