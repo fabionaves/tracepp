@@ -62,9 +62,17 @@ class UserStoryForm(forms.ModelForm):
 SprintUserStoryInlineFormSet = inlineformset_factory(UserStory,
                                                      SprintUserStory,
                                                      form=SprintUserStoryForm,
-                                                     extra=0,
+                                                     extra=1,
                                                      can_delete=True,
                                                      )
+
+class SprintUserStoryInlineFormSetFiltrado(SprintUserStoryInlineFormSet):
+    def __init__(self, project, *args, **kwargs):
+        super(SprintUserStoryInlineFormSet, self).__init__(*args, **kwargs)
+        for form in self.forms:
+              form.fields['sprint'].queryset = form.fields['sprint'].queryset.filter(
+              project=project
+         )
 
 
 class ArtifactTypeForm(forms.ModelForm):

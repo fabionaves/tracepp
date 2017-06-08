@@ -10,7 +10,7 @@ from django.views.generic import ListView
 from main.components.breadcrumbs import userstories_breadcrumbs
 from main.components.lists import ModelListProjectFilter, TemplateViewProjectFilter
 from main.decorators import require_project
-from main.forms import UserStoryForm, SprintUserStoryInlineFormSet
+from main.forms import UserStoryForm, SprintUserStoryInlineFormSet, SprintUserStoryInlineFormSetFiltrado
 from main.components.formviews import AddFormView, UpdateFormView
 from main.services.project import ProjectService
 from main.services.requeriment import RequerimentService
@@ -179,7 +179,7 @@ class UserStoryAddFormView(AddFormView):
 
     def get_context_data(self, **kwargs):
         context = super(UserStoryAddFormView, self).get_context_data()
-        context['SprintUserStoryInline']=SprintUserStoryInlineFormSet()
+        context['SprintUserStoryInline']=SprintUserStoryInlineFormSetFiltrado(project=self.request.session['project_id'])
         context['breadcrumbs'] = userstories_breadcrumbs(
             self.request.session.get('project_id'),
             self.kwargs.get('requeriment_id'),
@@ -250,7 +250,7 @@ class UserStoryUpdateFormView(UpdateFormView):
     def get_context_data(self, **kwargs):
         context = super(UserStoryUpdateFormView, self).get_context_data()
         sprint_userstory = UserStoryService.get_sprints_from_userstory(self.object)
-        context['SprintUserStoryInline']=SprintUserStoryInlineFormSet(instance=self.object)
+        context['SprintUserStoryInline']=SprintUserStoryInlineFormSetFiltrado(project=self.request.session.get('project_id'), instance=self.object)
         context['breadcrumbs'] = userstories_breadcrumbs(
             self.request.session.get('project_id'),
             self.kwargs.get('requeriment_id'),
