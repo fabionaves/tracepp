@@ -1,4 +1,5 @@
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.urls import reverse_lazy
@@ -8,10 +9,15 @@ from django.views.generic import DeleteView
 from django.views.generic import ListView
 
 from main.components.breadcrumbs import userstories_breadcrumbs
+from main.components.bugtracking.factory import BugTrackingFactory
 from main.components.lists import ModelListProjectFilter, TemplateViewProjectFilter
 from main.decorators import require_project
 from main.forms import UserStoryForm, SprintUserStoryInlineFormSet, SprintUserStoryInlineFormSetFiltrado
 from main.components.formviews import AddFormView, UpdateFormView
+from main.models import Artifact
+from main.models import ArtifactType
+from main.models import UserStory
+from main.services.artifact import ArtifactService
 from main.services.project import ProjectService
 from main.services.requeriment import RequerimentService
 from main.services.sprint import SprintService
@@ -174,8 +180,15 @@ class UserStoryAddFormView(AddFormView):
         form.instance.project = project
         self.object = form.save()
         sprint_userstory_form.instance = self.object
-        sprint_userstory_form.save()
+        spus = sprint_userstory_form.save()
+
+        #save new redmine issue related to userstory and artifact related
+        if project.issueOnInsertUserStory:
+            ArtifactService.add_redmine_activity(project,spus, self.request, self.object)
+
+
         return HttpResponseRedirect(self.get_success_url())
+
 
     def get_context_data(self, **kwargs):
         context = super(UserStoryAddFormView, self).get_context_data()

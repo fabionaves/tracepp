@@ -52,6 +52,7 @@ class Project(models.Model, MyModel):
     versionAsSprint = models.BooleanField(_('Import Redmine Versions as Sprints?'), default=False)
     issueTypesAsUserStory = models.IntegerField(_('What redmine type of issue is a user story?(Insert redmine issue type ID)'),blank=True, null=True)
     issueStatusClosed =  models.IntegerField(_('What redmine Issue Status is a complete User Story?(Insert redmine issue status ID)'),blank=True, null=True)
+    issueOnInsertUserStory = models.IntegerField(_('Insert redmine issue on save new User Story?(Inform redmine issue type ID)'),blank=True, null=True)
 
     def __str__(self):
         return self.name

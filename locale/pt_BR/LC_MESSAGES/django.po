@@ -97,6 +97,10 @@ msgstr "Depende de"
 msgid "Name"
 msgstr "Nome"
 
+#: .\main\models\artifacttype.py:8 .\main\models\project.py:55
+msgid "Insert redmine issue on save new User Story?(Inform redmine issue type ID)"
+msgstr "Inserir uma tarefa no redmine quando salvar uma nova Estória de Usuário?(Informe o ID do tipo de tarefa)"
+
 #: .\main\models\artifact.py:32 .\main\templates\artifacttype\delete.html:9
 #: .\main\views\artifacttype_views.py:23 .\main\views\artifacttype_views.py:26
 #: .\main\views\artifacttype_views.py:34 .\main\views\artifacttype_views.py:40
@@ -134,7 +138,7 @@ msgstr "Valor de Negócio Gasto"
 msgid "File"
 msgstr "Arquivo"
 
-#: .\main\models\artifacttype.py:10 .\main\models\project.py:61
+#: .\main\models\artifacttype.py:10 .\main\models\project.py:62
 #: .\main\models\requeriment.py:21 .\main\models\sprint.py:23
 #: .\main\models\userstory.py:21 .\main\templates\project\delete.html:8
 #: .\main\views\project_views.py:49 .\main\views\project_views.py:77
@@ -255,7 +259,7 @@ msgid ""
 "What redmine Issue Status is a complete User Story?(Insert redmine issue status ID)"
 msgstr "Qual é a situação da tarefa do redmine é uma história de usuário completa? (Insira o ID da situação da tarefa do redmine)"
 
-#: .\main\models\project.py:62
+#: .\main\models\project.py:63
 msgid "Projects"
 msgstr "Projetos"
 

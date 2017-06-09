@@ -21,7 +21,7 @@ class ProjectForm(forms.ModelForm):
                   'tracking_tool_url',
                   'tracking_sp_planned_variable', 'tracking_sp_realized_variable',
                   'tracking_bv_planned_variable', 'tracking_bv_realized_variable',
-                  'tracking_tool_user', 'tracking_tool_password', 'tracking_tool_project_id','versionAsSprint','issueTypesAsUserStory','issueStatusClosed',
+                  'tracking_tool_user', 'tracking_tool_password', 'tracking_tool_project_id','versionAsSprint','issueTypesAsUserStory','issueStatusClosed','issueOnInsertUserStory',
                   'user']
 
 

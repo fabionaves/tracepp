@@ -1,5 +1,7 @@
+from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy
 from django.utils.translation import ugettext as _
 from main.components.bugtracking.activityFinder import activityFinder
 from main.components.bugtracking.factory import BugTrackingFactory
@@ -150,6 +152,37 @@ class ArtifactService:
             type__type=2).delete()  # delete the artifacts not detected in bugtracking
         return log
 
+    @staticmethod
+    def add_redmine_activity(project,sprintusertoryForm, request, object):
+        bugtracking = BugTrackingFactory.getConnection(project=project)
+        try:
+            version = sprintusertoryForm[0].sprint.reference
+        except:
+            version = 1
+        artType = ArtifactType.objects.filter(
+            level=3
+        ).first()
+        if request.is_secure():
+            url = 'https://' + get_current_site(request).domain + str(
+                reverse_lazy('main:userstory-detail', kwargs={'pk': object.pk}))
+        else:
+            url = 'http://' + get_current_site(request).domain + str(
+                reverse_lazy('main:userstory-detail', kwargs={'pk': object.pk}))
+
+        issue = bugtracking.addIssueFromUserStory(
+            project_id=project.id,
+            subject=object.title + ' ' + artType.trace_code + object.code,
+            tracker_id=project.issueOnInsertUserStory,
+            description=object.description + ' ' + url,
+            fixed_version_id=version,
+        )
+
+
+        userstory = UserStory.objects.filter(project=project, code=object.code).get()
+        Artifact.objects.create(project=project,
+                                reference=issue.id,
+                                type=artType,
+                                userstory=userstory)
 
     @staticmethod
     def get_sprints_from_bugtracking(project):
