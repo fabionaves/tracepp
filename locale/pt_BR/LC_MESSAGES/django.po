@@ -114,8 +114,8 @@ msgid "Spent Time"
 msgstr "Tempo Gasto"
 
 #: .\main\models\artifact.py:57
-msgid "Estimated Story Points"
-msgstr "Pontos de Estória de Usuário Estimados"
+msgid "Estimated Points"
+msgstr "Pontos Estimados"
 
 #: .\main\models\artifact.py:58
 msgid "Realized Time"
@@ -210,12 +210,12 @@ msgid "Bug Tracking Tool Type"
 msgstr "Tipo de Ferramenta de Gerenciamento"
 
 #: .\main\models\project.py:32
-msgid "Story Points Planned Custom Field Name"
-msgstr "Nome do campo personalizado dos pontos de estória de usuário planejados"
+msgid "Points Planned Custom Field Name"
+msgstr "Nome do campo personalizado dos pontos planejados"
 
 #: .\main\models\project.py:36
-msgid "Story Points Realized Custom Field Name"
-msgstr "Nome do campo personalizado dos pontos de estória de usuário gastos"
+msgid "Points Realized Custom Field Name"
+msgstr "Nome do campo personalizado dos pontos gastos"
 
 #: .\main\models\project.py:40
 msgid "Businnes Value Planned Custom Field Name"
@@ -248,13 +248,12 @@ msgstr "Importar versões do Redmine como Sprints?"
 #: .\main\models\project.py:53
 msgid ""
 "What redmine type of issue is a user story?(Insert redmine issue type ID)"
-msgstr "O tipo de problema do redmine é uma história do usuário (Insira o ID do tipo de problema do redmine)"
+msgstr "O tipo de tarefa do redmine é uma história do usuário (Insira o ID do tipo de problema do redmine)"
 
 #: .\main\models\project.py:54
 msgid ""
-"What redmine Issue Status is a complete User Story?(Insert redmine issue "
-"status ID)"
-msgstr "Qual é o status do problema do redmine é uma história de usuário completa? (Insira o ID do status de problema do redmine)"
+"What redmine Issue Status is a complete User Story?(Insert redmine issue status ID)"
+msgstr "Qual é a situação da tarefa do redmine é uma história de usuário completa? (Insira o ID da situação da tarefa do redmine)"
 
 #: .\main\models\project.py:62
 msgid "Projects"
@@ -487,12 +486,12 @@ msgid "Action"
 msgstr "Ação"
 
 #: .\main\templates\artifact\form.html:165
-msgid "Estimated SP"
-msgstr "SP Estimado"
+msgid "Estimated Points"
+msgstr "Pontos Estimados"
 
 #: .\main\templates\artifact\form.html:166
-msgid "Spent SP"
-msgstr "SP Gasto"
+msgid "Spent Points"
+msgstr "Pontos Gastos"
 
 #: .\main\templates\artifact\form.html:167
 msgid "Estimated BV"
@@ -709,13 +708,13 @@ msgstr "%% Variação de Esforço"
 
 #: .\main\templates\sprint\detail.html:26
 #, python-format
-msgid "%% SP Variation"
-msgstr "%% Variação de SP"
+msgid "%% Points Variation"
+msgstr "%% Variação de Pontos"
 
 #: .\main\templates\sprint\detail.html:166
 #, python-format
-msgid "Story Points x Tasks Effort (%% of variation)"
-msgstr "Pontos de Estória de Usuário x  Esforço (%% de variação)"
+msgid "Points x Tasks Effort (%% of variation)"
+msgstr "Pontos x  Esforço (%% de variação)"
 
 #: .\main\templates\sprint\detail.html:178
 #: .\main\templates\userstory\detail.html:238
@@ -773,20 +772,20 @@ msgid "Tasks Effort (Hours)"
 msgstr "Variação de Esforço (Horas)"
 
 #: .\main\templates\userstory\detail.html:271
-msgid "Story Points"
-msgstr "Pontos de Estória de Usuário"
+msgid "Points"
+msgstr "Pontos"
 
 #: .\main\templates\userstory\detail.html:281
 msgid "Bussiness Value"
 msgstr "Valor de Negócio"
 
 #: .\main\templates\userstory\history.html:19
-msgid "Story Points (Planned)"
-msgstr "Pontos de Estória de Usuário (Planejados)"
+msgid "Points (Planned)"
+msgstr "Pontos (Planejados)"
 
 #: .\main\templates\userstory\history.html:20
-msgid "Story Points (Realized)"
-msgstr "Pontos de Estória de Usuário  (Gastos)"
+msgid "Points (Realized)"
+msgstr "Pontos (Gastos)"
 
 #: .\main\templates\userstory\history.html:21
 msgid "Businnes Value (Planned)"

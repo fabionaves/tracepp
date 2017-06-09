@@ -23,7 +23,7 @@
             var graph_taks_force_per_userstory_json = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['{% trans '% Task Effort Variation' %}','{% trans '% SP Variation' %}'],
+                    labels: ['{% trans '% Task Effort Variation' %}','{% trans '% Points Variation' %}'],
                     datasets: [{
                         data: [task_percentual, sp_percentual],
                         backgroundColor: [
@@ -163,7 +163,7 @@
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    {{ sprint.title }}: {%  trans 'Story Points x Tasks Effort (% of variation)' %}
+                    {{ sprint.title }}: {%  trans 'Points x Tasks Effort (% of variation)' %}
                 </div>
                 <div class="panel-body">
                     <canvas id="graph_taks_force_per_userstory_json" width="80" height="25"

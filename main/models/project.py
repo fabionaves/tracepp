@@ -29,11 +29,11 @@ class Project(models.Model, MyModel):
     )
     tracking_tool_type = models.CharField(_('Bug Tracking Tool Type'), choices=TRACKING_TOOL_TYPE, blank=True,
                                           null=True, max_length=50)
-    tracking_sp_planned_variable = models.CharField(_('Story Points Planned Custom Field Name'),
+    tracking_sp_planned_variable = models.CharField(_('Points Planned Custom Field Name'),
                                                     blank=True,
                                                     null=True,
                                                     max_length=50)
-    tracking_sp_realized_variable = models.CharField(_('Story Points Realized Custom Field Name'),
+    tracking_sp_realized_variable = models.CharField(_('Points Realized Custom Field Name'),
                                                     blank=True,
                                                     null=True,
                                                     max_length=50)

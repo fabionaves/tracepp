@@ -54,7 +54,7 @@ class Artifact(models.Model):
     )
     estimated_time = models.IntegerField(_('Estimated Time'), null=True, blank=True)
     spent_time = models.IntegerField(_('Spent Time'), null=True, blank=True)
-    estimated_storypoints = models.IntegerField(_('Estimated Story Points'), null=True, blank=True)
+    estimated_storypoints = models.IntegerField(_('Estimated Points'), null=True, blank=True)
     realized_storypoints = models.IntegerField(_('Realized Time'), null=True, blank=True)
     estimated_businnesvalue = models.IntegerField(_('Estimated Businnes Value'), null=True, blank=True)
     realized_businnesvalue = models.IntegerField(_('Realized Businnes Value'), null=True, blank=True)
