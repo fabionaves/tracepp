@@ -1,0 +1,111 @@
+<!--
+#template:US009
+-->
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load myutils %}
+{% block head %}
+    <script src="{% static 'js/dropzone.js' %}"></script>
+    <link href="{% static 'css/dropzone.css' %}" type="text/css" rel="stylesheet">
+    <style>
+        .dropzone {
+
+            background-color: #efefef;
+            border: 0px;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <h1 class="page-header">{{ page_title }}</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">{% trans 'Documents Artifacts' %}</div>
+                <div class="panel-body">
+                <form action="#"
+                      class="dropzone"
+                      method="post"
+                      action="#"
+                      id="artifact" enctype="multipart/form-data">
+                    {% csrf_token %}
+                </form>
+                <div class="row" align="center" style="padding: 10px;">
+                     <button id="submit-all" class="btn btn-primary start"><i class="glyphicon glyphicon-upload"></i> Submit all files</button>
+                </div>
+                </div>
+             </div>
+        </div>
+
+
+    </div>
+
+<!-- HTML heavily inspired by http://blueimp.github.io/jQuery-File-Upload/ -->
+<div  class="files" id="previews">
+
+  <div id="template">
+      <div class="dz-preview dz-file-preview col-md-3" style="background-color: #dedede; padding: 10px">
+    <div class="dz-image"><img data-dz-thumbnail /></div>
+    <div class="dz-details">
+        <div class="dz-size"><span data-dz-size></span></div>
+        <div class="dz-filename"><span data-dz-name></span></div>
+    </div>
+    <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+    <div class="dz-error-message"><span data-dz-errormessage></span></div>
+
+      {% trans 'Type' %}: <select id="type" >
+          {% for row in artifacttype %}
+              <option value="{{ row.id }}">{{ row.name }}</option>
+           {% endfor %}
+      </select>
+
+</div>
+  </div>
+
+</div>
+
+    <script>
+
+        var previewNode = document.querySelector("#template");
+        previewNode.id = "";
+        var previewTemplate = previewNode.parentNode.innerHTML;
+        previewNode.parentNode.removeChild(previewNode);
+
+        var myDropzone = new Dropzone("#artifact",{
+            autoProcessQueue: false,
+            //previewTemplate:  previewTemplate,
+            parallelUploads: 10,
+
+            init: function(){
+                this.on('sending', function(file, xhr, formData) {
+                     formData.append('type',file._captionBox.value);
+                })
+
+                this.on('addedfile', function(file) {
+                    file._captionLabel = Dropzone.createElement("{% trans 'Type' %}")
+                    file._captionBox = Dropzone.createElement("<select id='type"+file.name+"' >{% for row in artifacttype %}+<option value='{{ row.id }}'>{{ row.name }}</option>{% endfor %}</select>")
+
+                    file.previewElement.appendChild(file._captionLabel);
+                    file.previewElement.appendChild(file._captionBox);
+
+                });
+
+                this.on("success", function(files, response) {
+                    window.alert('Document Saved')
+                    location.reload();
+                });
+            }
+
+        });
+
+
+
+        $('#submit-all').click(function(){
+            myDropzone.processQueue();
+        });
+
+    </script>
+
+
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load myutils %}
+{% block content %}
+     <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div>{% trans 'Artifacts' %}</div>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-9">
+                        <a href="add-document/" class="btn btn-primary " "=""><i class="fa fa-plus"></i> Add Document</a>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <input type="text" placeholder="Filter"  name="filter" id="filter" onkeyup="myFind('filter','myList')"  class="form-control" rel="tooltip" />
+                            <i class="form-control-feedback  glyphicon glyphicon-search"></i>
+                        </div>
+                    </div>
+                    <table class="table table-hover" id="myList">
+                        <thead>
+                        <tr>
+                            <th>{% trans 'Level' %}</th>
+                            <th>{% trans 'Type' %}</th>
+                            <th>{% trans 'File' %}</th>
+                            <th>{% trans 'Action' %}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for row in artifact %}
+                            <tr>
+                                <td>{{ row.type.get_level_display }}</td>
+                                <td>{{ row.type.name }}</td>
+                                <td>
+                                    {{ row.type.get_type_display }}:
+                                    {% if row.type.type == 0 %}
+                                        <a href="{% url 'main:artifact-download' row.id %}">{{ row.file }}</a>
+                                    {% elif  row.type.type == 2 %}
+                                        <br/>{%  trans 'Estimated Time' %}: {{ row.estimated_time }} -
+                                        {%  trans 'Spent Time' %}: {{ row.spent_time }} -
+                                         {%  trans 'Estimated Points' %}: {{ row.estimated_storypoints }} -
+                                        {%  trans 'Spent Points' %}: {{ row.realized_storypoints }} -
+                                         {%  trans 'Estimated BV' %}: {{ row.estimated_businnesvalue }} -
+                                        {%  trans 'Spent BV' %}: {{ row.realized_businnesvalue }}
+                                        <br/>
+                                        <a href="{{ row.id }}/activity/">View Activity</a>  - <a href="{{ project.tracking_tool_url }}issues/{{ row.reference }}" target="_blank">Redmine</a>
+                                    {% else %}
+                                        <a href="{{ row.id }}/codeview/">{{ row.source }}</a>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if row.type.type == 0 %}
+                                        <a href="{{ row.id }}/delete/" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i> Delete</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="4">{% trans 'No data' %}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

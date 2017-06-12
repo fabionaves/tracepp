@@ -103,8 +103,8 @@
                     <li class="dropdown ">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="true">Trace <i class="fa fa-caret-down"></i></a>
                         <ul class="dropdown-menu dropdown-adm">
-                            <li class="{% if request.resolver_match.url_name == "artifacttype" %}active{% endif %}"><a href="{% url 'main:artifact-bugtracking' %}">{% trans 'Trace Bug Tracking' %}</a></li>
-                            <li class="{% if request.resolver_match.url_name == "artifacttype" %}active{% endif %}"><a href="{% url 'main:artifact-tracecode' %}">{% trans 'Trace Source Code' %}</a></li>
+                            <li ><a href="{% url 'main:artifact-bugtracking-confirm' %}">{% trans 'Trace Bug Tracking' %}</a></li>
+                            <li ><a href="{% url 'main:artifact-code-confirm' %}">{% trans 'Trace Source Code' %}</a></li>
                         </ul>
                     </li>
 

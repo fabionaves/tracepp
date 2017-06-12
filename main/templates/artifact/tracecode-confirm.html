@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load myutils %}
+{% block content %}
+<div class="col-md-12">
+             <div class="panel panel-default">
+                <div class="panel-heading">{% trans 'Source Code Artifacts' %}</div>
+                <div class="panel-body">
+                        <p>{% trans 'Type:' %}<br/> Git</p>
+                        <p>{% trans 'Remote Repository:' %}<br/>{{ project.repository_url }}</p>
+                        <p>{% trans 'Local Repository:' %}<BR/>{{ local_repository }}</p>
+                        <p>{%  trans 'You can schedule this traceability with the following url:'%} {{ url }} </p>
+                      <a href="{% url 'main:artifact-tracecode' %}"  class="btn btn-warning start"><i class="fa fa-github-square"></i> {% trans 'Trace Source Code' %}</a>
+                </div>
+             </div>
+        </div>
+{% endblock %}

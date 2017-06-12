@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load myutils %}
+{% block content %}
+    <div class="col-md-12">
+             <div class="panel panel-default">
+                <div class="panel-heading">{% trans 'Bug Tracking Tool Artifacts' %}</div>
+                <div class="panel-body">
+                        <p>{% trans 'Type:' %}<br/> {{ project.get_tracking_tool_type_display }}</p>
+                        <p>{% trans 'URL:' %}<br/><a href="{{ project.tracking_tool_url }}">{{ project.tracking_tool_url }}</a></p>
+                        <p>{% trans 'Project ID:' %}<br/>{{ project.tracking_tool_project_id }}</p>
+                        <p>{%  trans 'You can schedule this traceability with the following url:'%} {{ url }} </p>
+                      <a href="{% url 'main:artifact-bugtracking' %}"  class="btn btn-warning start"><i class="fa fa-github-square"></i> {% trans 'Trace Bug Tracking' %}</a>
+                </div>
+             </div>
+        </div>
+{% endblock %}

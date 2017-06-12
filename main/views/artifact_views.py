@@ -1,4 +1,7 @@
+import os
+
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.sites.shortcuts import get_current_site
 from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -30,11 +33,64 @@ from main.services.userstory import UserStoryService
 from tracepp import settings
 
 
-class ArtifactView(SuccessMessageMixin, CreateView):
+
+class ArtifactView(TemplateViewProjectFilter):
+    template_name = 'artifact/list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ArtifactView, self).get_context_data(**kwargs)
+        project = ProjectService.get_project(self.request.session['project_id'])
+        context['project'] = project
+        context['local_repository'] = settings.REPOSITORY_DIR
+        if 'pk' in self.kwargs:  # userstory
+            userstory = UserStoryService.get_userstory(self.request.session['project_id'], self.kwargs['pk'])
+            context['artifacttype'] = ArtifactTypeService.get_artifactstype(self.request.session['project_id'], 3, 0)
+            context['artifact'] = UserStoryService.get_artifacts(self.request.session['project_id'], userstory)
+            context['page_title'] = _('UserStory Artifacts')
+            context['breadcrumbs'] = userstories_breadcrumbs(
+                self.request.session.get('project_id'),
+                self.kwargs.get('requeriment_id'),
+                self.kwargs.get('sprint_id'),
+                self.kwargs.get('pk'),
+                'Artifacts'
+            )
+        elif 'sprint_id' in self.kwargs:
+            sprint = SprintService.get_sprint(self.request.session['project_id'], self.kwargs['sprint_id'])
+            context['artifacttype'] = ArtifactTypeService.get_artifactstype(self.request.session['project_id'], 2, 0)
+            context['artifact'] = SprintService.get_artifacts(self.request.session['project_id'], sprint)
+            context['page_title'] = _('Sprint Artifacts')
+            context['breadcrumbs'] = (
+                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+                {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
+                {'link': reverse_lazy('main:sprint-details', kwargs={'sprint_id': sprint.id}), 'class': '',
+                 'name': sprint},
+                {'link': '#', 'class': '', 'name': _('Artifacts')},
+            )
+        elif 'requeriment_id' in self.kwargs:
+            requeriment = RequerimentService.get_requeriment(self.request.session['project_id'],
+                                                             self.kwargs['requeriment_id'])
+            context['artifacttype'] = ArtifactTypeService.get_artifactstype(self.request.session['project_id'], 1, 0)
+            context['artifact'] = RequerimentService.get_artifacts(self.request.session['project_id'], requeriment)
+            context['page_title'] = _('Requeriment Artifacts')
+            context['breadcrumbs'] = (
+                {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+                {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriment')},
+                {'link': reverse_lazy('main:requeriment-details', kwargs={'pk': requeriment.id}), 'class': '',
+                 'name': requeriment.code},
+                {'link': '#', 'class': '', 'name': _('Artifacts')},
+            )
+        else:
+            context['artifact'] = ProjectService.get_artifacts(self.request.session['project_id'])
+            context['artifacttype'] = ArtifactTypeService.get_artifactstype(self.request.session['project_id'], 0, 0)
+            context['page_title'] = _('Project Artifacts')
+        return context
+
+
+class ArtifactDocumentForm(SuccessMessageMixin, CreateView):
     """
     #class:US009
     """
-    template_name = 'artifact/form.html'
+    template_name = 'artifact/add-document.html'
     model = Artifact
     form_class = ArtifactForm
 
@@ -42,15 +98,21 @@ class ArtifactView(SuccessMessageMixin, CreateView):
         return reverse('main:artifact')
 
     def get_context_data(self, **kwargs):
-        context = super(ArtifactView, self).get_context_data(**kwargs)
+        context = super(ArtifactDocumentForm, self).get_context_data(**kwargs)
         project = ProjectService.get_project(self.request.session['project_id'])
         context['project']=project
         context['local_repository']=settings.REPOSITORY_DIR
+        if self.request.is_secure():
+            url = 'https://'+get_current_site(self.request).domain
+        else:
+            url = 'http://'+get_current_site(self.request).domain
+
         if 'pk' in self.kwargs: #userstory
             userstory = UserStoryService.get_userstory(self.request.session['project_id'], self.kwargs['pk'])
             context['artifacttype'] = ArtifactTypeService.get_artifactstype(self.request.session['project_id'], 3, 0)
             context['artifact'] = UserStoryService.get_artifacts(self.request.session['project_id'], userstory)
             context['page_title'] = _('UserStory Artifacts')
+            context['url'] = url+'/userstory/'+str(userstory.id)+'/detail/artifact/'
             context['breadcrumbs'] = userstories_breadcrumbs(
                 self.request.session.get('project_id'),
                 self.kwargs.get('requeriment_id'),
@@ -89,7 +151,7 @@ class ArtifactView(SuccessMessageMixin, CreateView):
 
     @method_decorator(require_project())
     def dispatch(self, request, *args, **kwargs):
-        return super(ArtifactView, self).dispatch(request, *args, **kwargs)
+        return super(ArtifactDocumentForm, self).dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         form_class = self.get_form_class()
@@ -111,7 +173,7 @@ class ArtifactView(SuccessMessageMixin, CreateView):
         elif 'requeriment_id' in self.kwargs:
             requeriment = RequerimentService.get_requeriment(self.request.session['project_id'], self.kwargs['requeriment_id'])
             form.instance.requeriment = requeriment
-        return super(ArtifactView, self).form_valid(form)
+        return super(ArtifactDocumentForm, self).form_valid(form)
 
 
 def ArtifactDownloadView(request, pk):
@@ -144,6 +206,45 @@ class ArtifactDeleteView(SuccessMessageMixin, DeleteView):
     def get_context_data(self, **kwargs):
         context = super(ArtifactDeleteView, self).get_context_data()
         return context
+
+
+class ArtifactTraceBugTrackingConfirm(TemplateViewProjectFilter):
+    """
+    #class:US012
+    """
+    template_name = 'artifact/tracebugtracking-confirm.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ArtifactTraceBugTrackingConfirm, self).get_context_data(**kwargs)
+        project = ProjectService.get_project(self.request.session.get('project_id', None))
+        if self.request.is_secure():
+            context['url']='https://'+get_current_site(self.request).domain+'/'+'artifact/'+str(project.id)+'/tracebugtracking/'
+        else:
+            context['url'] = 'http://' + get_current_site(
+                self.request).domain + '/' + 'artifact/' + str(project.id) + '/tracebugtracking/'
+
+        context['project'] = project
+        return context
+
+class ArtifactCodeConfirm(TemplateViewProjectFilter):
+    """
+    #class:US012
+    """
+    template_name = 'artifact/tracecode-confirm.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ArtifactCodeConfirm, self).get_context_data(**kwargs)
+        project = ProjectService.get_project(self.request.session.get('project_id', None))
+        context['local_repository'] = settings.REPOSITORY_DIR
+        if self.request.is_secure():
+            context['url']='https://'+get_current_site(self.request).domain+'/'+'artifact/'+str(project.id)+'/tracecode/'
+        else:
+            context['url'] = 'http://' + get_current_site(
+                self.request).domain + '/' + 'artifact/' + str(project.id) + '/tracecode/'
+
+        context['project'] = project
+        return context
+
 
 
 class ArtifactTraceBugTrackingView(TemplateViewProjectFilter):
