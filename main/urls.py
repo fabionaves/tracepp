@@ -10,7 +10,7 @@ artifact_urls = [
     url(r'^(?P<projeto>[0-9]+)/tracecode/',        artifact_views.ArtifactTraceCodeView.as_view(), name='artifact-tracecode'),
     url(r'^(?P<projeto>[0-9]+)/tracebugtracking/', artifact_views.ArtifactTraceBugTrackingView.as_view(), name='artifact-bugtracking'),
     url(r'^(?P<pk>[0-9]+)/download/',              login_required(artifact_views.ArtifactDownloadView), name='artifact-download'),
-
+    url(r'^list-activity/',                        login_required(artifact_views.ActivityListView.as_view()), name='artifact-list-activity'),
     url(r'^add-document/',                         login_required(artifact_views.ArtifactDocumentForm.as_view()), name='artifact-add-document'),
     url(r'^add-activity/',                         login_required(artifact_views.ActivityAddFormView.as_view()), name='artifact-add-document'),
     url(r'^(?P<artifact>[0-9]+)/codeview/',        login_required(artifact_views.ArtifactCodeView.as_view()), name='artifact-codeview'),

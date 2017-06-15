@@ -420,6 +420,17 @@ class ActivityUpdateFormView(UpdateFormView):
         return context
 
 
+class ActivityListView(TemplateViewProjectFilter):
+    template_name = 'artifact/activity-list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ActivityListView, self).get_context_data(**kwargs)
+        project = ProjectService.get_project(self.request.session['project_id'])
+        context['project'] = project
+        context['open_myactivities'] = ArtifactService.get_activities(self.request.session['project_id'], True, self.request.user.id, True)
+        context['open_otheractivities'] = ArtifactService.get_activities(self.request.session['project_id'], True, self.request.user.id, False)
+        return context
+
 def ArtifactDownloadView(request, pk):
     """
     #class:US009

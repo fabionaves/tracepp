@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load myutils %}
+
+{% block content %}
+     <h1 class="page-header">{% trans 'Activities' %}</h1>
+     <div class="row">
+        <ul class="nav nav-tabs">
+            <li  class="active"><a href="#my" data-toggle="tab" aria-expanded="true">{% trans 'My' %}</a></li>
+            <li><a href="#other" data-toggle="tab" aria-expanded="false">{% trans 'Other' %}</a></li>
+        </ul>
+
+         <div class="tab-content">
+              <div class="tab-pane active" id="my" ><br/>
+                <table class="table table-hover ">
+                    <thead>
+                    <tr>
+                        <th>{% trans 'Assigned to' %}</th>
+                        <th>{% trans 'Type' %}</th>
+                        <th>{% trans 'Title' %}</th>
+                        <th>{% trans 'Reference' %}</th>
+                        <th class="centro">{% trans 'Action' %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for myactivity in open_myactivities %}
+                        <tr>
+                            <td>{{ myactivity.user }}</td>
+                            <td>{{ myactivity.type.name }}</td>
+                            <td>{{ myactivity.title }}</td>
+                            <td>
+                                {% if myactivity.userstory.code %}
+                                    <a href="{% url 'main:userstory-detail' myactivity.userstory.pk %}">{{ myactivity.userstory.code }}</a>
+                                {% elif myactivity.requeriment.code %}
+                                    <a href="{% url 'main:requeriment-details' myactivity.requeriment.pk %}">{{ myactivity.requeriment.code }}</a>
+                                {% elif myactivity.sprint.code %}
+                                    <a href="{% url 'main:sprint-details' myactivity.sprint.pk %}">Sprint</a>
+                                {% else %}
+                                    <a href="{% url 'main:home' %}">Project</a>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if project.tracking_tool_type == 'Redmine' %}
+                                    <a href="{{ project.tracking_tool_url }}issues/{{ row.reference }}" target="_blank" class="btn btn-success btn-circle">
+                                        <i class="fa fa-play-circle"></i>
+                                    </a>
+                                    <a href="{{ myactivity.id }}/delete/" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i> </a>
+                                 {% else %}
+                                    {% if myactivity.type.level == 0 %}
+                                            <a href="/artifact/{{ myactivity.id }}/update-activity/" class="btn btn-success btn-circle">
+                                    {% elif myactivity.type.level == 1 %}
+                                            <a href="/requeriment/{{ myactivity.requeriment.id }}/artifact/{{ myactivity.id }}/update-activity/" class="btn btn-success btn-circle">
+                                    {% elif myactivity.type.level == 2 %}
+                                            <a href="/sprint/{{ myactivity.sprint.id }}/artifact/{{ myactivity.id }}/update-activity/" class="btn btn-success btn-circle">
+                                    {% elif myactivity.type.level == 3 %}
+                                             <a href="/userstory/{{ myactivity.userstory.id }}/detail/artifact/{{ myactivity.id }}/update-activity/" class="btn btn-success btn-circle">
+                                    {% endif %}
+                                        <i class="fa fa-play-circle"></i>
+                                    </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="4">{% trans 'No data' %}</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+              </div>
+
+              <div class="tab-pane" id="other" ><br/>
+                 <table class="table table-hover ">
+                    <thead>
+                    <tr>
+                        <th>{% trans 'Assigned to' %}</th>
+                        <th>{% trans 'Type' %}</th>
+                        <th>{% trans 'Title' %}</th>
+                        <th>{% trans 'Reference' %}</th>
+                        <th class="centro">{% trans 'Action' %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for otheractivity in open_otheractivities %}
+                        <tr>
+                            <td>{{ otheractivity.user }}</td>
+                            <td>{{ otheractivity.type.name }}</td>
+                            <td>{{ otheractivity.title }}</td>
+                            <td>
+                                {% if otheractivity.userstory.code %}
+                                    <a href="{% url 'main:userstory-detail' otheractivity.userstory.pk %}">{{ otheractivity.userstory.code }}</a>
+                                {% elif otheractivity.requeriment.code %}
+                                    <a href="{% url 'main:requeriment-details' otheractivity.requeriment.pk %}">{{ otheractivity.requeriment.code }}</a>
+                                {% elif otheractivity.sprint.code %}
+                                    <a href="{% url 'main:sprint-details' otheractivity.sprint.pk %}">Sprint</a>
+                                {% else %}
+                                    <a href="{% url 'main:home' %}">Project</a>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if project.tracking_tool_type == 'Redmine' %}
+                                    <a href="{{ project.tracking_tool_url }}issues/{{ otheractivity.reference }}" target="_blank" class="btn btn-success btn-circle">
+                                        <i class="fa fa-play-circle"></i>
+                                    </a>
+                                    <a href="{{ otheractivity.id }}/delete/" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i> </a>
+                                 {% else %}
+                                    <a href="{{ otheractivity.id }}/update-activity/" class="btn btn-success btn-circle">
+                                        <i class="fa fa-play-circle"></i>
+                                    </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="4">{% trans 'No data' %}</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+              </div>
+         </div>
+     </div>
+{% endblock %}

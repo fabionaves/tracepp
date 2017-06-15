@@ -32,6 +32,13 @@ class ArtifactService:
             sprint = SprintService.get_sprint(project_id, sprint_id)
 
     @staticmethod
+    def get_activities(project_id, closed_date_is_null, user, from_user=False):
+        if from_user:
+            return Artifact.activity_objects.filter(project_id=project_id, user=user, closed_date__isnull=closed_date_is_null)
+        else:
+            return Artifact.activity_objects.filter(project_id=project_id, closed_date__isnull=closed_date_is_null).exclude(user=user)
+
+    @staticmethod
     def get_artifact(project_id, pk):
         return get_object_or_404(
                     Artifact.objects.all(),
