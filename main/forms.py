@@ -6,6 +6,7 @@ from django.utils.translation import ugettext as _
 
 
 from main.models import Project, Requeriment, UserStory, SprintUserStory, ArtifactType, Artifact
+from main.services.artifacttype import ArtifactTypeService
 
 
 class ProjectForm(forms.ModelForm):
@@ -88,3 +89,55 @@ class ArtifactForm(forms.ModelForm):
         model = Artifact
         fields = ('type','file')
 
+class ActivityUserStoryForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ActivityUserStoryForm, self).__init__(*args, **kwargs)
+        self.fields['type'].required=True
+        self.fields['user'].required = True
+        self.fields['title'].required = True
+        self.fields['userstory'].required = True
+    class Meta:
+        model = Artifact
+        fields = ('user', 'title', 'description', 'type', 'userstory','create_date',
+                  'estimated_time', 'closed_date', 'spent_time', 'estimated_storypoints', 'realized_storypoints',
+                  'estimated_businnesvalue', 'realized_businnesvalue')
+
+
+class ActivityRequerimentForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ActivityRequerimentForm, self).__init__(*args, **kwargs)
+        self.fields['type'].required=True
+        self.fields['user'].required = True
+        self.fields['title'].required = True
+        self.fields['requeriment'].required = True
+    class Meta:
+        model = Artifact
+        fields = ('user', 'title', 'description', 'type', 'requeriment','create_date',
+                  'estimated_time', 'closed_date', 'spent_time', 'estimated_storypoints', 'realized_storypoints',
+                  'estimated_businnesvalue', 'realized_businnesvalue')
+
+
+class ActivitySprintForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ActivitySprintForm, self).__init__(*args, **kwargs)
+        self.fields['type'].required=True
+        self.fields['user'].required = True
+        self.fields['title'].required = True
+        self.fields['sprint'].required = True
+    class Meta:
+        model = Artifact
+        fields = ('user', 'title', 'description', 'type', 'sprint', 'create_date',
+                  'estimated_time', 'closed_date', 'spent_time', 'estimated_storypoints', 'realized_storypoints',
+                  'estimated_businnesvalue', 'realized_businnesvalue')
+
+class ActivityProjectForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ActivityProjectForm, self).__init__(*args, **kwargs)
+        self.fields['type'].required=True
+        self.fields['user'].required = True
+        self.fields['title'].required = True
+    class Meta:
+        model = Artifact
+        fields = ('user', 'title', 'description', 'type','create_date',
+                  'estimated_time', 'closed_date', 'spent_time', 'estimated_storypoints', 'realized_storypoints',
+                  'estimated_businnesvalue', 'realized_businnesvalue')

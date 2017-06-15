@@ -25,6 +25,7 @@ class Project(models.Model, MyModel):
                                        max_length=30)
     repository_url = models.CharField(_('Repository URL'), blank=True, null=True,  max_length=200)
     TRACKING_TOOL_TYPE = (
+        ('Internal','Internal'),
         ('Redmine', 'Redmine'),
     )
     tracking_tool_type = models.CharField(_('Bug Tracking Tool Type'), choices=TRACKING_TOOL_TYPE, blank=True,

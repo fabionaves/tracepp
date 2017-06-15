@@ -1,3 +1,6 @@
+from django.contrib.auth.models import User
+from django.db.models import Q
+
 from main.models import Artifact
 from main.models import Project, Requeriment
 from django.shortcuts import  get_object_or_404
@@ -17,6 +20,10 @@ class ProjectService:
             return Project.objects.all()
         else:
             return Project.objects.filter(user=user)
+
+    @staticmethod
+    def get_users_from_project(project):
+        return User.objects.filter(project=project) | User.objects.filter(is_superuser=True)
 
     @staticmethod
     def get_project_model():

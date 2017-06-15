@@ -85,5 +85,7 @@ class activityFinder:
                              'realized_businnesvalue': bv_realized,
                              'code': str(issue)[str(issue).find(trace_code):][len(artifactType.trace_code):],
                              'version': version,
+                             'title':issue.subject,
+                             'description':issue.description,
                              }
                         )

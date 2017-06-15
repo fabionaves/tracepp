@@ -70,8 +70,8 @@
 
 
             var ctx = document.getElementById('sp_per_userstory_json').getContext('2d');
-            estimated_sp = {{ userstory_storypoints.estimated_storypoints}};
-            realized_sp = {{ userstory_storypoints.realized_storypoints }};
+            estimated_sp = {{ userstory_storypoints.estimated_storypoints|default_if_none:'0'}};
+            realized_sp = {{ userstory_storypoints.realized_storypoints|default_if_none:'0' }};
             if(estimated_sp > realized_sp){
                 maxValue = estimated_sp;
             }else{
@@ -83,7 +83,7 @@
                     labels: ['{%  trans 'Planned' %}','{%  trans 'Realized' %}'],
                     datasets: [{
                         label: [''],
-                        data: [{{ userstory_storypoints.estimated_storypoints}},{{ userstory_storypoints.realized_storypoints }}],
+                        data: [{{ userstory_storypoints.estimated_storypoints|default_if_none:'0'}},{{ userstory_storypoints.realized_storypoints|default_if_none:'0' }}],
                         backgroundColor: ['rgba(54, 162, 235, 0.2)','rgba(255, 99, 132, 0.2)'],
                         borderColor: [
                             'rgba(54, 162, 235, 1)',
@@ -132,8 +132,8 @@
             });
 
             var ctx = document.getElementById('bv_per_userstory_json').getContext('2d');
-            estimated_bv = {{ userstory_businnesvalue.estimated_businnesvalue }};
-            realized_bv = {{ userstory_businnesvalue.realized_businnesvalue }};
+            estimated_bv = {{ userstory_businnesvalue.estimated_businnesvalue|default_if_none:'0' }};
+            realized_bv = {{ userstory_businnesvalue.realized_businnesvalue|default_if_none:'0' }};
             if(estimated_bv>realized_bv){
                 maiorValor=estimated_bv;
             }else{
@@ -145,7 +145,7 @@
                     labels: ['{%  trans 'Planned' %}','{%  trans 'Realized' %}'],
                     datasets: [{
                         label: [''],
-                        data: [{{ userstory_businnesvalue.estimated_businnesvalue }},{{ userstory_businnesvalue.realized_businnesvalue }}],
+                        data: [{{ userstory_businnesvalue.estimated_businnesvalue|default_if_none:'0' }},{{ userstory_businnesvalue.realized_businnesvalue|default_if_none:'0' }}],
                         backgroundColor: ['rgba(54, 162, 235, 0.2)','rgba(255, 99, 132, 0.2)'],
                         borderColor: [
                             'rgba(54, 162, 235, 1)',

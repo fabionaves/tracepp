@@ -57,7 +57,8 @@ class ProjectAddFormView(AddFormView):
     """
     model = ProjectService.get_project_model()
     form_class = ProjectForm
-    template_name = 'project/form.html'
+    page_title = _('Project')
+    head_template = 'project/head.html'
     success_message = _('Project was created successfully')
     tabs = (
         {"title": "Project", "id": "project", "class": "active",
@@ -89,7 +90,9 @@ class ProjectUpdateFormView(UpdateFormView):
     """
     model = ProjectService.get_project_model()
     form_class = ProjectForm
-    template_name = 'project/form.html'
+    page_title = _('Project')
+    head_template = 'project/head.html'
+    #template_name = 'project/form.html'
     success_message = _('Project was saved successfully')
     tabs = (
         {"title": "Project", "id": "project", "class": "active",

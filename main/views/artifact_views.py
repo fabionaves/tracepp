@@ -1,5 +1,6 @@
 import os
 
+from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.db import transaction
@@ -15,14 +16,16 @@ from pygments import highlight
 from pygments.formatters.html import HtmlFormatter
 from pygments.lexers.python import PythonLexer
 
-from main.components.breadcrumbs import userstories_breadcrumbs
+from main.components.breadcrumbs import userstories_breadcrumbs, activity_sucess_url
 from main.components.bugtracking.activityFinder import activityFinder
 from main.components.bugtracking.factory import BugTrackingFactory
+from main.components.formviews import AddFormView, UpdateFormView
 from main.components.lists import TemplateViewProjectFilter
 from main.components.repository.factory import RepositoryFactory
 from main.components.repository.sourceFinder import SourceFinder
 from main.decorators import require_project
-from main.forms import ArtifactForm
+from main.forms import ArtifactForm, ActivityUserStoryForm, ActivityRequerimentForm, ActivitySprintForm, \
+    ActivityProjectForm
 from main.models import  Artifact, ArtifactType, Project, Sprint, Requeriment, UserStory
 from main.services.artifact import ArtifactService
 from main.services.artifacttype import ArtifactTypeService
@@ -42,8 +45,8 @@ class ArtifactView(TemplateViewProjectFilter):
         project = ProjectService.get_project(self.request.session['project_id'])
         context['project'] = project
         context['local_repository'] = settings.REPOSITORY_DIR
-        if 'pk' in self.kwargs:  # userstory
-            userstory = UserStoryService.get_userstory(self.request.session['project_id'], self.kwargs['pk'])
+        if 'userstory' in self.kwargs:  # userstory
+            userstory = UserStoryService.get_userstory(self.request.session['project_id'], self.kwargs['userstory'])
             context['artifacttype'] = ArtifactTypeService.get_artifactstype(self.request.session['project_id'], 3, 0)
             context['artifact'] = UserStoryService.get_artifacts(self.request.session['project_id'], userstory)
             context['page_title'] = _('UserStory Artifacts')
@@ -51,7 +54,7 @@ class ArtifactView(TemplateViewProjectFilter):
                 self.request.session.get('project_id'),
                 self.kwargs.get('requeriment_id'),
                 self.kwargs.get('sprint_id'),
-                self.kwargs.get('pk'),
+                self.kwargs.get('userstory'),
                 'Artifacts'
             )
         elif 'sprint_id' in self.kwargs:
@@ -107,8 +110,8 @@ class ArtifactDocumentForm(SuccessMessageMixin, CreateView):
         else:
             url = 'http://'+get_current_site(self.request).domain
 
-        if 'pk' in self.kwargs: #userstory
-            userstory = UserStoryService.get_userstory(self.request.session['project_id'], self.kwargs['pk'])
+        if 'userstory' in self.kwargs: #userstory
+            userstory = UserStoryService.get_userstory(self.request.session['project_id'], self.kwargs['userstory'])
             context['artifacttype'] = ArtifactTypeService.get_artifactstype(self.request.session['project_id'], 3, 0)
             context['artifact'] = UserStoryService.get_artifacts(self.request.session['project_id'], userstory)
             context['page_title'] = _('UserStory Artifacts')
@@ -117,7 +120,7 @@ class ArtifactDocumentForm(SuccessMessageMixin, CreateView):
                 self.request.session.get('project_id'),
                 self.kwargs.get('requeriment_id'),
                 self.kwargs.get('sprint_id'),
-                self.kwargs.get('pk'),
+                self.kwargs.get('userstory'),
                 'Artifacts'
             )
         elif 'sprint_id' in self.kwargs:
@@ -164,8 +167,8 @@ class ArtifactDocumentForm(SuccessMessageMixin, CreateView):
     def form_valid(self, form):
         project = ProjectService.get_project(self.request.session['project_id'])
         form.instance.project = project
-        if 'pk' in self.kwargs:
-            userstory = UserStoryService.get_userstory(self.request.session['project_id'], self.kwargs['pk'])
+        if 'userstory' in self.kwargs:
+            userstory = UserStoryService.get_userstory(self.request.session['project_id'], self.kwargs['userstory'])
             form.instance.userstory = userstory
         elif 'sprint_id' in self.kwargs:
             sprint = SprintService.get_sprint(self.request.session['project_id'], self.kwargs['sprint_id'])
@@ -174,6 +177,247 @@ class ArtifactDocumentForm(SuccessMessageMixin, CreateView):
             requeriment = RequerimentService.get_requeriment(self.request.session['project_id'], self.kwargs['requeriment_id'])
             form.instance.requeriment = requeriment
         return super(ArtifactDocumentForm, self).form_valid(form)
+
+class ActivityAddFormView(AddFormView):
+    page_title = _('Activity')
+    model = ArtifactService.get_model()
+    success_message = _('Activity was created successfully')
+    breadcrumbs = (
+        {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+        {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
+        {'link': '#', 'class': '', 'name': _('Add')},
+    )
+    form_class = None
+    tabs = None
+
+    def get_form_class(self):
+        if 'userstory' in self.kwargs:
+            self.tabs = (
+                {"title": _("Activity"), "id": "activity", "class": "active",
+                 "fields": ('user', 'title', 'description', 'type', 'userstory',)},
+                {"title": _("Time"), "id": "time",
+                 "fields": ('create_date', 'estimated_time', 'closed_date', 'spent_time')},
+                {"title": _("Points"), "id": "points",
+                 "fields": ('estimated_storypoints', 'realized_storypoints')},
+                {"title": "BV", "id": "bv",
+                 "fields": ('estimated_businnesvalue', 'realized_businnesvalue')},
+            )
+            form = ActivityUserStoryForm
+        elif 'sprint_id' in self.kwargs and 'requeriment_id' not in self.kwargs:
+            self.tabs = (
+                {"title": _("Activity"), "id": "activity", "class": "active",
+                 "fields": ('user', 'title', 'description', 'type', 'sprint',)},
+                {"title": _("Time"), "id": "time",
+                 "fields": ('create_date', 'estimated_time', 'closed_date', 'spent_time')},
+                {"title": _("Points"), "id": "points",
+                 "fields": ('estimated_storypoints', 'realized_storypoints')},
+                {"title": "BV", "id": "bv",
+                 "fields": ('estimated_businnesvalue', 'realized_businnesvalue')},
+            )
+            form =  ActivitySprintForm
+        elif 'requeriment_id' in self.kwargs:
+            self.tabs = (
+                {"title": _("Activity"), "id": "activity", "class": "active",
+                 "fields": ('user', 'title', 'description', 'type', 'requeriment',)},
+                {"title": _("Time"), "id": "time",
+                 "fields": ('create_date', 'estimated_time', 'closed_date', 'spent_time')},
+                {"title": _("Points"), "id": "points",
+                 "fields": ('estimated_storypoints', 'realized_storypoints')},
+                {"title": "BV", "id": "bv",
+                 "fields": ('estimated_businnesvalue', 'realized_businnesvalue')},
+            )
+            form = ActivityRequerimentForm
+        else:
+            self.tabs = (
+                {"title": _("Activity"), "id": "activity", "class": "active",
+                 "fields": ('user', 'title', 'description', 'type', )},
+                {"title": _("Time"), "id": "time",
+                 "fields": ('create_date', 'estimated_time', 'closed_date', 'spent_time')},
+                {"title": _("Points"), "id": "points",
+                 "fields": ('estimated_storypoints', 'realized_storypoints')},
+                {"title": "BV", "id": "bv",
+                 "fields": ('estimated_businnesvalue', 'realized_businnesvalue')},
+            )
+            form = ActivityProjectForm
+        return form
+
+    def get_form(self, *args, **kwargs):
+        form = super(ActivityAddFormView, self).get_form(*args, **kwargs)
+
+        if 'userstory' in self.kwargs:
+            form.fields['type'].queryset = ArtifactTypeService.get_artifactstype(self.request.session['project_id'], 3,2)
+        elif 'sprint_id' in self.kwargs and 'requeriment_id' not in self.kwargs:
+            form.fields['type'].queryset = ArtifactTypeService.get_artifactstype(self.request.session['project_id'], 2,2)
+        elif 'requeriment_id' in self.kwargs:
+            form.fields['type'].queryset = ArtifactTypeService.get_artifactstype(self.request.session['project_id'], 1,2)
+        else:
+            form.fields['type'].queryset = ArtifactTypeService.get_artifactstype(self.request.session['project_id'], 0,2)
+
+        if self.request.user.is_superuser:
+            form.fields['user'].queryset = ProjectService.get_users_from_project(self.request.session['project_id'])
+        else:
+            form.fields['user'].queryset = User.objects.filter(pk=self.request.user.id)
+        return form
+
+    def get_initial(self):
+        initial = super(ActivityAddFormView, self).get_initial()
+        if 'userstory' in self.kwargs:
+            initial['userstory'] = UserStoryService.get_userstory(self.request.session['project_id'],self.kwargs['userstory'])
+        initial['user'] = self.request.user
+        return initial
+
+    def get_success_url(self):
+        requeriment_id = False
+        sprint_id = False
+        userstory_id = False
+        if 'requeriment_id' in self.kwargs:
+            requeriment_id = self.kwargs['requeriment_id']
+        if 'sprint_id' in self.kwargs:
+            sprint_id = self.kwargs['sprint_id']
+        if 'userstory' in self.kwargs:
+            userstory_id = self.kwargs['userstory']
+        return activity_sucess_url(requeriment_id, sprint_id, userstory_id)
+
+    @method_decorator(require_project())
+    def dispatch(self, request, *args, **kwargs):
+        return super(ActivityAddFormView, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        project = ProjectService.get_project(self.request.session['project_id'])
+        #form.instance.changed_by = self.request.user
+        form.instance.project = project
+        return super(ActivityAddFormView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(ActivityAddFormView, self).get_context_data(**kwargs)
+        userstory_id = False
+        sprint_id = False
+        requeriment_id = False
+        if 'userstory' in self.kwargs: #userstory
+            userstory_id = self.kwargs['userstory']
+        if 'sprint_id' in self.kwargs:
+            sprint_id =  self.kwargs['sprint_id']
+        if 'requeriment_id' in self.kwargs:
+            requeriment_id = self.kwargs['requeriment_id']
+        context['breadcrumbs'] = userstories_breadcrumbs(self.request.session['project_id'], requeriment_id, sprint_id, userstory_id, _('Add Activity'))
+        return context
+
+class ActivityUpdateFormView(UpdateFormView):
+    page_title = _('Activity')
+    model = ArtifactService.get_model()
+    success_message = _('Activity was updated successfully')
+    breadcrumbs = (
+        {'link': reverse_lazy('main:home'), 'class': '', 'name': _('Home')},
+        {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
+        {'link': '#', 'class': '', 'name': _('Add')},
+    )
+    form_class = None
+    tabs = None
+
+    def get_form_class(self):
+        if 'userstory' in self.kwargs:
+            self.tabs = (
+                {"title": _("Activity"), "id": "activity", "class": "active",
+                 "fields": ('user', 'title', 'description', 'type', 'userstory',)},
+                {"title": _("Time"), "id": "time",
+                 "fields": ('create_date', 'estimated_time', 'closed_date', 'spent_time')},
+                {"title": _("Points"), "id": "points",
+                 "fields": ('estimated_storypoints', 'realized_storypoints')},
+                {"title": "BV", "id": "bv",
+                 "fields": ('estimated_businnesvalue', 'realized_businnesvalue')},
+            )
+            form = ActivityUserStoryForm
+        elif 'sprint_id' in self.kwargs and 'requeriment_id' not in self.kwargs:
+            self.tabs = (
+                {"title": _("Activity"), "id": "activity", "class": "active",
+                 "fields": ('user', 'title', 'description', 'type', 'sprint',)},
+                {"title": _("Time"), "id": "time",
+                 "fields": ('create_date', 'estimated_time', 'closed_date', 'spent_time')},
+                {"title": _("Points"), "id": "points",
+                 "fields": ('estimated_storypoints', 'realized_storypoints')},
+                {"title": "BV", "id": "bv",
+                 "fields": ('estimated_businnesvalue', 'realized_businnesvalue')},
+            )
+            form =  ActivitySprintForm
+        elif 'requeriment_id' in self.kwargs:
+            self.tabs = (
+                {"title": _("Activity"), "id": "activity", "class": "active",
+                 "fields": ('user', 'title', 'description', 'type', 'requeriment',)},
+                {"title": _("Time"), "id": "time",
+                 "fields": ('create_date', 'estimated_time', 'closed_date', 'spent_time')},
+                {"title": _("Points"), "id": "points",
+                 "fields": ('estimated_storypoints', 'realized_storypoints')},
+                {"title": "BV", "id": "bv",
+                 "fields": ('estimated_businnesvalue', 'realized_businnesvalue')},
+            )
+            form = ActivityRequerimentForm
+        else:
+            self.tabs = (
+                {"title": _("Activity"), "id": "activity", "class": "active",
+                 "fields": ('user', 'title', 'description', 'type', )},
+                {"title": _("Time"), "id": "time",
+                 "fields": ('create_date', 'estimated_time', 'closed_date', 'spent_time')},
+                {"title": _("Points"), "id": "points",
+                 "fields": ('estimated_storypoints', 'realized_storypoints')},
+                {"title": "BV", "id": "bv",
+                 "fields": ('estimated_businnesvalue', 'realized_businnesvalue')},
+            )
+            form = ActivityProjectForm
+        return form
+
+    def get_form(self, *args, **kwargs):
+        form = super(ActivityUpdateFormView, self).get_form(*args, **kwargs)
+        if 'userstory' in self.kwargs:
+            form.fields['type'].queryset = ArtifactTypeService.get_artifactstype(self.request.session['project_id'], 3,
+                                                                                 2)
+        elif 'sprint_id' in self.kwargs and 'requeriment_id' not in self.kwargs:
+            form.fields['type'].queryset = ArtifactTypeService.get_artifactstype(self.request.session['project_id'], 2,
+                                                                                 2)
+        elif 'requeriment_id' in self.kwargs:
+            form.fields['type'].queryset = ArtifactTypeService.get_artifactstype(self.request.session['project_id'], 1,
+                                                                                 2)
+        else:
+            form.fields['type'].queryset = ArtifactTypeService.get_artifactstype(self.request.session['project_id'], 0,
+                                                                                 2)
+        if self.request.user.is_superuser:
+            form.fields['user'].queryset = ProjectService.get_users_from_project(self.request.session['project_id'])
+        return form
+
+    def get_success_url(self):
+        requeriment_id = False
+        sprint_id = False
+        userstory_id = False
+        if 'requeriment_id' in self.kwargs:
+            requeriment_id = self.kwargs['requeriment_id']
+        if 'sprint_id' in self.kwargs:
+            sprint_id = self.kwargs['sprint_id']
+        if 'userstory' in self.kwargs:
+            userstory_id = self.kwargs['userstory']
+        return activity_sucess_url(requeriment_id, sprint_id, userstory_id)
+
+    @method_decorator(require_project())
+    def dispatch(self, request, *args, **kwargs):
+        return super(ActivityUpdateFormView, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        project = ProjectService.get_project(self.request.session['project_id'])
+        #form.instance.changed_by = self.request.user
+        form.instance.project = project
+        return super(ActivityUpdateFormView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(ActivityUpdateFormView, self).get_context_data(**kwargs)
+        userstory_id = False
+        sprint_id = False
+        requeriment_id = False
+        if 'userstory' in self.kwargs: #userstory
+            userstory_id = self.kwargs['userstory']
+        if 'sprint_id' in self.kwargs:
+            sprint_id =  self.kwargs['sprint_id']
+        if 'requeriment_id' in self.kwargs:
+            requeriment_id = self.kwargs['requeriment_id']
+        context['breadcrumbs'] = userstories_breadcrumbs(self.request.session['project_id'], requeriment_id, sprint_id, userstory_id, _('Update Activity'))
+        return context
 
 
 def ArtifactDownloadView(request, pk):
@@ -194,10 +438,19 @@ class ArtifactDeleteView(SuccessMessageMixin, DeleteView):
     """
     model = ArtifactService.get_model()
     template_name = 'artifact/delete.html'
-    fields = ('name', 'type', 'reference', 'requeriment','sprint','userstory','file')
+    fields = ('name', 'type', 'title', 'description', 'reference', 'requeriment','sprint','userstory','file')
 
     def get_success_url(self):
-        return reverse('main:artifact')
+        requeriment_id = False
+        sprint_id = False
+        userstory_id = False
+        if 'requeriment_id' in self.kwargs:
+            requeriment_id = self.kwargs['requeriment_id']
+        if 'sprint_id' in self.kwargs:
+            sprint_id = self.kwargs['sprint_id']
+        if 'userstory' in self.kwargs:
+            userstory_id = self.kwargs['userstory']
+        return activity_sucess_url(requeriment_id, sprint_id, userstory_id)
 
     @method_decorator(require_project())
     def dispatch(self, request, *args, **kwargs):

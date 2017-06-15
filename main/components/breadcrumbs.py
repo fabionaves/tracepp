@@ -16,7 +16,7 @@ def requeriments_breadcrumbs(project_id, requeriment_id, sprint_id, last_name=Fa
             {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
             {'link': reverse_lazy('main:sprint-details', kwargs={'sprint_id': sprint_id}), 'class': '',
              'name': sprint},
-            {'link': reverse_lazy('main:sprint-requeriment', kwargs={'sprint_id': sprint_id}), 'class': '',
+            {'link': reverse_lazy('main:requeriment', kwargs={'sprint_id': sprint_id}), 'class': '',
              'name': _('Requeriments')},
             {'link': reverse_lazy('main:requeriment-details', kwargs={'pk': requeriment.id}), 'class': '',
              'name': requeriment.code},
@@ -28,7 +28,7 @@ def requeriments_breadcrumbs(project_id, requeriment_id, sprint_id, last_name=Fa
             {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
             {'link': reverse_lazy('main:sprint-details', kwargs={'sprint_id': sprint_id}), 'class': '',
              'name': sprint},
-            {'link': reverse_lazy('main:sprint-requeriment', kwargs={'sprint_id': sprint_id}), 'class': '',
+            {'link': reverse_lazy('main:requeriment', kwargs={'sprint_id': sprint_id}), 'class': '',
              'name': _('Requeriments')},
         )
     elif requeriment_id:
@@ -55,12 +55,34 @@ def requeriments_sucess_url(requeriment_id, sprint_id):
     if sprint_id and requeriment_id:
         return reverse("main:requeriment-details",kwargs={'sprint_id':sprint_id, 'pk':requeriment_id})
     elif sprint_id:
-        return reverse("main:sprint-requeriment", kwargs={'sprint_id':sprint_id})
+        return reverse("main:requeriment", kwargs={'sprint_id':sprint_id})
     elif requeriment_id:
         return reverse("main:requeriment-details", kwargs={'pk':requeriment_id})
     else:
         return reverse("main:requeriment")
 
+def activity_sucess_url(requeriment_id=False, sprint_id=False, userstory_id=False):
+    if sprint_id and userstory_id and requeriment_id:
+        return reverse_lazy('main:artifact', kwargs={'sprint_id': sprint_id, 'requeriment_id':requeriment_id, 'userstory':userstory_id})
+    elif sprint_id and requeriment_id:
+        return reverse_lazy('main:artifact',kwargs={'sprint_id': sprint_id, 'requeriment_id': requeriment_id, 'userstory': userstory_id})
+    elif sprint_id and userstory_id:
+        return reverse_lazy('main:artifact',
+                            kwargs={'sprint_id': sprint_id, 'userstory': userstory_id})
+    elif requeriment_id and userstory_id:
+        return reverse_lazy('main:artifact',
+                            kwargs={'requeriment_id': requeriment_id, 'userstory': userstory_id})
+    elif userstory_id:
+        return reverse_lazy('main:artifact',
+                            kwargs={'userstory': userstory_id})
+    elif sprint_id:
+        return reverse_lazy('main:artifact',
+                            kwargs={'sprint_id': sprint_id})
+    elif requeriment_id:
+        return reverse_lazy('main:artifact',
+                            kwargs={'requeriment_id': requeriment_id})
+    else:
+        return reverse_lazy('main:home')
 
 def userstories_breadcrumbs(project_id=False, requeriment_id=False, sprint_id=False, userstory_id=False, last_name=False):
     if sprint_id and userstory_id and requeriment_id:
@@ -75,9 +97,9 @@ def userstories_breadcrumbs(project_id=False, requeriment_id=False, sprint_id=Fa
             {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriment')},
             {'link': reverse_lazy('main:requeriment-details',  kwargs={'pk': requeriment_id, 'sprint_id': sprint_id}),
              'class': '', 'name': sprint},
-            {'link': reverse_lazy('main:sprint-requeriment-userstory', kwargs={'sprint_id': sprint_id, 'requeriment_id': requeriment_id}), 'class': '',
+            {'link': reverse_lazy('main:userstory', kwargs={'sprint_id': sprint_id, 'requeriment_id': requeriment_id}), 'class': '',
              'name': _('User Stories')},
-            {'link': reverse_lazy('main:sprint-requeriment-userstory-detail', kwargs={'sprint_id': sprint_id, 'requeriment_id': requeriment_id, 'pk': userstory.pk}), 'class': '',
+            {'link': reverse_lazy('main:userstory-detail', kwargs={'sprint_id': sprint_id, 'requeriment_id': requeriment_id, 'pk': userstory.pk}), 'class': '',
              'name': userstory.code}
         )
     elif sprint_id and requeriment_id:
@@ -101,7 +123,7 @@ def userstories_breadcrumbs(project_id=False, requeriment_id=False, sprint_id=Fa
             {'link': reverse_lazy('main:sprint'), 'class': '', 'name': _('Sprint')},
             {'link': reverse_lazy('main:sprint-details', kwargs={'sprint_id': sprint_id}),
              'class': '', 'name': sprint},
-            {'link': reverse_lazy('main:sprint-userstory', kwargs={'sprint_id': sprint_id}), 'class': '',
+            {'link': reverse_lazy('main:userstory', kwargs={'sprint_id': sprint_id}), 'class': '',
              'name': _('User Stories')},
             {'link': reverse_lazy('main:userstory-detail', kwargs={'pk': userstory.pk}), 'class': '',
              'name': userstory.code}
@@ -114,7 +136,7 @@ def userstories_breadcrumbs(project_id=False, requeriment_id=False, sprint_id=Fa
             {'link': reverse_lazy('main:requeriment'), 'class': '', 'name': _('Requeriments')},
             {'link': reverse_lazy('main:requeriment-details', kwargs={'pk': requeriment_id}),
              'class': '', 'name': requeriment},
-            {'link': reverse_lazy('main:requeriment-userstory',
+            {'link': reverse_lazy('main:userstory',
                                   kwargs={'requeriment_id': requeriment_id}), 'class': '',
              'name': _('User Stories')},
             {'link': reverse_lazy('main:userstory-detail', kwargs={'pk': userstory.pk}), 'class': '',

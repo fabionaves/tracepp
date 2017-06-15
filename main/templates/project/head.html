@@ -1,0 +1,88 @@
+<script>
+    django.jQuery( document ).ready(function() {
+        if(django.jQuery("#id_tracking_tool_type option:selected" ).val()=='Internal'){
+               django.jQuery("#id_tracking_tool_url").val(null)
+               django.jQuery("#id_tracking_tool_url").prop('disabled', true);
+
+               django.jQuery("#id_tracking_tool_user").val(null)
+               django.jQuery("#id_tracking_tool_user").prop('disabled', true);
+
+               django.jQuery("#id_tracking_tool_password").val(null)
+               django.jQuery("#id_tracking_tool_password").prop('disabled', true);
+
+               django.jQuery("#id_tracking_tool_project_id").val(null)
+               django.jQuery("#id_tracking_tool_project_id").prop('disabled', true);
+
+               django.jQuery("#id_versionAsSprint").val(null)
+               django.jQuery("#id_versionAsSprint").prop('disabled', true);
+
+               django.jQuery("#id_issueTypesAsUserStory").val(null)
+               django.jQuery("#id_issueTypesAsUserStory").prop('disabled', true);
+
+               django.jQuery("#id_issueStatusClosed").val(null)
+               django.jQuery("#id_issueStatusClosed").prop('disabled', true);
+
+               django.jQuery("#id_issueOnInsertUserStory").val(null)
+               django.jQuery("#id_issueOnInsertUserStory").prop('disabled', true);
+           }else{
+               django.jQuery("#id_tracking_tool_url").prop('disabled', false);
+
+               django.jQuery("#id_tracking_tool_user").prop('disabled', false);
+
+               django.jQuery("#id_tracking_tool_password").prop('disabled', false);
+
+               django.jQuery("#id_tracking_tool_project_id").prop('disabled', false);
+
+               django.jQuery("#id_versionAsSprint").prop('disabled', false);
+
+               django.jQuery("#id_issueTypesAsUserStory").prop('disabled', false);
+
+               django.jQuery("#id_issueStatusClosed").prop('disabled', false);
+
+               django.jQuery("#id_issueOnInsertUserStory").prop('disabled', false);
+           }
+        django.jQuery( "#id_tracking_tool_type" ).change(function() {
+           if(django.jQuery("#id_tracking_tool_type option:selected" ).val()=='Internal'){
+               django.jQuery("#id_tracking_tool_url").val(null)
+               django.jQuery("#id_tracking_tool_url").prop('disabled', true);
+
+               django.jQuery("#id_tracking_tool_user").val(null)
+               django.jQuery("#id_tracking_tool_user").prop('disabled', true);
+
+               django.jQuery("#id_tracking_tool_password").val(null)
+               django.jQuery("#id_tracking_tool_password").prop('disabled', true);
+
+               django.jQuery("#id_tracking_tool_project_id").val(null)
+               django.jQuery("#id_tracking_tool_project_id").prop('disabled', true);
+
+               django.jQuery("#id_versionAsSprint").val(null)
+               django.jQuery("#id_versionAsSprint").prop('disabled', true);
+
+               django.jQuery("#id_issueTypesAsUserStory").val(null)
+               django.jQuery("#id_issueTypesAsUserStory").prop('disabled', true);
+
+               django.jQuery("#id_issueStatusClosed").val(null)
+               django.jQuery("#id_issueStatusClosed").prop('disabled', true);
+
+               django.jQuery("#id_issueOnInsertUserStory").val(null)
+               django.jQuery("#id_issueOnInsertUserStory").prop('disabled', true);
+           }else{
+               django.jQuery("#id_tracking_tool_url").prop('disabled', false);
+
+               django.jQuery("#id_tracking_tool_user").prop('disabled', false);
+
+               django.jQuery("#id_tracking_tool_password").prop('disabled', false);
+
+               django.jQuery("#id_tracking_tool_project_id").prop('disabled', false);
+
+               django.jQuery("#id_versionAsSprint").prop('disabled', false);
+
+               django.jQuery("#id_issueTypesAsUserStory").prop('disabled', false);
+
+               django.jQuery("#id_issueStatusClosed").prop('disabled', false);
+
+               django.jQuery("#id_issueOnInsertUserStory").prop('disabled', false);
+           }
+        });
+    });
+</script>

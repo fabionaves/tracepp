@@ -65,7 +65,7 @@ class ArtifactService:
         references = []
         log = []
         for artifact in acfinder.artifactList:
-            references.append(artifact['reference'])
+            references.append(str(artifact['reference'])+' ')
             try:
                 filterArtifact = Artifact.objects.get(project=project, reference=artifact['reference'])
             except Artifact.DoesNotExist:
@@ -76,15 +76,21 @@ class ArtifactService:
                     # upldate a exist artifact
                     if artifact['artifactType'].level == 0:
                         filterArtifact.type = artifact['artifactType']
+                        filterArtifact.title = artifact['title']
+                        filterArtifact.description = artifact['description']
                         filterArtifact.save()
                     elif artifact['artifactType'].level == 1:
                         requeriment = Requeriment.objects.filter(project=project, code=artifact['code']).get()
                         filterArtifact.type = artifact['artifactType']
+                        filterArtifact.title = artifact['title']
+                        filterArtifact.description = artifact['description']
                         filterArtifact.requeriment = requeriment
                         filterArtifact.save()
                     elif artifact['artifactType'].level == 2:
                         sprint = Sprint.objects.filter(project=project, code=artifact['code']).get()
                         filterArtifact.type = artifact['artifactType']
+                        filterArtifact.title = artifact['title']
+                        filterArtifact.description = artifact['description']
                         filterArtifact.sprint = sprint
                         filterArtifact.save()
                     elif artifact['artifactType'].level == 3:
@@ -92,7 +98,8 @@ class ArtifactService:
                         filterArtifact.estimated_time = artifact['estimated_time']
                         filterArtifact.spent_time = artifact['spent_time']
                         filterArtifact.type = artifact['artifactType']
-
+                        filterArtifact.title = artifact['title']
+                        filterArtifact.description = artifact['description']
                         filterArtifact.estimated_storypoints = artifact['estimated_storypoints']
                         filterArtifact.realized_storypoints = artifact['realized_storypoints']
                         filterArtifact.estimated_businnesvalue = artifact['estimated_businnesvalue']
@@ -111,19 +118,28 @@ class ArtifactService:
                     if artifact['artifactType'].level == 0:
                         Artifact.objects.create(project=project,
                                                 reference=artifact['reference'],
-                                                type=artifact['artifactType'])
+                                                type=artifact['artifactType'],
+                                                title=artifact['title'],
+                                                description=artifact['description'],
+                                                )
                     elif artifact['artifactType'].level == 1:
                         requeriment = Requeriment.objects.filter(project=project, code=artifact['code']).get()
                         Artifact.objects.create(project=project,
                                                 reference=artifact['reference'],
                                                 type=artifact['artifactType'],
-                                                requeriment=requeriment)
+                                                requeriment=requeriment,
+                                                title=artifact['title'],
+                                                description=artifact['description'],
+                                                )
                     elif artifact['artifactType'].level == 2:
                         sprint = Sprint.objects.filter(project=project, code=artifact['code']).get()
                         Artifact.objects.create(project=project,
                                                 reference=artifact['reference'],
                                                 type=artifact['artifactType'],
-                                                sprint=sprint)
+                                                sprint=sprint,
+                                                title=artifact['title'],
+                                                description=artifact['description'],
+                                                )
                     elif artifact['artifactType'].level == 3:
                         userstory = UserStory.objects.filter(project=project, code=artifact['code']).get()
                         Artifact.objects.create(project=project,
@@ -135,7 +151,9 @@ class ArtifactService:
                                                 estimated_businnesvalue=artifact['estimated_businnesvalue'],
                                                 realized_businnesvalue=artifact['realized_businnesvalue'],
                                                 type=artifact['artifactType'],
-                                                userstory=userstory)
+                                                userstory=userstory,
+                                                title=artifact['title'],
+                                                description=artifact['description'],)
                     if get_sprintuserstory:
                         if not SprintUserStory.objects.filter(sprint__project=project, userstory=userstory, sprint__reference=artifact['version'].id).count():
                             SprintUserStory.objects.create(
@@ -148,8 +166,8 @@ class ArtifactService:
                     log.append(_('Created Artifact: ')+artifact['code']+' '+_('Reference: ')+str(artifact['reference']))
             except:
                 log.append("====>ERRO: "+ str(artifact['reference'])+' '+artifact['code'])
-        Artifact.objects.exclude(reference__in=references).filter(project=project,
-            type__type=2).delete()  # delete the artifacts not detected in bugtracking
+        """Artifact.objects.exclude(reference__in=references).exclude(reference="''").filter(project=project,
+                                                                                          type__type=2, ).delete()"""  # delete the artifacts not detected in bugtracking
         return log
 
     @staticmethod

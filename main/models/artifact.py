@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext as _
 from django.conf import settings
@@ -24,7 +25,17 @@ class ActivityArtifactsManager(models.Manager):
 
 
 class Artifact(models.Model):
-    source = models.CharField(_('Name'), max_length=100, blank=True, null=True)
+    title = models.CharField(_('Title'), max_length=100, blank=True, null=True)
+    description = models.TextField(_('Description'), null=True, blank=True)
+    user = models.ForeignKey(
+        User,
+        null=True,
+        blank=True
+    )
+    create_date = models.DateField(_('Create Date'), blank=True, null=True)
+    closed_date = models.DateField(_('Closed Date'), blank=True, null=True)
+
+    source = models.CharField(_('Source'), max_length=100, blank=True, null=True)
     line = models.CharField(_('Name'), max_length=100, blank=True, null=True)
 
     type = models.ForeignKey(
@@ -55,7 +66,7 @@ class Artifact(models.Model):
     estimated_time = models.IntegerField(_('Estimated Time'), null=True, blank=True)
     spent_time = models.IntegerField(_('Spent Time'), null=True, blank=True)
     estimated_storypoints = models.IntegerField(_('Estimated Points'), null=True, blank=True)
-    realized_storypoints = models.IntegerField(_('Realized Time'), null=True, blank=True)
+    realized_storypoints = models.IntegerField(_('Realized Points'), null=True, blank=True)
     estimated_businnesvalue = models.IntegerField(_('Estimated Businnes Value'), null=True, blank=True)
     realized_businnesvalue = models.IntegerField(_('Realized Businnes Value'), null=True, blank=True)
     file = models.FileField(_('File'), upload_to=settings.UPLOAD_DIR)

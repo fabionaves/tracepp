@@ -23,3 +23,6 @@ class ArtifactType(models.Model, MyModel):
     project = models.ForeignKey(
         Project
     )
+
+    def __str__(self):
+        return self.name
