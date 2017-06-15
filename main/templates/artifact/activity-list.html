@@ -48,13 +48,13 @@
                                     <a href="{{ myactivity.id }}/delete/" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i> </a>
                                  {% else %}
                                     {% if myactivity.type.level == 0 %}
-                                            <a href="/artifact/{{ myactivity.id }}/update-activity/" class="btn btn-success btn-circle">
+                                            <a href="/artifact/{{ myactivity.id }}/update-activity/1/" class="btn btn-success btn-circle">
                                     {% elif myactivity.type.level == 1 %}
-                                            <a href="/requeriment/{{ myactivity.requeriment.id }}/artifact/{{ myactivity.id }}/update-activity/" class="btn btn-success btn-circle">
+                                            <a href="/requeriment/{{ myactivity.requeriment.id }}/artifact/{{ myactivity.id }}/update-activity/1/" class="btn btn-success btn-circle">
                                     {% elif myactivity.type.level == 2 %}
-                                            <a href="/sprint/{{ myactivity.sprint.id }}/artifact/{{ myactivity.id }}/update-activity/" class="btn btn-success btn-circle">
+                                            <a href="/sprint/{{ myactivity.sprint.id }}/artifact/{{ myactivity.id }}/update-activity/1/" class="btn btn-success btn-circle">
                                     {% elif myactivity.type.level == 3 %}
-                                             <a href="/userstory/{{ myactivity.userstory.id }}/detail/artifact/{{ myactivity.id }}/update-activity/" class="btn btn-success btn-circle">
+                                             <a href="/userstory/{{ myactivity.userstory.id }}/detail/artifact/{{ myactivity.id }}/update-activity/1/" class="btn btn-success btn-circle">
                                     {% endif %}
                                         <i class="fa fa-play-circle"></i>
                                     </a>
@@ -103,7 +103,15 @@
                                     </a>
                                     <a href="{{ otheractivity.id }}/delete/" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i> </a>
                                  {% else %}
-                                    <a href="{{ otheractivity.id }}/update-activity/" class="btn btn-success btn-circle">
+                                    {% if otheractivity.type.level == 0 %}
+                                            <a href="/artifact/{{ otheractivity.id }}/update-activity/1/" class="btn btn-success btn-circle">
+                                    {% elif otheractivity.type.level == 1 %}
+                                            <a href="/requeriment/{{ otheractivity.requeriment.id }}/artifact/{{ otheractivity.id }}/update-activity/1/" class="btn btn-success btn-circle">
+                                    {% elif otheractivity.type.level == 2 %}
+                                            <a href="/sprint/{{ otheractivity.sprint.id }}/artifact/{{ otheractivity.id }}/update-activity/1/" class="btn btn-success btn-circle">
+                                    {% elif otheractivity.type.level == 3 %}
+                                             <a href="/userstory/{{ otheractivity.userstory.id }}/detail/artifact/{{ otheractivity.id }}/update-activity/1/" class="btn btn-success btn-circle">
+                                    {% endif %}
                                         <i class="fa fa-play-circle"></i>
                                     </a>
                                 {% endif %}

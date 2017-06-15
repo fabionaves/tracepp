@@ -6,6 +6,7 @@ from django.contrib.auth import views as loginviews
 from django.contrib.auth.decorators import login_required
 
 artifact_urls = [
+    url(r'^(?P<pk>[0-9]+)/update-activity/(?P<back>[0-9]+)/',       login_required(artifact_views.ActivityUpdateFormView.as_view()), name='artifact-update-activity'),
     url(r'^(?P<pk>[0-9]+)/update-activity/',       login_required(artifact_views.ActivityUpdateFormView.as_view()), name='artifact-update-activity'),
     url(r'^(?P<projeto>[0-9]+)/tracecode/',        artifact_views.ArtifactTraceCodeView.as_view(), name='artifact-tracecode'),
     url(r'^(?P<projeto>[0-9]+)/tracebugtracking/', artifact_views.ArtifactTraceBugTrackingView.as_view(), name='artifact-bugtracking'),

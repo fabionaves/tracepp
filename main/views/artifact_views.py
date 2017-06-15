@@ -384,6 +384,8 @@ class ActivityUpdateFormView(UpdateFormView):
         return form
 
     def get_success_url(self):
+        if 'back' in self.kwargs:
+            return reverse_lazy('main:artifact-list-activity')
         requeriment_id = False
         sprint_id = False
         userstory_id = False
