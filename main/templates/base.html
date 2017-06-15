@@ -107,6 +107,7 @@
                             <li ><a href="{% url 'main:artifact-code-confirm' %}">{% trans 'Trace Source Code' %}</a></li>
                         </ul>
                     </li>
+                    <li class="{% if request.resolver_match.url_name == "artifact-list-activity" %}active{% endif %}"><a href="{% url 'main:artifact-list-activity' %}">{% trans 'Activities' %}</a></li>
 
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
