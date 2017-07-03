@@ -61,9 +61,9 @@
                                                 <a href="{% url 'main:artifact-download' row.id %}">{{ row.file }}</a>
                                         </td>
                                         <td>
-                                            {% if row.type.type == 0 %}
+
                                                 <a href="{{ row.id }}/delete/" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i> Delete</a>
-                                            {% endif %}
+
                                         </td>
                                      {% endif %}
                                     </tr>
@@ -85,7 +85,7 @@
                                 <tbody>
                                 {% for row in artifact %}
                                     <tr>
-                                     {% if row.type.type == 3 %}
+                                     {% if row.type.type == 1 %}
                                         <td>{{ row.type.name }}</td>
                                         <td>
                                                <a href="{{ row.id }}/codeview/">{{ row.source }}</a>

@@ -433,7 +433,7 @@ class ActivityListView(TemplateViewProjectFilter):
         context['open_otheractivities'] = ArtifactService.get_activities(self.request.session['project_id'], True, self.request.user.id, False)
         return context
 
-def ArtifactDownloadView(request, pk):
+def ArtifactDownloadView(request, location, pk):
     """
     #class:US009
     Download
