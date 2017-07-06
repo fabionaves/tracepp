@@ -5,80 +5,7 @@
 {% load i18n %}
 
 {% block head %}
-    <script>
-        $(document).ready(function () {
-            var ctx = document.getElementById('graph_taks_force_per_userstory_json').getContext('2d');
-               {%  for task in task_force_per_userstory %}
-                        task_percentual = {% if  task.estimated_time %}100*({{ task.realizated_time }}-{{ task.estimated_time }})/{{ task.estimated_time }} {% else %}0{% endif %}
-               {% endfor %}
-               {%  for sp in storypoint_per_sprint %}
-                        sp_percentual = {% if  task.estimated %}100*({{ task.realizated }}-{{ task.estimated }})/{{ task.estimated }} {% else %}0{% endif %}
-               {% endfor %}
 
-            if(task_percentual > sp_percentual){
-                maiorValor = task_percentual;
-            }else{
-                maiorValor = sp_percentual;
-            }
-            var graph_taks_force_per_userstory_json = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['{% trans '% Task Effort Variation' %}','{% trans '% Points Variation' %}'],
-                    datasets: [{
-                        data: [task_percentual, sp_percentual],
-                        backgroundColor: [
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 99, 132, 0.2)',
-                        ],
-                        borderColor: [
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255,99,132,1)',
-                        ],
-                        borderWidth: 1,
-                        tension: 0,
-                        fill: false
-                    }, ],
-                },
-               options: {
-
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                suggestedMin: 0,
-                                suggestedMax: maiorValor+2,
-                                beginAtZero: true
-                            },
-                            id: "1"
-                        }]
-                    },
-                    legend: {
-                        display: false
-                    },
-                    animation: {
-                        duration: 1,
-                        onComplete: function () {
-                            var chartInstance = this.chart,
-                                ctx = chartInstance.ctx;
-                            ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
-                            ctx.textAlign = 'center';
-                            ctx.textBaseline = 'bottom';
-                            ctx.fillStyle = 'rgba(0, 0, 0, 1)';
-
-                            this.data.datasets.forEach(function (dataset, i) {
-                                var meta = chartInstance.controller.getDatasetMeta(i);
-                                meta.data.forEach(function (bar, index) {
-                                    var data = dataset.data[index];
-                                    ctx.fillText(data, bar._model.x, bar._model.y - 5);
-                                });
-                            });
-                        }
-                    }
-                }
-            });
-
-
-        });
-    </script>
 {% endblock %}
 
 {% block content %}
@@ -163,11 +90,18 @@
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    {{ sprint.title }}: {%  trans 'Points x Tasks Effort (% of variation)' %}
+                    {{ sprint.title }}:
                 </div>
                 <div class="panel-body">
-                    <canvas id="graph_taks_force_per_userstory_json" width="80" height="25"
-                            style="background: white"></canvas>
+                    <P><strong>{%  trans 'Tasks Effort (Hours)' %}</strong>
+                        {%  for task in task_force_per_userstory %}
+                            <BR/>{%  trans 'Planned' %}: {{ task.estimated_time }}<BR/> {%  trans 'Realized' %}: {{ task.realizated_time }}</P>
+                        {% endfor %}
+
+                    <P><strong>{%  trans 'Points' %}</strong>
+                        {%  for sp in storypoint_per_sprint %}
+                            <BR/>{%  trans 'Planned' %}: {{ sp.estimated }}<BR/> {%  trans 'Realized' %}: {{ sp.realized }}</P>
+                        {% endfor %}
                 </div>
             </div>
         </div>

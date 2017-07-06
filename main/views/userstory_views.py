@@ -226,9 +226,9 @@ class UserStoryUpdateFormView(UpdateFormView):
 
     def get_success_url(self):
         if 'sprint_id' in self.kwargs:
-            return reverse_lazy('main:sprint-userstory', kwargs={'sprint_id':self.kwargs['sprint_id']})
+            return reverse_lazy('main:userstory', kwargs={'sprint_id':self.kwargs['sprint_id']})
         elif 'requeriment_id' in self.kwargs:
-            return reverse_lazy('main:requeriment-userstory', kwargs={'requeriment_id':self.kwargs['requeriment_id']})
+            return reverse_lazy('main:userstory', kwargs={'requeriment_id':self.kwargs['requeriment_id']})
         else:
             return reverse_lazy('main:userstory')
 
