@@ -61,7 +61,7 @@
              {% for requeriment in userstory.requeriment.all %}
                 var r{{ requeriment.id }} = sys.addNode('{{ requeriment.code }}', {
                     'id': 'r{{ requeriment.id }}',
-                    'color': 'red',
+                    'color': {% if requeriment.type == 0 %}'red'{% else %}'#d4531e'{% endif %},
                     'shape': 'dot',
                     'label': '{{ requeriment.code }}'
                 });

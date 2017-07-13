@@ -140,12 +140,14 @@
                     <thead>
                         <th>{% trans 'Userstory' %}</th>
                         <th>{% trans 'Status' %}</th>
+                        <th>{% trans 'Action' %}</th>
                     </thead>
                     <tbody>
                     {% for row in sprint.sprintuserstory_set.all %}
                         <tr>
                             <td>{{ row.userstory }}</td>
                             <TD>{{ row.get_status_display }}</TD>
+                            <td><a href="userstory/{{ row.id }}/detail/" class="btn btn-success btn-circle"><i class="fa fa-play-circle"></i></a></td>
                         </tr>
                     {% endfor %}
                     </tbody>

@@ -139,7 +139,7 @@
             {% for dependent in dependent_requeriments %}
                 var r{{ dependent.id }} = sys.addNode('{{ dependent.code }}', {
                     'id': 'r{{ dependent.id }}',
-                    'color': 'red',
+                    'color': {% if dependent.type == 0 %}'red'{% else %}'#d4531e'{% endif %},
                     'shape': 'dot',
                     'label': '{{ dependent.code }}'
                 });
@@ -159,7 +159,7 @@
             {% for dependon in depends_on %}
                 var r{{ dependon.id }} = sys.addNode('{{ dependon.code }}', {
                     'id': 'r{{ dependon.id }}',
-                    'color': 'red',
+                    'color': {% if dependon.type == 0 %}'red'{% else %}'#d4531e'{% endif %},
                     'shape': 'dot',
                     'label': '{{ dependon.code }}'
                 });

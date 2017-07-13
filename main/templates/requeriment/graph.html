@@ -21,7 +21,11 @@
                sys.parameters({gravity: true});
                sys.renderer = Renderer("#viewport");
                {% for requeriment in requeriments %}
-                    var r{{ requeriment.id }} = sys.addNode('{{ requeriment.code }}',{'id':'{{ requeriment.id }}','color':'red','shape':'dot','label':'{{ requeriment.code }}'});
+                   {% if requeriment.type == 0 %}
+                        var r{{ requeriment.id }} = sys.addNode('{{ requeriment.code }}',{'id':'{{ requeriment.id }}','color':'red','shape':'dot','label':'{{ requeriment.code }}'});
+                   {% else %}
+                        var r{{ requeriment.id }} = sys.addNode('{{ requeriment.code }}',{'id':'{{ requeriment.id }}','color':'#d4531e','shape':'dot','label':'{{ requeriment.code }}'});
+                   {% endif %}
                 {% endfor %}
 
                 {% for requeriment in requeriments %}
