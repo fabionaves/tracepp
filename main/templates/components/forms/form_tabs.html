@@ -58,7 +58,13 @@
                                     <div class="form-group">
                                         {{ field.label_tag }}
                                         {{ field|addcss:"form-control" }}
-                                        {{ field.errors }}
+                                        {% if field.errors %}
+                                            <div class="alert-danger">{{ field.errors }}</div>
+                                            <script>
+                                                django.jQuery('.nav-tabs a[href="#{{ tab.id }}"]').tab('show');
+                                                document.getElementById("#{{field.auto_id}}").focus();
+                                            </script>
+                                        {% endif %}
                                     </div>
                                 {% endif %}
                             {% endfor %}
