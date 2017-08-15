@@ -179,6 +179,9 @@ class ArtifactDocumentForm(SuccessMessageMixin, CreateView):
         return super(ArtifactDocumentForm, self).form_valid(form)
 
 class ActivityAddFormView(AddFormView):
+    """
+    #class:US015
+    """
     page_title = _('Activity')
     model = ArtifactService.get_model()
     success_message = _('Activity was created successfully')
@@ -303,6 +306,9 @@ class ActivityAddFormView(AddFormView):
         return context
 
 class ActivityUpdateFormView(UpdateFormView):
+    """
+    #class:US015
+    """
     page_title = _('Activity')
     model = ArtifactService.get_model()
     success_message = _('Activity was updated successfully')
