@@ -31,7 +31,7 @@
                         label: '{% trans '% Story Points Variation per Sprint' %}',
                         data: [
                             {% for us in storypoints_variation  %}
-                                eval('{% if  us.estimated %}100*({{ us.realizated }}-{{ us.estimated }})/{{ us.estimated }} {% else %}0{% endif %}'),
+                                eval('{% if  us.estimated %}100*({{ us.realized }}-{{ us.estimated }})/{{ us.estimated }} {% else %}0{% endif %}'),
                             {% endfor %}
                         ],
                         borderColor: "hsla(251, 100%, 50%, 0.9)",
