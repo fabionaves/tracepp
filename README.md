@@ -5,6 +5,8 @@ Provides integration with Redmine and GIT repositories to obtain the artifacts a
 sprint or user stories according to user's tracking codes.
 </p>
 <P>This tool is part of the research project of the Master in Software Engineering of CESAR.EDU.</P>
+<h2>Demostration Video (in portuguese)</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/INuXwxPP9rM" frameborder="0" allowfullscreen></iframe>
 <h2>Screens</h2>
 <P>Initial Screen
 <img src="screens/screen1.png"></p>
@@ -14,7 +16,7 @@ sprint or user stories according to user's tracking codes.
 
 
 <h2>Run:</h2>
-<p>Python 3.5 and Django 1.9</p>
+<p>Python 3.5 and Django 1.11</p>
 
 <h2>Dependencies</h2>
 <ul>
