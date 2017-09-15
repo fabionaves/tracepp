@@ -6,7 +6,7 @@ sprint or user stories according to user's tracking codes.
 </p>
 <P>This tool is part of the research project of the Master in Software Engineering of CESAR.EDU.</P>
 <h2>Demostration Video (in portuguese)</h2>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/INuXwxPP9rM" frameborder="0" allowfullscreen></iframe>
+https://www.youtube.com/watch?v=INuXwxPP9rM
 <h2>Screens</h2>
 <P>Initial Screen
 <img src="screens/screen1.png"></p>
