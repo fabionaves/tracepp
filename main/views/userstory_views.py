@@ -1,6 +1,7 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -14,7 +15,7 @@ from main.components.lists import ModelListProjectFilter, TemplateViewProjectFil
 from main.decorators import require_project
 from main.forms import UserStoryForm, SprintUserStoryInlineFormSet, SprintUserStoryInlineFormSetFiltrado
 from main.components.formviews import AddFormView, UpdateFormView
-from main.models import Artifact
+from main.models import Artifact, SprintUserStory
 from main.models import ArtifactType
 from main.models import UserStory
 from main.services.artifact import ArtifactService
@@ -34,6 +35,7 @@ class UserStoryListView(ModelListProjectFilter):
     list_display = ('code', 'title','description')
     action_template = 'userstory/action.html'
     top_bar = 'userstory/top_bar.html'
+    backlog = None
 
     def get_queryset(self):
 
@@ -41,6 +43,9 @@ class UserStoryListView(ModelListProjectFilter):
             return RequerimentService.get_userstories_from_requeriment(self.request.session.get('project_id', None),
                                                                        self.kwargs['requeriment_id'])
         elif 'sprint_id' in self.kwargs:
+            self.template_name = 'userstory/list.html'
+            self.backlog = SprintService.get_userstories_not_in_sprint(self.request.session.get('project_id', None),
+                                                             self.kwargs['sprint_id'])
             return SprintService.get_userstories_from_sprint(self.request.session.get('project_id', None),
                                                              self.kwargs['sprint_id'])
         elif 'requeriment_id' in self.kwargs:
@@ -57,8 +62,21 @@ class UserStoryListView(ModelListProjectFilter):
             self.kwargs.get('requeriment_id'),
             self.kwargs.get('sprint_id')
         )
+
+        context['backlog'] = self.backlog
+
         return context
 
+def addinsprint(request, pk, sprint_id, location=None):
+    userstory = UserStoryService.get_userstory(request.session.get('project_id', None),pk)
+    sprint = SprintService.get_sprint(request.session.get('project_id', None),sprint_id)
+    sprintus = SprintUserStory.objects.filter(userstory=userstory, sprint=sprint)
+    if sprintus:
+        sprintus.delete()
+    else:
+        SprintUserStory.objects.create(userstory=userstory, sprint=sprint)
+
+    return redirect(reverse_lazy('main:userstory', kwargs={'sprint_id':sprint_id}))
 
 class UserStoryDetailView(TemplateViewProjectFilter):
     """
@@ -189,10 +207,23 @@ class UserStoryAddFormView(AddFormView):
 
         return HttpResponseRedirect(self.get_success_url())
 
+    def get_initial(self):
+        if 'requeriment_id' in self.kwargs:
+            requeriment = RequerimentService.get_requeriment(self.request.session['project_id'], self.kwargs['requeriment_id'])
+            return {
+                'requeriment': requeriment,
+            }
+        else:
+            return super(UserStoryAddFormView, self).get_initial()
+
 
     def get_context_data(self, **kwargs):
         context = super(UserStoryAddFormView, self).get_context_data()
-        context['SprintUserStoryInline']=SprintUserStoryInlineFormSetFiltrado(project=self.request.session['project_id'])
+        if 'sprint_id' in self.kwargs:
+            context['SprintUserStoryInline'] = SprintUserStoryInlineFormSetFiltrado(
+                project=self.request.session['project_id'],initial=[{'sprint':self.kwargs['sprint_id']}])
+        else:
+            context['SprintUserStoryInline']=SprintUserStoryInlineFormSetFiltrado(project=self.request.session['project_id'])
         context['breadcrumbs'] = userstories_breadcrumbs(
             self.request.session.get('project_id'),
             self.kwargs.get('requeriment_id'),

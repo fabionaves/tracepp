@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
 
-from main.views import artifacttype_views, about_views
+from main.views import artifacttype_views, about_views, addinsprint
 from main.views import home_views, project_views, sprint_views, requeriment_views, userstory_views, artifact_views
 from django.contrib.auth import views as loginviews
 from django.contrib.auth.decorators import login_required
@@ -30,6 +30,7 @@ userstory_urls = [
     url(r'^(?P<userstory>[0-9]+)/detail/artifact/', include(artifact_urls), {'location': 'artifact'}),
     url(r'^(?P<pk>[0-9]+)/detail/graph/',           login_required(userstory_views.UserStoryGraphDetailView.as_view()),name='userstory-graph'),
     url(r'^(?P<pk>[0-9]+)/detail/',                 login_required(userstory_views.UserStoryDetailView.as_view()),name='userstory-detail'),
+    url(r'^(?P<pk>[0-9]+)/addinsprint/',            login_required(addinsprint),name='userstory-addinsprint'),
     url(r'^(?P<pk>[0-9]+)/delete/',                 login_required(userstory_views.UserStoryDeleteView.as_view()),name='userstory-delete'),
     url(r'^$',                                     login_required(userstory_views.UserStoryListView.as_view()), name='userstory'),
 ]

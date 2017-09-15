@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <h1 class="page-header">{{ page_title }}</h1>
+    {% if top_bar %}
+        {% include top_bar %}
+    {% endif %}
+    <div class="row">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#sprint" data-toggle="tab"
+                                  aria-expanded="true">{% trans 'Sprint UserStories' %}</a></li>
+
+            <li><a href="#backlog" data-toggle="tab" aria-expanded="false">{% trans 'Other UserStories' %}</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="sprint"><br/>
+                <div class="table-responsive">
+                    <table class="table table-hover" id="myList">
+                        <thead>
+                        <tr>
+                            <th>{% trans 'Code' %}</th>
+                            <th>{% trans 'Title' %}</th>
+                            <th>{% trans 'Description' %}</th>
+                            <th>{% trans 'Action' %}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for us in object_list %}
+                                <tr>
+                                    <td>{{ us.code }}</td>
+                                    <td>{{ us.title }}</td>
+                                    <td>{{ us.description }}</td>
+                                    <td>
+                                        <a href="{{ us.id }}/detail/" class="btn btn-success btn-circle" title="{% trans 'UserStory Details' %}"><i class="fa fa-play-circle"></i></a>
+                                        <a href="{{ us.id }}/update/" class="btn btn-primary btn-circle" title="{% trans 'Update' %}"><i class="fa fa-edit"></i></a>
+                                        <a href="{{ us.id }}/addinsprint/" class="btn btn-warning btn-circle" title="{% trans 'Remove from sprint' %}"><i class="fa fa-minus-circle"></i> </a>
+
+                                    </td>
+                                </tr>
+                             {% empty %}
+                                <td colspan="4">{% trans 'No data' %}</td>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div><!-- fim do #sprint -->
+            <div class="tab-pane" id="backlog"><br/>
+                <div class="table-responsive">
+                    <table class="table table-hover" id="myList">
+                        <thead>
+                        <tr>
+                            <th>{% trans 'Code' %}</th>
+                            <th>{% trans 'Title' %}</th>
+                            <th>{% trans 'Description' %}</th>
+                            <th>{% trans 'Action' %}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for us in backlog %}
+                                <tr>
+                                    <td>{{ us.code }}</td>
+                                    <td>{{ us.title }}</td>
+                                    <td>{{ us.description }}</td>
+                                    <td>
+                                        <a href="{{ us.id }}/detail/" class="btn btn-success btn-circle" title="{% trans 'UserStory Details' %}"><i class="fa fa-play-circle"></i></a>
+                                        <a href="{{ us.id }}/update/" class="btn btn-primary btn-circle" title="{% trans 'Update' %}"><i class="fa fa-edit"></i></a>
+                                        <a href="{{ us.id }}/addinsprint/" class="btn btn-warning btn-circle" title="{% trans 'Add in sprint' %}"><i class="fa fa-plus-circle"></i> </a>
+
+                                    </td>
+                                </tr>
+                             {% empty %}
+                                <td colspan="4">{% trans 'No data' %}</td>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div><!-- fim do #backlog -->
+        </div><!-- fim .tab-content -->
+    </div><!-- fim .row-->
+{% endblock %}

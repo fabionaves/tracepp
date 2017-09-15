@@ -26,6 +26,10 @@ class SprintService:
         return UserStory.objects.filter(project=project_id, sprintuserstory__sprint =sprint_id)
 
     @staticmethod
+    def get_userstories_not_in_sprint(project_id, sprint_id):
+        return UserStory.objects.filter(project=project_id).exclude(sprintuserstory__sprint=sprint_id)
+
+    @staticmethod
     def get_requeriments_from_sprint(sprint_user_story_list):
         return Requeriment.objects.filter(userstory__in=sprint_user_story_list).annotate(total=Count('*'))
 
