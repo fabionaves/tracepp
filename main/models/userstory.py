@@ -21,7 +21,7 @@ class UserStory(models.Model,MyModel):
                                 on_delete=models.PROTECT, verbose_name=_('Project')
                                 )
 
-    changed_by = models.ForeignKey('auth.User', null=True)
+    changed_by = models.ForeignKey('auth.User',on_delete=True)
     history = HistoricalRecords()
 
 

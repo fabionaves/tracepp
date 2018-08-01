@@ -1,0 +1,8 @@
+Django==2.0.7
+django-simple-history==2.3.0
+gitdb2==2.0.4
+GitPython==2.1.11
+Pygments==2.2.0
+python-redmine==1.5.1
+pytz==2018.5
+smmap2==2.0.4

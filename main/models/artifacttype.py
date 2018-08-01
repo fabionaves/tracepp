@@ -21,7 +21,8 @@ class ArtifactType(models.Model, MyModel):
     type = models.IntegerField(_('Type'), choices=ARTIFACT_TYPE)
     trace_code = models.CharField(_('Trace Code'), max_length=100, blank=False, null=False)
     project = models.ForeignKey(
-        Project
+        Project,
+        on_delete=True,
     )
 
     def __str__(self):

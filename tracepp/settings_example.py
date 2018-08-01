@@ -150,6 +150,8 @@ UPLOAD_DIR = "upload"
 
 REPOSITORY_DIR = 'C:\\repository\\'
 
-FORCE_SCRIPT_NAME = ''
-#SCRIPT_NAME = ''
-#LOGIN_URL = ''
+#FORCE_SCRIPT_NAME = '/tracepp/'
+
+#SCRIPT_NAME = '/tracepp/'
+
+#LOGIN_URL = '/tracepp/accounts/login/'

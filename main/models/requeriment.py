@@ -21,7 +21,7 @@ class Requeriment(models.Model, MyModel):
         verbose_name=_('Project'),
         on_delete=models.PROTECT,
     )
-    changed_by = models.ForeignKey('auth.User')
+    changed_by = models.ForeignKey('auth.User', on_delete=True)
     history = HistoricalRecords()
     depends_on = models.ManyToManyField("self", symmetrical=False, blank=True)  #depende de
 

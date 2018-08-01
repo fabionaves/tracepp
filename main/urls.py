@@ -5,6 +5,7 @@ from main.views import home_views, project_views, sprint_views, requeriment_view
 from django.contrib.auth import views as loginviews
 from django.contrib.auth.decorators import login_required
 
+app_name = 'main'
 artifact_urls = [
     url(r'^(?P<pk>[0-9]+)/update-activity/(?P<back>[0-9]+)/',       login_required(artifact_views.ActivityUpdateFormView.as_view()), name='artifact-update-activity'),
     url(r'^(?P<pk>[0-9]+)/update-activity/',       login_required(artifact_views.ActivityUpdateFormView.as_view()), name='artifact-update-activity'),

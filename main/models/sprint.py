@@ -23,7 +23,7 @@ class Sprint(models.Model, MyModel):
         verbose_name=_('Project'),
         on_delete=models.PROTECT,
     )
-    changed_by = models.ForeignKey('auth.User',null=True)
+    changed_by = models.ForeignKey('auth.User',null=True,on_delete=True)
     history = HistoricalRecords()
 
     @property

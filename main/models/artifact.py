@@ -30,7 +30,8 @@ class Artifact(models.Model):
     user = models.ForeignKey(
         User,
         null=True,
-        blank=True
+        blank=True,
+        on_delete=False
     )
     create_date = models.DateField(_('Create Date'), blank=True, null=True)
     closed_date = models.DateField(_('Closed Date'), blank=True, null=True)
@@ -43,25 +44,30 @@ class Artifact(models.Model):
         verbose_name=_('Artifact type'),
         null=True,
         blank=True,
+        on_delete=False
     )
     reference = models.CharField( max_length=100, blank=False, null=False)
     project = models.ForeignKey(
         Project,
+        on_delete=False
     )
     requeriment = models.ForeignKey(
         Requeriment,
         blank=True,
         null=True,
+        on_delete=False
     )
     sprint = models.ForeignKey(
         Sprint,
         blank=True,
         null=True,
+        on_delete=False
     )
     userstory = models.ForeignKey(
         UserStory,
         blank=True,
         null=True,
+        on_delete=False
     )
     estimated_time = models.IntegerField(_('Estimated Time'), null=True, blank=True)
     spent_time = models.IntegerField(_('Spent Time'), null=True, blank=True)

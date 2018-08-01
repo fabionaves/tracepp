@@ -10,6 +10,7 @@ class SprintUserStory(models.Model, MyModel):
     userstory = models.ForeignKey(
         UserStory,
         verbose_name=_('User Story'),
+        on_delete=False,
     )
     sprint = models.ForeignKey(
        Sprint,
